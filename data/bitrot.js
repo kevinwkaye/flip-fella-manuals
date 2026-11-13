@@ -1,0 +1,82 @@
+MANUALS.push({
+  id: 'bitrot', name: 'Bitrot', accent: '#ff7a59', kind: 'Harmonising PLL synth', ver: 'v0.1',
+  tagline: 'Square waves, sub octaves, sci-fi glitch',
+  lede: 'Bitrot turns every single note into three square-wave voices: a fuzzy copy of you, a sub octave below and an oscillator up to three octaves above. Slide between notes, wobble them like a laser or let the loop corrupt into chirps and stutters. Based on the EarthQuaker Devices Data Corrupter.',
+  what: 'Three square-wave voices from one note. Based on the Data Corrupter.',
+  flow: [['One note','play single notes'],['Square','fuzzed copy of you'],['Oscillator','1 to 8 times your note',1],['Subharmonic','divided down'],['Glide or Vibrato','how pitch moves'],['Voice mixer','blend the three']],
+  quick: [
+    ['Pick your input','Guitar, Bass or Synth at the top. Play single notes, not chords.'],
+    ['Set the voices','Bring up Square, Subharmonic and Oscillator to taste.'],
+    ['Choose intervals','Tap the Subharmonic and Oscillator flip cards to step through intervals.'],
+    ['Corrupt it','Slide Corrupt from Tight towards Wild for chirps and glitches.']
+  ],
+  panel: { img: 'bitrot', w: 1260, h: 660, badges: [[1,430,24],[2,1060,24],[3,52,112],[4,144,112],[5,236,112],[6,52,224],[7,144,224],[8,40,338],[9,360,120],[10,360,274],[11,418,358],[12,670,118],[13,738,160],[14,670,396],[15,960,206],[16,1014,310],[17,960,444],[18,144,552],[19,414,552],[20,704,552],[21,1060,560]] },
+  legend: [
+    ['Input','Guitar, Bass or Synth. Bass tracks down to a five-string low B.'],
+    ['Pages','<em>Main</em> is the panel. <em>Deep</em> holds vibrato depth, tracking and Bend. <em>Pedal</em> sets up footswitches, expression and Keeper.'],
+    ['Square','Your note squared into fuzz. Endless sustain, then a sudden stop.'],
+    ['Subharmonic','Level of the voice below.'],
+    ['Oscillator','Level of the voice above.'],
+    ['Dry','Your clean signal. 0 sounds like the pedal. Turn it up on bass to keep your low end.'],
+    ['Level','Overall output.'],
+    ['Scope','Shows the three voices at their real ratios. It shakes when the loop slips.'],
+    ['Subharmonic interval','Eight steps from an octave down to three octaves down. Tap the card or a dot.'],
+    ['Sub root','<em>Unison</em> divides the Square, steady and untouched by glide. <em>Oscillator</em> divides the oscillator and mixes sum and difference tones.'],
+    ['Floor','Moves any sub below 30 Hz up by octaves so it stays a note. Comes on with Bass.'],
+    ['Glide or Vibrato','Glide slides between notes. Vibrato wobbles the pitch.'],
+    ['Rate','Glide time, or vibrato speed.'],
+    ['Corrupt','Tight locks firmly. Wild lets the loop hunt, chirp and stutter.'],
+    ['Oscillator ladder','Eight steps from unison to three octaves up. Tap a bar.'],
+    ['Oscillator root','Unison, or an octave or two lower.'],
+    ['Expression bar','Shows the pedal. It sweeps the interval by default.'],
+    ['Tracking','Shows the note Bitrot hears and how firmly it has locked on.'],
+    ['Presets','Sixteen slots in four colours. Tap to load, hold to save.'],
+    ['Footswitches','On-screen copies of A to D.'],
+    ['Bypass','Turns the effect off.']
+  ],
+  extra: [
+    ['Deep page', [['Vibrato depth','How far the vibrato swings, 0.1 to 6 semitones.'],['Tracking compressor','Evens out your playing so the loop locks better.'],['Gate sensitivity','How quiet a note can be before it cuts off.'],['Floor frequency','25, 30 or 40 Hz.'],['Sum or divide','In Oscillator root, mix sum and difference tones or plain division.'],['Bend','A smooth, unstepped bend of the interval, up to 36 semitones.']]]
+  ],
+  feet: [
+    ['A','Bypass','Flips on or off while held'],
+    ['B','Next subharmonic interval','Previous subharmonic interval'],
+    ['C','Freeze on or off','Freeze while held'],
+    ['D','Octave up on or off','Octave up while held'],
+    ['A + B','Next preset',''],
+    ['C + D','Hand the footswitches to the next Bitrot','Keeper (hold 1 s)']
+  ],
+  exp: 'Sweeps the oscillator interval. Heel is unison, toe is three octaves up, stepping through the harmonic series like a bugle call. Click the expression bar to sweep Dry, Rate, Corrupt, a level or Bend instead.',
+  recipes: [
+    { name: 'Equinox', for: 'High melodies', hear: 'A huge sub three octaves down under a bright fifth-and-octave voice, with a slow slide between notes.',
+      k: [['Square',.5,'ten'],['Subharmonic',.75,'ten'],['Oscillator',.45,'ten'],['Level',.4,'ten'],['Rate',.85,'ten']],
+      c: [['Sub','−3 oct'],['Sub root','Unison'],['Mode','Glide'],['Osc','+2 oct 5th'],['Osc root','−1']],
+      play: 'Factory preset 1 in the red bank. Play slow melodies high on the neck.' },
+    { name: 'Fisted Fifth Riffs', for: 'Heavy riffs', hear: 'Fat fifths above and below every note, like a whole band of square waves.',
+      k: [['Square',.5,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Level',.75,'ten'],['Rate',.8,'ten']],
+      c: [['Sub','−2 oct 5th'],['Mode','Glide'],['Osc','+1 oct 5th']],
+      play: 'Factory preset 2. Play simple single-note riffs.' },
+    { name: 'Bass Hole', for: 'Bass guitar', hear: 'A deep synth bass under your clean tone, steady and tight.',
+      k: [['Square',0,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Dry',.45,'ten'],['Level',.6,'ten'],['Corrupt',.15,'=Tight']],
+      c: [['Input','Bass'],['Sub','−1 oct'],['Sub root','Oscillator'],['Osc','+2 oct']],
+      play: 'Factory preset 3. Set Sum or divide to Divided on the Deep page.' },
+    { name: 'Laser', for: 'Sci-fi leads', hear: 'A fast, wobbling retro laser three octaves up, loose enough to chirp.',
+      k: [['Square',.3,'ten'],['Subharmonic',.4,'ten'],['Oscillator',.7,'ten'],['Rate',.78,'ten'],['Corrupt',.6,'=Loose']],
+      c: [['Mode','Vibrato'],['Osc','+3 oct'],['Sub root','Oscillator']],
+      play: 'Factory preset 4. Vibrato depth is 55% on the Deep page.' },
+    { name: 'Chiptune Bugle', for: 'Expression pedal', hear: 'Rocking the pedal plays an arpeggio up the harmonic series over each note.',
+      k: [['Square',.4,'ten'],['Oscillator',.7,'ten'],['Rate',.3,'ten'],['Corrupt',.2,'=Tight']],
+      c: [['Mode','Glide'],['Expression','Interval']],
+      play: 'Hold a note and rock the expression pedal from heel to toe.' },
+    { name: 'Data Drone', for: 'Freeze', hear: 'Your note frozen as a drone while the Square keeps following what you play over it.',
+      k: [['Square',.6,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Corrupt',.4,'=Loose']],
+      c: [['Sub','−2 oct'],['Osc','+1 oct']],
+      play: 'Play a root note, press footswitch C to freeze it, then solo over the top.' }
+  ],
+  tips: [
+    ['Single notes only','Bitrot tracks one note at a time. Chords make it hunt, which can be fun on purpose.'],
+    ['Low notes fluttering?','Switch Floor on so very low subs stay a note.'],
+    ['More glitch on bass','Bass leans tight. Push Corrupt further for the same mess as guitar.'],
+    ['Keeper','Hold C and D for a second to save the last 8 seconds and every setting to Documents, Flip Fella Keepers.']
+  ],
+  install: 'Download <code>Bitrot-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Bitrot.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});

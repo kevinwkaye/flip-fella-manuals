@@ -1,0 +1,1806 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Visual manuals for the Flip Fella family of Ableton plugins: panel maps, plain-English controls, footswitches and dial-in recipes.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 8c22 0 40 13 42 36 2 22-12 46-42 48C20 94 6 72 8 48 10 24 28 8 50 8z' fill='%234d5bff'/%3E%3C/svg%3E">
+<title>Pebble's Plugin Manuals</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Roboto+Condensed:wght@400;700;800&display=swap">
+<style>
+/* Layout: one dark Flip Fella panel per plugin. Flip-card titles, a drawn panel map with numbered callouts, then recipe cards you copy onto the plugin. */
+:root {
+  color-scheme: dark;
+  --bg: #070707;
+  --face: #0e0e0e;
+  --card: #1b1b1b;
+  --card-hi: #262626;
+  --ink: #f3f0e8;
+  --dim: #a29e95;
+  --faint: #5f5c56;
+  --line: #333230;
+  --red: #e8392f;
+  --pebble: #4d5bff;
+  --pebble-shade: #2329a8;
+  --accent: #4d5bff;
+  --display: "Roboto Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; margin: 0; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.bar .wrap { display: flex; align-items: center; gap: 12px; padding-block: 10px; flex-wrap: wrap; }
+.home { font-family: var(--display); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.tabs { display: flex; gap: 6px; flex-wrap: nowrap; overflow-x: auto; width: 100%; padding-bottom: 2px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { white-space: nowrap; flex: none; }
+.tab { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--dim); }
+.tab:hover, .tab:focus-visible { color: var(--ink); border-color: var(--dim); outline: none; }
+.tab[aria-current="page"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+/* flip cards */
+.flip { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.fc { position: relative; display: inline-grid; place-items: center; min-width: .78em; padding: 0 .06em; height: 1.18em; background: linear-gradient(var(--card-hi), var(--card) 50%, #141414 50%, #121212); border-radius: .09em; font-family: var(--display); font-weight: 800; color: var(--ink); line-height: 1; box-shadow: 0 2px 0 #000; }
+.fc::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--bg); }
+.flip { column-gap: .3em; row-gap: 4px; }
+.fw { display: inline-flex; gap: 4px; white-space: nowrap; }
+.fw + .fw { margin-left: .4em; }
+
+/* index */
+.hero { padding-block: 48px 24px; display: grid; gap: 16px; }
+.hero h1 { font-size: clamp(34px, 7vw, 72px); margin: 0; }
+.hero p { color: var(--dim); max-width: 60ch; margin: 0; font-size: 18px; }
+.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; padding-block: 8px 56px; }
+.tile > div { min-width: 0; }
+.tile { display: grid; grid-template-columns: 76px 1fr; gap: 16px; align-items: center; padding: 20px; background: var(--face); border: 1px solid var(--line); border-radius: 14px; text-decoration: none; transition: border-color .15s, transform .15s; }
+.tile:hover, .tile:focus-visible { border-color: var(--tile); transform: translateY(-2px); outline: none; }
+.tile h2 { margin: 0 0 4px; font-size: 26px; }
+.tile .what { color: var(--dim); font-size: 15px; margin: 0; }
+.tile .kind { font-family: var(--display); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--tile); font-weight: 700; margin: 0 0 6px; }
+.howto { border-top: 1px solid var(--line); padding-block: 32px 64px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 24px; }
+.howto h3 { font-family: var(--display); text-transform: uppercase; letter-spacing: .08em; font-size: 15px; margin: 0 0 6px; }
+.howto p { color: var(--dim); margin: 0; font-size: 15px; }
+
+/* manual */
+.manual { padding-block: 32px 72px; }
+.mhead { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.mhead h1 { font-size: clamp(30px, 6.5vw, 64px); margin: 0 0 14px; }
+.tagline { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; color: var(--accent); font-weight: 700; font-size: 14px; margin: 0 0 10px; }
+.lede { font-size: 19px; max-width: 58ch; margin: 0; text-wrap: pretty; }
+.mhead .pebble-big { width: clamp(90px, 16vw, 150px); }
+section.part { padding-top: 44px; }
+.eyebrow { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: 13px; color: var(--dim); font-weight: 700; margin: 0 0 6px; }
+h2.st { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3.4vw, 34px); margin: 0 0 18px; text-wrap: balance; }
+.intro { color: var(--dim); max-width: 64ch; margin: -6px 0 20px; }
+
+/* flow */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.node { background: var(--card); border-radius: 10px; padding: 10px 14px; min-width: 0; max-width: 220px; }
+.node b { display: block; font-family: var(--display); text-transform: uppercase; letter-spacing: .08em; font-size: 14px; }
+.node span { display: block; color: var(--dim); font-size: 14px; line-height: 1.35; }
+.node.hot { background: var(--accent); color: #fff; }
+.node.hot span { color: rgba(255,255,255,.85); }
+.arrow { align-self: center; color: var(--faint); font-family: var(--display); font-weight: 800; font-size: 20px; }
+
+/* quick start */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 14px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+.steps li { background: var(--face); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 18px; counter-increment: s; position: relative; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 40px; height: 46px; margin-bottom: 10px; font-family: var(--display); font-weight: 800; font-size: 28px; background: linear-gradient(var(--card-hi), var(--card) 50%, #131313 50%); border-radius: 5px; box-shadow: inset 0 -1px 0 #000; }
+.steps li strong { display: block; margin-bottom: 4px; }
+.steps li span { color: var(--dim); font-size: 15px; }
+
+/* panel map */
+.mapbox { background: var(--face); border: 1px solid var(--line); border-radius: 14px; overflow-x: auto; }
+.mapbox svg { display: block; width: 100%; min-width: 720px; height: auto; }
+.legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 4px 28px; margin-top: 22px; }
+.li { display: grid; grid-template-columns: 30px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.badge { width: 26px; height: 26px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 14px; }
+.li b { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 15px; display: block; }
+.li p { margin: 2px 0 0; color: var(--dim); font-size: 15px; }
+.li p em { color: var(--ink); font-style: normal; }
+
+/* sub tables */
+.subgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 16px; }
+.sub { background: var(--face); border: 1px solid var(--line); border-radius: 12px; padding: 18px; min-width: 0; }
+.sub h3 { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: 15px; margin: 0 0 10px; color: var(--accent); }
+.sub dl { margin: 0; display: grid; grid-template-columns: minmax(90px, max-content) 1fr; gap: 8px 14px; font-size: 15px; }
+.sub dt { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.sub dd { margin: 0; color: var(--dim); }
+
+/* recipes */
+.recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr)); gap: 18px; }
+.rc { background: var(--face); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.rc-top { padding: 16px 18px 12px; border-bottom: 1px solid var(--line); }
+.rc h3 { margin: 0; font-family: var(--display); font-weight: 800; font-size: 24px; line-height: 1.1; }
+.rc .for { font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--accent); font-weight: 700; margin: 0 0 4px; }
+.rc .hear { margin: 6px 0 0; color: var(--dim); font-size: 15px; }
+.rc-panel { background: var(--bg); flex: 1; }
+.dials { display: grid; grid-template-columns: repeat(auto-fill, minmax(74px, 1fr)); gap: 12px 6px; padding: 16px 12px 6px; }
+.kn { text-align: center; min-width: 0; }
+.kn.wide { grid-column: 1 / -1; }
+.kn svg { width: 54px; height: 54px; display: block; margin: 2px auto 0; }
+.kn .l { font-family: var(--display); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); line-height: 1.15; min-height: 2.3em; display: flex; align-items: flex-end; justify-content: center; }
+.kn .r { font-family: var(--display); font-weight: 700; font-size: 13px; line-height: 1.2; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.kn .n { font-size: 11px; color: var(--faint); line-height: 1.2; margin-top: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 14px 16px; }
+.chip { display: inline-flex; border-radius: 6px; overflow: hidden; font-family: var(--display); font-size: 13px; letter-spacing: .05em; text-transform: uppercase; border: 1px solid var(--line); }
+.chip span { padding: 4px 8px; color: var(--dim); }
+.chip b { padding: 4px 8px; background: var(--ink); color: var(--bg); }
+.chip.on b { background: var(--accent); color: #fff; }
+.rc .play { padding: 14px 18px 18px; font-size: 15px; margin: 0; border-top: 1px solid var(--line); margin-top: auto; }
+.rc .play b { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: 12px; color: var(--accent); display: block; margin-bottom: 2px; }
+
+/* tips */
+.tips { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.tip { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; }
+.tip b { display: block; margin-bottom: 2px; }
+.tip span { color: var(--dim); font-size: 15px; }
+.install { margin-top: 18px; background: var(--face); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; color: var(--dim); font-size: 15px; }
+.install b { color: var(--ink); }
+.install code { font-size: 13px; background: var(--card); padding: 1px 5px; border-radius: 4px; color: var(--ink); word-break: break-all; }
+
+.foot { color: var(--faint); font-size: 13px; padding-block: 24px 40px; border-top: 1px solid var(--line); }
+
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+.eye { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+@media (prefers-reduced-motion: reduce) { .eye { animation: none; } .tile { transition: none; } }
+@media (max-width: 640px) {
+  .mhead { grid-template-columns: 1fr; }
+  .mhead .pebble-big { order: -1; width: 84px; }
+  .lede { font-size: 17px; }
+}
+</style>
+
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="home" href="#" aria-label="All manuals"><svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><use href="#pebble"/></svg>Pebble's Plugin Manuals</a>
+  <nav class="tabs" id="tabs" aria-label="Manuals"></nav>
+</div></header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pebble">
+      <path d="M50 8c22 0 40 13 42 36 2 22-12 46-42 48C20 94 6 72 8 48 10 24 28 8 50 8z" fill="#2329a8" transform="translate(2 4)"/>
+      <path d="M50 8c22 0 40 13 42 36 2 22-12 46-42 48C20 94 6 72 8 48 10 24 28 8 50 8z" fill="#4d5bff"/>
+      <ellipse class="eye" cx="37" cy="44" rx="7" ry="9" fill="#fff"/>
+      <ellipse class="eye" cx="63" cy="44" rx="7" ry="9" fill="#fff"/>
+      <circle cx="38.5" cy="46" r="3.6" fill="#0b0b12"/>
+      <circle cx="64.5" cy="46" r="3.6" fill="#0b0b12"/>
+      <path d="M41 63q9 8 18 0" stroke="#0b0b12" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+  </defs>
+</svg>
+
+<main id="app"></main>
+
+<script>
+/* ---------- value readouts, copied from each plugin's own maths ---------- */
+const pct = v => Math.round(v * 100) + '%';
+const sec = s => s < 1 ? Math.round(s * 1000) + ' ms' : (s < 10 ? s.toFixed(1) : Math.round(s)) + ' s';
+const hz = h => h < 1 ? h.toFixed(2) + ' Hz' : h.toFixed(1) + ' Hz';
+const F = {
+  step: (semis, rev) => { const n = ['UNISON','MIN 2ND','2ND','MIN 3RD','3RD','4TH','TRITONE','5TH','MIN 6TH','6TH','MIN 7TH','7TH','OCT']; const a = Math.abs(semis); const nm = a === 0 ? 'UNISON' : (semis > 0 ? '+' : '-') + (a === 24 ? '2 OCT' : n[a]); return (rev ? 'REV ' : 'FWD ') + nm + ' ' + (semis > 0 ? '+' + semis : semis < 0 ? String(semis) : '0'); },
+  pct,
+  clock: v => { const k = 64 * Math.pow(2, -5 * (1 - v)); const stops = [64,48,32,24,16,12,8,6,4,3,2]; let best = stops[0]; for (const s of stops) if (Math.abs(Math.log2(s / k)) < Math.abs(Math.log2(best / k))) best = s; return best + ' kHz'; },
+  tape: v => { const r = [-4,-2,-1,-.5,.5,1,2,4][Math.floor(Math.min(v, 1) * 7.999)]; return F.step(Math.round(12 * Math.log2(Math.abs(r))), r < 0); },
+  slip: v => { const i = Math.min(49, Math.floor(v * 50)); return i < 25 ? F.step(12 - i, true) : F.step(i - 37, false); },
+  jEnvTime: v => v >= .95 ? 'Repeat' : v >= .9 ? 'Infinite' : sec(0.05 * Math.pow(400, Math.min(v / .9, 1))),
+  jShape: v => ['Decay','Triangle','Square','Swell','Rise','Random'][Math.round(v * 5)],
+  jLfo: v => hz(0.02 * Math.pow(2, v * 9)),
+  jTone: v => v >= .995 ? 'Open' : (1.5 * Math.pow(13, v)).toFixed(1) + ' kHz',
+  sShape: v => v < .45 ? 'Pluck' : v > .55 ? 'Swell' : 'Even',
+  sMod: v => hz(0.05 * Math.pow(2, v * 7.3)),
+  sFilter: v => { if (v >= .97) return 'Open'; if (v <= .04) return 'Shut'; const h = 30 * Math.pow(20000 / 30, v); return h < 1000 ? Math.round(h) + ' Hz' : (h / 1000).toFixed(1) + ' kHz'; },
+  sTime: v => ['1 bar','1/2','1/4 dot','1/4','1/4 trip','1/8 dot','1/8','1/8 trip','1/16'][Math.round(v * 8)],
+  sSpeed: v => { const s = 0.25 * Math.pow(16, v); return s < .3 ? '1/4X' : Math.abs(s - .5) < .01 ? '1/2X' : (Math.abs(s - Math.round(s)) < .01 ? Math.round(s) : s.toFixed(2)) + 'X'; },
+  aRise: v => sec(0.08 * Math.pow(62.5, v)),
+  aDecay: v => v >= .985 ? 'Infinite' : sec(0.03 * Math.pow(20 / 0.03, v / .985)),
+  aRes: v => { const r = v * 2 - 1, p = Math.round(Math.abs(r) * 100); return p === 0 ? 'Off' : (r > 0 ? '+' + p + ' Upper' : '-' + p + ' Lower'); },
+  aLayers: v => { const i = Math.round(v * 10); return i === 10 ? 'Infinite' : String(i + 1); },
+  raw: v => String(Math.round(v * 100)),
+  lit: v => '',
+  ten: v => (Math.round(v * 100) / 10).toFixed(1)
+};
+
+/* ---------- the manuals ---------- */
+const MANUALS = [];
+const IMGS = {};
+const GROUPS = [['Loopers and buffers', ['murmur','speckle','backtrack']], ['Synths and pitch', ['jetstream','changeling','bitrot','oilslick','divebomb']], ['Reverb and sustain', ['grotto','monolith','afterglow']], ['Modulation and filter', ['seasick','lathe','quack']], ['Multi-effect', ['prism-patch']]];
+IMGS['afterglow']='img/afterglow.jpg';
+IMGS['backtrack']='img/backtrack.jpg';
+IMGS['bitrot']='img/bitrot.jpg';
+IMGS['changeling']='img/changeling.jpg';
+IMGS['divebomb-stomp']='img/divebomb-stomp.jpg';
+IMGS['divebomb']='img/divebomb.jpg';
+IMGS['grotto']='img/grotto.jpg';
+IMGS['jetstream']='img/jetstream.jpg';
+IMGS['lathe']='img/lathe.jpg';
+IMGS['monolith']='img/monolith.jpg';
+IMGS['murk']='img/murk.jpg';
+IMGS['murmur']='img/murmur.jpg';
+IMGS['oilslick']='img/oilslick.jpg';
+IMGS['prism-patch']='img/prism-patch.jpg';
+IMGS['quack-wah']='img/quack-wah.jpg';
+IMGS['quack']='img/quack.jpg';
+IMGS['seasick']='img/seasick.jpg';
+IMGS['speckle']='img/speckle.jpg';
+MANUALS.push({
+  id: 'murmur', name: 'Murmur', accent: '#4d5bff', kind: 'Micro-looper + wet channel', ver: 'v0.3.0',
+  tagline: 'Two channels, one clock, and a grumpy twin',
+  lede: 'Murmur is a looper and an effects channel bent by one big CLOCK dial. Tap LOOP to record, tap WET for reverb, delay or slip echoes, then turn CLOCK down and everything slows, drops in pitch and gets gloriously grainy. Click the mode card and it becomes Murk, with six stranger effects and a Glue saturator.',
+  what: 'Looper and wet channel bent by one clock. Now with Murk mode.',
+  flow: [['Your playing','guitar, synth, anything'],['Wet Channel','reverb, delay or slip'],['Micro-Looper','records and replays'],['Clock','speed and pitch of it all',1],['Glue (Murk)','warm to wrecked'],['Mix','blend with your dry sound']],
+  quick: [
+    ['Drop it on a track','Put Murmur on an audio track with a guitar, synth or loop.'],
+    ['Tap LOOP three times','Tap to record, play a phrase, tap to play it back. Tap again to stop.'],
+    ['Turn the CLOCK down','Each click drops the loop by a fourth or a fifth and roughens it up.'],
+    ['Try Murk','Click the MURMUR card by the title. Pick SOUP and turn up GLUE.']
+  ],
+  panel: { img: 'murmur', w: 960, h: 640, badges: [[1,140,24],[2,402,24],[3,734,22],[4,884,24],[5,38,122],[6,44,262],[7,190,262],[8,40,432],[9,396,116],[10,358,396],[11,358,444],[12,658,122],[13,660,262],[14,810,262],[15,660,432],[16,40,526]] },
+  altImg: { img: 'murk', w: 960, h: 640, cap: 'The same panel in Murk mode. The cards relabel, a Glue slider appears under Mix, and Radio shows its five stations in the strip.' },
+  legend: [
+    ['Mode card','Click to swap between Murmur and Murk. Each mode keeps its own settings. Footswitches B and C held together do the same.'],
+    ['Pages','<em>Panel</em> is the pedal. <em>Deep</em> holds the hidden options, Glue, Cross and levels. <em>Motion</em> holds ramping, tempo and Synth Mode. <em>Pedal</em> sets up footswitches and expression.'],
+    ['A / Live / B','Two saved snapshots. Tap A or B to recall, hold to save the current panel into it. They store both modes.'],
+    ['Keep','Logs this moment with the last 8 seconds of audio, so you can find sounds you liked later. Right-click for notes and Export.'],
+    ['Wet mode','Murmur: <em>Reverb</em>, <em>Delay</em> or <em>Slip</em>. Murk: <em>Soup</em>, <em>Relay</em> or <em>Flip</em>. See the Murk table below.'],
+    ['Time','Reverb: room size. Delay: echo time. Slip: how big each chunk is, from a blip to about a second.'],
+    ['Modify (wet)','Reverb: how smeared the wash gets. Delay: how many repeats. Slip: speed and direction. The left half plays backwards, the right half forwards, each from an octave down to an octave up. 25% and 75% are normal speed. A flip card shows the step.'],
+    ['WET switch','Tap to turn the Wet Channel on and off. Hold it to freeze whatever is ringing.'],
+    ['Clock','The hero dial. Fully right is 64 kHz, clean and normal. Each step left slows and lowers everything and adds lo-fi grit. The flip cards show the rate.'],
+    ['Routing','<em>In</em>: only your live playing goes through Wet. <em>Both</em>: playing and loop do. <em>Loop</em>: only the loop does, so you play clean over a wet loop.'],
+    ['Mix','Dry on the left, effect on the right. In Murk a <em>Glue</em> slider sits under it, warm on the left, thrashed on the right.'],
+    ['Loop mode','Murmur: <em>Env</em> stutters a slice while you play, <em>Tape</em> changes speed and direction, <em>Stretch</em> slows without changing pitch. Murk: <em>Burst</em>, <em>Radio</em> or <em>Mask</em>.'],
+    ['Length','How much of the loop you hear. Fully right plays the whole thing.'],
+    ['Modify (loop)','Env: how easily your playing triggers the stutter. Tape: eight speeds from 4x backwards to 4x forwards, shown on the card underneath. Stretch: stepped stretch, frozen at noon.'],
+    ['LOOP switch','Tap to record, tap to play, tap to stop. Hold to overdub. With tempo sync on, loops round to whole beats.'],
+    ['Pebble strip','Pebble shows what the looper is doing and reads out footswitch actions. In Murk Pebble turns grumpy, with heavy brows and a frown.']
+  ],
+  extra: [
+    ['Murk effects', [['Soup','Spectral reverb across 256 bands. Time is decay, 0.4 s to 20 s. Modify goes from natural to synthetic.'],['Relay','A delay that never fades. Time is delay time. Modify sets 1 to 16 repeats, endless at the top.'],['Flip','Up to four pitch-shifted voices, each a lag later. Time is the lag. Modify picks one of 48 chords, up on the right, down on the left.'],['Burst','The loop as up to 8 steps, sliced at its own hits. Loud playing scrambles it into fills. Modify is chaos.'],['Radio','Five stations play the loop: Tape, Ambient, Orchestral, Shoegaze, Dance. Modify tunes between them.'],['Mask','Where the loop is loud it swaps to a transformed copy. Length sweeps octave down, reverse, crush, ring and stutter. Modify is the threshold.']]],
+    ['Deep page', [['Glue','Saturation after both channels. Dry Glue sends your dry sound through it too.'],['Cross','Your playing, or one channel, makes the other dip and wobble.'],['EQ tilt','Murk\'s tone control, on the wet, the loop or both.'],['Width, Tone, Fade','Stereo width, top-end roll-off and how fast overdubs fade.'],['Clock steps','Pedal stops, octaves, fourths and fifths, or semitones.'],['Max Buffer','How much Murmur remembers. Up to 32 s.'],['Switches','MISO, Spread, Dry Kill, Trails, Latch, No Dub, Smooth and Classic.']]],
+    ['Motion page', [['Targets','Pick any of Time, Wet Mod, Clock, Loop Mod and Length to move on their own.'],['Bounce / Ramp','Bounce goes back and forth. Ramp sweeps once.'],['Speed, Wave','How fast and in what shape it moves.'],['Tempo','Sync Delay, Slip and the loop to Ableton or tap tempo.'],['Synth Mode','MIDI notes play the clock like a keyboard. Drone, Gate or ADSR, plus glide.']]]
+  ],
+  feet: [
+    ['A','Wet channel on or off','Freeze'],
+    ['B','Loop: record, then play, then stop','Overdub'],
+    ['C','Tap tempo (two or more taps)','Save to the current preset slot'],
+    ['D','Next preset slot (A, Live, B)','Previous preset slot'],
+    ['A + B','Both channels on or off. Turning on loops what Murmur just heard',''],
+    ['B + C','','Switch between Murmur and Murk (hold 1 s)'],
+    ['C + D','Hand the footswitches to the next Murmur','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Clock in Murmur, walking heel to toe down the 11 stops. In Murk it moves Glue from warm to wrecked. Pick something else under EXPRESSION MOVES on the Pedal page.',
+  recipes: [
+    { name: 'Rapid Rewind', for: 'Guitar or keys', hear: 'Your phrase played backwards at normal speed, under whatever you play next.',
+      k: [['Clock',1,'clock'],['Length',1,'pct'],['Loop Modify',.3,'tape'],['Mix',.5,'pct']],
+      c: [['Loop mode','Tape'],['Routing','Both']],
+      play: 'Tap LOOP, play a phrase, tap LOOP to hear it reversed. Or press footswitches A and B together to loop what you just played.' },
+    { name: 'Octave Orbit', for: 'Clean guitar', hear: 'A sparkly octave-up loop spun into a soft reverb halo.',
+      k: [['Length',.6,'pct'],['Loop Modify',.8,'tape'],['Time',.7,'pct'],['Wet Modify',.8,'pct'],['Mix',.6,'pct']],
+      c: [['Loop mode','Tape'],['Wet mode','Reverb'],['Routing','Both'],['WET','On',1]],
+      play: 'Record an arpeggio with LOOP, then play slow single notes over the top.' },
+    { name: 'Frozen Fog', for: 'Pads and chords', hear: 'One chord held forever as a soft pad, then dropped an octave.',
+      k: [['Time',.9,'pct'],['Wet Modify',.9,'pct'],['Clock',1,'clock'],['Mix',.7,'pct']],
+      c: [['Wet mode','Reverb'],['Routing','Both']],
+      play: 'Strum a chord and hold WET to freeze it. Then turn CLOCK to 32 kHz to drop the pad an octave.' },
+    { name: 'Lo-fi Lullaby', for: 'Synth or Rhodes', hear: 'A slowed, dusty cassette loop with wobbly echoes behind it.',
+      k: [['Clock',.517,'clock'],['Loop Modify',.6,'tape'],['Time',.55,'pct'],['Wet Modify',.45,'pct'],['Mix',.55,'pct']],
+      c: [['Loop mode','Tape'],['Wet mode','Delay'],['Classic','On',1]],
+      play: 'Turn on Classic on the Deep page. Record a simple melody with LOOP.' },
+    { name: 'Backwards Bloom', for: 'Lead lines', hear: 'Every phrase comes back reversed about half a second later, like a classic reverse delay.',
+      k: [['Time',.9,'pct'],['Wet Modify',.25,'slip'],['Mix',.5,'pct']],
+      c: [['Wet mode','Slip'],['Routing','Both'],['WET','On',1]],
+      play: 'Play slow, legato notes. Leave gaps so you hear the reversed echoes bloom in.' },
+    { name: 'Fifth Fountain', for: 'Shimmery leads', hear: 'Echoes that climb a fifth each time they come back, like a pitched delay.',
+      k: [['Time',.85,'pct'],['Wet Modify',.89,'slip'],['Mix',.45,'pct']],
+      c: [['Wet mode','Slip'],['WET','On',1]],
+      play: 'Single notes with space between them. Drop Wet Modify to 85% for a softer fourth.' },
+    { name: 'Stutter Skips', for: 'Rhythm parts', hear: 'Hit hard and the loop freezes into a machine-gun stutter. Stop and it runs free again.',
+      k: [['Length',.3,'pct'],['Loop Modify',.6,'pct'],['Mix',.5,'pct']],
+      c: [['Loop mode','Env'],['Routing','Loop']],
+      play: 'Record a loop, then play short stabs over it. Raise MODIFY if it ignores you, lower it if it never stops.' },
+    { name: 'Soup Kitchen', for: 'Murk, ambient', hear: 'A huge, glassy spectral wash that turns chords into a choir of sine waves.',
+      k: [['Time',.8,'pct'],['Wet Modify',.65,'pct'],['Mix',.6,'pct'],['Glue',.3,'pct']],
+      c: [['Mode','Murk'],['Wet mode','Soup'],['WET','On',1]],
+      play: 'Hold long chords. Push Modify past 80% for a synthetic, robotic shimmer.' },
+    { name: 'Radio Roulette', for: 'Murk, loops', hear: 'Your loop drifts between five radio stations, with crackly shortwave in between.',
+      k: [['Length',.5,'pct'],['Loop Modify',.3,'pct'],['Mix',.55,'pct'],['Glue',.45,'pct']],
+      c: [['Mode','Murk'],['Loop mode','Radio']],
+      play: 'Record a loop, then slowly turn Loop Modify to tune across the stations.' },
+    { name: 'Relay Runway', for: 'Murk, rhythm', hear: 'A delay where every repeat stays loud, so short riffs become instant rhythmic patterns.',
+      k: [['Time',.45,'pct'],['Wet Modify',.4,'pct'],['Mix',.5,'pct'],['Glue',.6,'pct']],
+      c: [['Mode','Murk'],['Wet mode','Relay'],['Routing','In']],
+      play: 'Play a short riff and stop. Sync the tempo on the Motion page to lock the repeats to Ableton.' },
+    { name: 'Synth Sing-along', for: 'Your MIDI keyboard', hear: 'Your loop turns into an instrument. Keys play it higher and lower, with a gentle slide between notes.',
+      k: [['Loop Modify',.7,'tape'],['Mix',.6,'pct']],
+      c: [['Synth Mode','On',1],['Note output','ADSR'],['Attack','40 ms'],['Release','1.20 s'],['Glide','80 ms']],
+      play: 'Make a MIDI track, set MIDI To to the Murmur track, record a loop, then play keys. Middle C is original pitch. Move CLOCK to leave Synth Mode.' }
+  ],
+  tips: [
+    ['Loop what you just played','Press footswitches A and B together. Murmur is always listening, so it grabs the last few seconds.'],
+    ['Overdubs stay clean','Holding LOOP records only your clean input, so layers do not pile up mush.'],
+    ['Want longer loops?','Raise Max Buffer on the Deep page. Lower clock rates stretch the buffer even further.'],
+    ['Tap instead of hold','Turn on Latch so a single tap freezes or overdubs.']
+  ],
+  install: 'Download the <b>Murmur-Windows</b> artefact from the latest GitHub Actions run, unzip it and copy <code>Murmur.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'speckle', name: 'Speckle', accent: '#9be15d', kind: 'Granular looper',
+  tagline: 'Scattered samples, sparkling space',
+  lede: 'Speckle chops what you play into tiny pieces and scatters them back as loops, clouds, glitches and echoes. Eleven effects, four variations each, plus a full phrase looper. Based on the Microcosm.',
+  what: 'Granular loops, clouds, glitches and delays, plus a phrase looper.',
+  flow: [['Input','guitar, synth or bass'],['Effect','11 effects, A to D',1],['Filter','tame or open it'],['Space','echo and reverb'],['Mix','dry against effect'],['Phrase looper','record on top']],
+  quick: [
+    ['Set your input','Choose Guitar, Synth or Bass at the top.'],
+    ['Turn the EFFECT dial','Start on Haze. The flip cards show the group and effect.'],
+    ['Pick A, B, C or D','Each effect has four variations. Try them all while you play.'],
+    ['Shape it','Activity sets how busy it gets, Repeats how long it lasts, Space adds the room.']
+  ],
+  panel: { img: 'speckle', w: 1260, h: 660, badges: [[1,508,26],[2,812,26],[3,1096,26],[4,36,116],[5,110,210],[6,36,462],[7,300,462],[8,490,124],[9,604,124],[10,490,260],[11,604,260],[12,458,394],[13,458,434],[14,760,124],[15,874,124],[16,760,260],[17,874,260],[18,728,410],[19,1030,124],[20,998,410],[21,998,480],[22,36,556],[23,142,600],[24,334,560],[25,498,566],[26,950,568],[27,950,610],[28,1104,560]] },
+  legend: [
+    ['Input','Guitar, Synth or Bass. Bass keeps everything under 120 Hz dry and tight.'],
+    ['Tempo, Tap and Sync','SYNC follows Ableton. TAP sets your own tempo and switches Sync off.'],
+    ['Pages','<em>Main</em> is the panel. <em>Pedal</em> sets up footswitches, expression and Trails.'],
+    ['Effect cards','The group and the effect.'],
+    ['Effect dial','Eleven effects in four groups. <em>Micro Loop</em>: Mosaic, Seq, Glide. <em>Granules</em>: Haze, Tunnel, Strum. <em>Glitch</em>: Blocks, Interrupt, Arp. <em>Multi Delay</em>: Pattern, Warp. Footswitches A and B together step to the next one.'],
+    ['Variation A to D','Four flavours of each effect. See the table below.'],
+    ['Direction','Forwards or reversed playback. Hold footswitch A to reverse while held.'],
+    ['Activity','How much is going on: loops, grains, layers, taps or steps. The expression pedal moves it to start with.'],
+    ['Repeats','How long it carries on. At the very top it never stops.'],
+    ['Shape','A contour on every grain, from plucked on the left to swelling on the right. It keeps the effect\'s level either way.'],
+    ['Time','The rhythm the effect follows, from 1 bar to 1/16. In Tempo mode this knob sets the tempo itself.'],
+    ['Mod depth and rate','Pitch wobble, from gentle chorus to seasick warble.'],
+    ['Subdiv or Tempo','Whether Time picks a note value or sets the tempo.'],
+    ['Filter','A low-pass on the effect. Fully left mutes the effect, fully right is open.'],
+    ['Resonance','The filter\'s peak.'],
+    ['Space','Dotted echo and reverb, all wet at the top.'],
+    ['Mix','Dry against effect. At noon both are at full level.'],
+    ['Reverb','Room, Dark, Hall or Ambient.'],
+    ['Looper knobs','Loop Level, Loop Speed (1/4X to 4X), Fade Time for starts and stops, and Volume for the effect\'s level.'],
+    ['Looper options','<em>Post FX</em> or Pre sends the loop through the effect. <em>Quantise</em> trims it to the beat. <em>Reverse</em> flips it. <em>Burst</em> records only while you hold REC. <em>Loop only</em> mutes the effect. <em>Fade</em> sets fade in, out or both.'],
+    ['Rec and Stop','REC records, then plays, then overdubs. Hold REC to undo. STOP stops, hold STOP to erase. A loop is never shorter than a quarter of a second.'],
+    ['Pebble','Reacts to your playing and reads out what each footswitch just did.'],
+    ['Keep','Saves a Keeper. The card next to it picks Live or Studio.'],
+    ['Hold','Freezes the last beat and keeps feeding it through the effect. Footswitch B.'],
+    ['Presets','Sixteen slots in four colours. Tap to load, hold to save. Presets keep the loop too.'],
+    ['Footswitches','On-screen A to D. The dot turns green when your footswitch is connected.'],
+    ['Expression','Moves Activity to start with. Click to send it to another knob.'],
+    ['On','Turns the effect on or off. With Trails on, it rings out.']
+  ],
+  variations: [
+    ['Mosaic','normal and double speed loops','normal and half speed','all double speed','half, normal, double and quad'],
+    ['Seq','filtered, shuffled slices','normal and half speed bounce','overlapping layers with sweeps','crushed layers'],
+    ['Glide','half to normal','double to half','normal to double','both directions at once'],
+    ['Haze','short, stretched wash','many random grains','normal and double speed grains','normal and half speed grains'],
+    ['Tunnel','drone that stretches and squeezes','sub octave drone with sweeps','resonant band-pass drone','drone that tightens after each note'],
+    ['Strum','the last note, repeated','overlapping copies that phase','cascading recent notes','cascades with double speed grains'],
+    ['Blocks','rearranged with bursts','rearranged and pitch shifted','soft, filtered glitches','pitch shifted and crushed'],
+    ['Interrupt','rearranged interruptions','pitch shifted','filter sweeps and echoes','crushed and drastic'],
+    ['Arp','basic arpeggios of your notes','pitched patterns','a random filter per note','crushed'],
+    ['Pattern','classic, even repeats','dotted','off-beat','triplet bursts'],
+    ['Warp','envelope filter on each tap','resonant band-pass taps','octave and fifth shifted taps','taps fade into grains']
+  ],
+  feet: [
+    ['A','Bypass','Reverse while held'],
+    ['B','Hold on or off','Hold while held'],
+    ['C','Loop record, play, overdub','Undo the overdub'],
+    ['D','Loop stop, or play from the top','Erase the loop'],
+    ['A + B','Next effect',''],
+    ['C + D','Hand the footswitches to the next Speckle','Keeper (hold 1 s)']
+  ],
+  feetIntro: 'Optional. The footswitches follow the Microcosm: bypass on the left, the looper on the right. C acts the moment your foot lands, so loops start and end in time. With Burst on, C records only while you hold it.',
+  exp: 'Moves Activity to start with. Click the expression bar to send it to any knob: Repeats, Shape, Mix, Space, Loop Level and the rest.',
+  recipes: [
+    { name: 'Hazy Halo', for: 'Ambient guitar', hear: 'A soft, slowly breathing cloud that hangs behind everything you play.',
+      k: [['Activity',.6,'pct'],['Repeats',.65,'pct'],['Shape',.7,'sShape'],['Time',.75,'sTime'],['Mod Depth',.15,'pct'],['Mod Rate',.274,'sMod'],['Filter',1,'sFilter'],['Space',.55,'pct'],['Mix',.5,'pct']],
+      c: [['Effect','Haze A'],['Reverb','Ambient']],
+      play: 'Play sparse notes with lots of room between them.' },
+    { name: 'Tunnel Twilight', for: 'Drones under a song', hear: 'A deep sub-octave drone that sweeps slowly, like distant traffic in a tunnel.',
+      k: [['Activity',.5,'pct'],['Repeats',.85,'pct'],['Shape',.75,'sShape'],['Filter',.708,'sFilter'],['Resonance',.2,'pct'],['Space',.7,'pct'],['Mix',.6,'pct']],
+      c: [['Effect','Tunnel B'],['Reverb','Hall']],
+      play: 'Hold one low note or chord and let it build.' },
+    { name: 'Music Box Mosaic', for: 'Arpeggios', hear: 'Twinkling loops at normal and double speed, like a wind-up music box.',
+      k: [['Activity',.7,'pct'],['Repeats',.6,'pct'],['Shape',.3,'sShape'],['Time',.75,'sTime'],['Filter',1,'sFilter'],['Space',.35,'pct'],['Mix',.45,'pct']],
+      c: [['Effect','Mosaic A'],['Reverb','Room'],['Sync','On',1]],
+      play: 'Pick a simple arpeggio high up the neck.' },
+    { name: 'Glide Ghosts', for: 'Eerie textures', hear: 'Backwards loops that slide down in pitch, from double speed to half.',
+      k: [['Activity',.5,'pct'],['Repeats',.55,'pct'],['Shape',.5,'sShape'],['Mod Depth',.1,'pct'],['Space',.5,'pct'],['Mix',.5,'pct']],
+      c: [['Effect','Glide B'],['Reverse','On',1],['Reverb','Hall']],
+      play: 'Play one note per bar and listen to it fall away behind you.' },
+    { name: 'Dotted Drift', for: 'Post-rock delay', hear: 'Classic dotted echoes that make simple picking sound huge.',
+      k: [['Activity',.6,'pct'],['Repeats',.5,'pct'],['Time',.375,'sTime'],['Space',.3,'pct'],['Mix',.4,'pct']],
+      c: [['Effect','Pattern B'],['Reverb','Dark'],['Sync','On',1]],
+      play: 'Pick steady eighth notes and the echoes fill in the gaps.' },
+    { name: 'Arpeggio Avalanche', for: 'Chords to sequences', hear: 'Strum a chord and Speckle plays it back as a fast sixteenth-note arpeggio.',
+      k: [['Activity',.65,'pct'],['Repeats',.5,'pct'],['Shape',.25,'sShape'],['Time',1,'sTime'],['Space',.4,'pct'],['Mix',.5,'pct']],
+      c: [['Effect','Arp A'],['Reverb','Room'],['Sync','On',1]],
+      play: 'Change chords on the bar and let the arpeggio follow.' },
+    { name: 'Strum Shimmer', for: 'Lush chords', hear: 'Recent notes cascade over each other into a slow, shimmering waterfall.',
+      k: [['Activity',.55,'pct'],['Repeats',.7,'pct'],['Shape',.65,'sShape'],['Mod Depth',.2,'pct'],['Space',.6,'pct'],['Mix',.55,'pct']],
+      c: [['Effect','Strum C'],['Reverb','Ambient']],
+      play: 'Let ringing chords overlap. Lower Activity if it gets crowded.' },
+    { name: 'Layer Lab', for: 'Phrase looper', hear: 'A half-speed, octave-down loop fed back through the effect for a dreamy bed.',
+      k: [['Loop Level',.8,'pct'],['Loop Speed',.25,'sSpeed'],['Fade Time',.3,'pct']],
+      c: [['Effect','Haze A'],['Loop FX','Pre',1],['Quantise','On',1]],
+      play: 'Press REC, play, press REC to loop, press REC again to overdub. Hold REC to undo the last layer.' }
+  ],
+  tips: [
+    ['Effect gone quiet?','Check Filter is not fully left. Fully left mutes the effect.'],
+    ['Freeze a moment','Press HOLD or tap footswitch B to trap the last beat and keep it spinning through the effect.'],
+    ['Presets keep loops','Hold a preset slot to save it, loop included. Everything saves with your Ableton set.'],
+    ['Microcosm controllers','The Microcosm MIDI chart sits behind Original pedal MIDI map on the Pedal page, off by default. Pick a channel to use it.']
+  ],
+  install: 'Download <code>Speckle-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Speckle.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'backtrack', name: 'Backtrack', accent: '#ff7a59', kind: 'Tape-speed buffer', ver: 'v0.1',
+  tagline: 'Pitch, time, reverse',
+  lede: 'Backtrack records what you play and plays it back at any speed, forwards or backwards, with pitch tied to speed like tape. Use it as a climbing pitch delay, a slice sampler or a three-head looper. Based on the Montreal Assembly Count to 5.',
+  what: 'Plays your sound back at any speed, either way. Based on the Count to 5.',
+  flow: [['Your playing','into the buffer'],['Mode','Delay, Slice or Loop'],['DIR heads','speed and direction',1],['Feedback','re-pitches each repeat'],['Mix','dry against heads']],
+  quick: [
+    ['Pick DELAY','Mode Delay is always listening, so you hear it straight away.'],
+    ['Set Quantise to Chromatic','Now DIR 1 snaps to musical intervals and the card shows the step.'],
+    ['Turn DIR 1','Right of noon plays forwards, left plays backwards. The top of the dial stops the head.'],
+    ['Raise FBK','Each repeat gets re-pitched again, so echoes climb or fall.']
+  ],
+  panel: { img: 'backtrack', w: 1260, h: 700, badges: [[1,176,40],[2,586,26],[3,820,26],[4,1016,26],[5,36,116],[6,130,220],[7,36,454],[8,456,90],[9,456,128],[10,480,194],[11,594,194],[12,536,326],[13,456,470],[14,726,90],[15,996,116],[16,998,200],[17,998,272],[18,998,326],[19,996,438],[20,46,556],[21,340,568],[22,942,568],[23,1116,568]] },
+  legend: [
+    ['Presets','Twenty factory presets and your own. The arrows or footswitch D step through them, SAVE stores yours.'],
+    ['Mode','<em>Delay</em>: an always-listening buffer read back at DIR 1 speed. <em>Slice</em>: hold the soft switch to sample up to 4 s, let go and it plays back in slices. <em>Loop</em>: hold to record up to 8 s, three heads play it back.'],
+    ['Firmware','<em>Standard</em> is the pedal as shipped. <em>Nightly</em> swaps the modes for Ct5t5 (two delays feeding each other), Auto stutter and Vibrato delay.'],
+    ['Tempo and Sync','FREE runs on its own like the pedal. Sync locks lengths to Ableton, starts Loop recording on the next beat and rounds loops to whole beats.'],
+    ['Interval cards','The pitch step DIR 1 is playing, and the direction.'],
+    ['DIR 1','Speed and direction of the main head. The top stops it. Right plays forwards, left backwards. Fully right is an octave up forwards, fully left an octave up backwards.'],
+    ['Step and Reverse','Step DIR 1 up or down one interval, or flip its direction instantly.'],
+    ['Buffer heading','With Sync off, shows LEN B as a tempo, and the tempo after DIR 1 has re-pitched it.'],
+    ['Quantise','How DIR snaps: None (free), Chromatic, Whole tone, diminished or augmented triads, or fifths and octaves.'],
+    ['Second dial','Delay: LEN B, ten lengths from 8 s down to 16 ms. Short lengths turn into ring mod tones. Slice: LEN S. Loop: DIR 2.'],
+    ['Third dial','Delay: FBK, which re-pitches every repeat. Slice: RAND. Loop: DIR 3.'],
+    ['Mix','Dry against the heads.'],
+    ['Expression target','What the expression pedal moves for this preset.'],
+    ['Q layer','The pedal\'s hidden settings, each on its own dial: feedback filter, LFO, trigger, jump and Low Keep in Delay, the step sequencer, dub fade and head levels in Loop.'],
+    ['State card','What the buffer is doing: listening, recording, playing, frozen.'],
+    ['Hold','The soft switch. Hold to freeze, sample or record, depending on the mode.'],
+    ['Tap','Tap the soft switch: jump the head, stop and clear, or freeze.'],
+    ['Switches','<em>Transcend</em> keeps the buffer when you change mode. <em>Latch</em> makes the soft switch press on, press off. <em>Trails</em> rings on after bypass. <em>Boost</em> adds 3 dB. <em>Spread</em> puts every mode in stereo. Grit steps through Off, 24-BIT and 12-BIT. <em>Low Keep</em> holds your dry low end for bass. <em>Lock</em> keeps the loop heads in step.'],
+    ['Try this','A one-line tip for the loaded preset.'],
+    ['Pebble','Spins backwards when a head reverses, hops on a pitch jump, rattles with X eyes when feedback runs away.'],
+    ['Footswitches','On-screen A to D, with what each does on a tap and a hold.'],
+    ['Expression','What the pedal moves for this preset, with its heel and toe settings.'],
+    ['Keeper','Saves the moment. Hold C and D on your footswitch to do the same.']
+  ],
+  feet: [
+    ['A','On and off','Transcend'],
+    ['B','The soft switch: jump the head (Delay), stop and clear (Slice and Loop), freeze (Nightly)','Freeze while held (Delay), sample (Slice), record then overdub (Loop)'],
+    ['C','Reverse every head','Reverse while held'],
+    ['D','Next preset','Previous preset'],
+    ['A + B','Next mode','Standard or Nightly (hold 1 s)'],
+    ['C + D','Hand the footswitches to the next Backtrack','Keeper (hold 1 s)']
+  ],
+  feetIntro: 'Optional. Every footswitch job also has a button on screen. Prefer the original pedal\'s two switches? Pick the Classic layout on the Pedal page: A on and off, B the soft switch.',
+  exp: 'Each preset picks what the expression pedal moves and its heel and toe settings, shown under EXPRESSION. Pick another target with the pills under MIX.',
+  presetsIntro: 'Twenty factory presets, each with a TRY THIS hint on screen. SAVE stores your own after them. Changing preset keeps a playing loop if the mode stays the same.',
+  presets: [['INIT','Start here. Every control sits at its plain setting.'],['TAPE ECHO','Rock toe down to swell the echoes into runaway.'],['REVERSE ECHO','Play a phrase, then fade the backwards repeats in.'],['PING PONG','Tap C to send the repeats backwards.'],['OCTAVE ORGAN','Hold a chord and it turns into an organ.'],['FIFTHS CLIMB','Play single notes and let them climb in fifths.'],['BIRDS','Short high notes chirp. Rock the pedal to change the song.'],['RUNAWAY CHORUS','Hover near heel for phasing, push for chaos.'],['SUB SHADOW','Bass: an octave-down ghost follows each note.'],['TAPE STOP','Rock toe down to slow the repeats to a halt.'],['STUTTER SLICES','Hold B for one bar, let go and rock the pedal.'],['GLITCH SHUFFLE','Hold B for two bars, then rock the pedal.'],['REVERSE GRAINS','Hold B over a chord. The grains run backwards.'],['THREE SPEEDS','Hold B for exactly one bar. The heads stay in time.'],['FIFTHS LOOP','Loop a riff, then rock the pedal through the fifths.'],['RANDOM STEPS','Loop two bars and let the steps wander.'],['BACKWARDS BASS','Bass: loop a groove, then play over it backwards.'],['CROSS FEED','Single notes bloom into clusters.'],['AUTO STUTTER','Play a run, then tap B to freeze the stutter.'],['VIBRATO DELAY','Long notes warble in and out of tune.']],
+  recipes: [
+    { name: 'Climbing Count', for: 'The classic sound', hear: 'Each repeat comes back a fifth higher than the last, spiralling up into sparkle.',
+      k: [['DIR 1',.875,'=+7 FWD'],['LEN B',.667,'=1.0 s'],['FBK',.6,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Delay'],['Quantise','5ths + 8va']],
+      play: 'Play one note and let it climb. Lower FBK for fewer steps.' },
+    { name: 'Reverse Rewind', for: 'Lead lines', hear: 'Everything you play comes back backwards two seconds later.',
+      k: [['DIR 1',.25,'=UNISON REV'],['LEN B',.778,'=2.0 s'],['FBK',.3,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Delay'],['Quantise','Chromatic']],
+      play: 'Play slow phrases with gaps. The buffer always listens.' },
+    { name: 'Robot Ring', for: 'Synth and noise', hear: 'Tiny buffer lengths turn into metallic ring mod and octave tremolo tones.',
+      k: [['DIR 1',1,'=+12 FWD'],['LEN B',0,'=16 ms'],['FBK',.2,'pct'],['Mix',.6,'pct']],
+      c: [['Mode','Delay'],['Quantise','Chromatic']],
+      play: 'Hold long notes and click LEN B up a step at a time.' },
+    { name: 'Slice Scramble', for: 'Chopped textures', hear: 'Your sample cut into short slices that jump around at random.',
+      k: [['DIR 1',.75,'=UNISON FWD'],['LEN S',.51,'=150 ms'],['RAND',.7,'pct'],['Mix',.6,'pct']],
+      c: [['Mode','Slice']],
+      play: 'Hold the soft switch while you play a phrase, let go to hear it sliced. You can record the next sample while one plays.' },
+    { name: 'Three-head Halo', for: 'Ambient loops', hear: 'One loop played three ways at once: normal in the middle, an octave down backwards on the left, an octave up on the right.',
+      k: [['DIR 1',.75,'=UNISON FWD'],['DIR 2',.375,'=−12 REV'],['DIR 3',1,'=+12 FWD'],['Mix',.6,'pct']],
+      c: [['Mode','Loop'],['Quantise','Chromatic'],['Spread','On',1]],
+      play: 'Hold the soft switch to record up to 8 seconds, let go to play. Hold again to overdub.' },
+    { name: 'Slow-mo Tape', for: 'Lo-fi beds', hear: 'A half-speed, octave-down loop with a little converter grit.',
+      k: [['DIR 1',.625,'=−12 FWD'],['DIR 2',.5,'=STOP'],['DIR 3',.5,'=STOP'],['Mix',.7,'pct']],
+      c: [['Mode','Loop'],['Quantise','Chromatic'],['Grit','12-BIT',1]],
+      play: 'Record a chord progression, then nudge DIR 2 or 3 off STOP to bring in more heads.' },
+    { name: 'Stutter Storm', for: 'Glitchy rhythm', hear: 'Three units grab slices of your playing, repeat them 2 to 16 times, then grab again.',
+      k: [['Mix',.55,'pct']],
+      c: [['Firmware','Nightly'],['Mode','Auto stutter'],['Sync','On',1]],
+      play: 'Play busy rhythmic parts. The Q layer sets slice lengths and repeat counts.' }
+  ],
+  tips: [
+    ['Head stopped?','DIR at the top means stop. Turn it a little either side.'],
+    ['Keep your recording','Turn on Transcend before switching modes or lengths.'],
+    ['Fine moves','Shift-drag any dial for fine control. Double-click resets it.'],
+    ['Saved with your set','Slice and Loop recordings save with your Ableton set.']
+  ],
+  install: 'Download <code>Backtrack-VST3-Windows.zip</code> from the repo\'s latest release, unzip it and copy <code>Backtrack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'jetstream', name: 'Jetstream', accent: '#3fd6c8', kind: 'Resynthesiser',
+  tagline: 'Sampled sustain, silky stereo',
+  lede: 'Jetstream catches every new note or chord you play, records it, then rebuilds it as a pad, a synth, a glitch or a slow swell. Two samplers, A and B, take turns so one chord fades as the next rises.',
+  what: 'Turns each chord into a pad, synth or glitch. Based on the Infinite Jets.',
+  flow: [['New note','it hears you play'],['Sampler A or B','records the note'],['Voice','rebuilds it',1],['Envelope','swells, fades or repeats'],['Dimension','space, filter or motion'],['Output','drive, tone, width']],
+  quick: [
+    ['Pick your input','Choose Guitar, Synth or Bass at the top.'],
+    ['Press LEARN','Play normally for four seconds. It sets the sensitivity for you.'],
+    ['Choose a voice','Turn the big VOICE dial. Blur +1 is a lovely place to start.'],
+    ['Play chords','Each new chord fills sampler A or B and blooms into sound.']
+  ],
+  panel: { img: 'jetstream', w: 1260, h: 800, badges: [[1,176,40],[2,722,26],[3,942,26],[4,36,120],[5,70,256],[6,186,256],[7,36,392],[8,36,436],[9,326,120],[10,350,464],[11,720,124],[12,840,124],[13,696,428],[14,1128,86],[15,1008,124],[16,1008,260],[17,986,410],[18,36,552],[19,704,560],[20,1004,552],[21,36,664],[22,656,664],[23,858,680],[24,1006,664]] },
+  legend: [
+    ['Presets','Twenty factory presets and your own. The arrows or footswitch D step through them, SAVE stores yours.'],
+    ['Input','Tunes the note detection. <em>Bass</em> splits at 120 Hz and keeps everything below dry and tight.'],
+    ['Learn and Sens','Press LEARN and play normally for four seconds. Sens then suits how hard you play. Notes are judged against your own playing level, so quiet playing still triggers.'],
+    ['Trigger','<em>Poly</em> lets A and B overlap for smooth changes. <em>Mono</em> plays one at a time. <em>Manual</em> only captures when you press A or B.'],
+    ['Env Shape','The volume shape of each sound: Decay, Triangle, Square, Swell, Rise or Random. Between two shapes it sets the speed of Repeat.'],
+    ['Env Time','From 50 ms up to 20 s. Near the top is <em>Infinite</em>, which holds until your next note, then <em>Repeat</em>, which loops the shape.'],
+    ['Footswitch mode','How A and B behave in Manual. <em>Latch</em>: press once to hold, double press to clear.'],
+    ['A and B','Sampler A (teal) and B (coral). Tap to catch whatever is ringing, hold to sustain it.'],
+    ['Voice dial','The sound it rebuilds. Blur 0, -1, +1 and ±1 are pure held notes with in-tune octaves. Then Synth, Glitch and Swell, each in A and B, and two User stops you can save your own sounds to.'],
+    ['A and B lights','Show each sampler\'s envelope as it plays.'],
+    ['Dimension','Changes with the voice: space in Blur and Swell, filter in Synth, loop length in Glitch A, memory cell in Glitch B. The header names it.'],
+    ['LFO','Depth, Rate and Shape move Dimension for you.'],
+    ['Dimension source','What moves Dimension: the LFO, the envelope or nothing. SYNC locks motion to Ableton. REC DIM and REC DRV record a knob move and loop it for up to 10 s.'],
+    ['Auto Level','Keeps Drive at a steady volume.'],
+    ['Drive and Tone','Warmth and grit, then brightness.'],
+    ['Dry and Master','Your clean signal and the overall level. Above 75% Dry starts to fade the effect.'],
+    ['Width and Air','Stereo spread of A and B, and a soft wash after the effect.'],
+    ['Memory','Glitch B\'s six loops. Click a cell to play it. They save with your set.'],
+    ['Hold and Clear','HOLD locks the memory, CLEAR empties it. Footswitch C toggles Hold.'],
+    ['On','Tap to bypass. Tails ring out.'],
+    ['Footswitches','On-screen A to D, with what each does on a tap and a hold.'],
+    ['Expression','What the pedal moves for this preset, with its heel and toe settings.'],
+    ['Keeper','Saves the moment. Hold C and D on your footswitch to do the same.'],
+    ['Try this','A one-line tip for the loaded preset.']
+  ],
+  extra: [
+    ['How it sounds', [['Blur','Each caught note rebuilt as pure partials, so it stays in tune with no grain or wobble.'],['Synth','Picks the notes out of what you played, exact from MIDI.'],['Glitch','Loops close on a matched point, so the wrap is silent.'],['Drive','Oversampled, so it stays clean in the audible band.'],['Bass','A 120 Hz split keeps your lows untouched.']]]
+  ],
+  feet: [
+    ['A','Sampler A. In Poly and Mono it catches whatever is ringing','Sustain A: the sound stops moving and rings until you let go'],
+    ['B','Sampler B, the same','Sustain B'],
+    ['C','Hold Memory on and off','Bypass'],
+    ['D','Next preset','Previous preset'],
+    ['A + B','Bypass',''],
+    ['C + D','Hand the footswitches to the next Jetstream','Keeper (hold 1 s)']
+  ],
+  feetIntro: 'Optional. Every footswitch job also has a button on screen. In Manual trigger, A and B are the pedal\'s own footswitches and follow Toggle, Latch or Momentary.',
+  exp: 'Each preset picks what the expression pedal moves and its heel and toe settings, shown under EXPRESSION. Pick another target on the Pedal page: Dimension, Env Time, Env Shape, Drive, Dry, LFO Depth, LFO Rate, Tone, Width or Air.',
+  presetsIntro: 'Twenty factory presets, each with a TRY THIS hint on screen and its own expression setting. The arrows and footswitch D step through them. SAVE stores your own after them.',
+  presets: [['INIT','Start here: every note swells into a held copy of itself.'],['AMBIENT BED','Play slow chords. Rock toe down to stretch the space.'],['ENDLESS PAD','Each new chord takes over the last. Toe down brings the guitar back.'],['SHIMMER','Hold notes and let the octave rise in behind them.'],['SUB DRONE','Tap A on a low note to hold a drone. Double tap A to let it go.'],['OCTAVE CATHEDRAL','Single notes become a choir an octave either side.'],['TIDE','Every note pulses in and out. Turn Sync on to lock it to the song.'],['FILTER LEAD','Single notes turn into a square lead with a slow filter sweep.'],['ENVELOPE FILTER','Every note opens the filter and closes it again. Dig in.'],['EIGHTIES PAD','Chords bloom into wide, detuned saws.'],['SQUARE STAB','Short square blips under every note. Rock to lengthen them.'],['STUTTER','Hold A to stutter what you just played. Let go to stop.'],['GLITCH RAIN','Play a phrase and it breaks into scattered loops.'],['SELF REMIX','Play for half a minute, tap C to hold the memory, keep playing.'],['SWELL ECHOES','Notes fade in with no attack and trail off into echoes.'],['TAPE WARBLE','Held notes drift out of tune like old tape.'],['VIOLIN FUZZ','Notes swell in through a bowed fuzz. Rock for more grit.'],['BASS SUB BLOOM','Bass: an octave below blooms under each note. Lows stay tight.'],['BASS SYNTH','Bass: every note becomes a filtered square. Dig in to open it.'],['SYNTH PAD SHADOW','Synth: each chord change leaves an octave-down shadow.']],
+  recipes: [
+    { name: 'Endless Ether', for: 'Guitar, ambient', hear: 'Each chord swells into a shimmering pad with octaves above and below, and holds until your next chord.',
+      k: [['Env Shape',.6,'jShape'],['Env Time',.92,'jEnvTime'],['Dimension',.7,'pct'],['LFO Depth',.2,'pct'],['LFO Rate',.258,'jLfo'],['Tone',1,'jTone'],['Dry',.5,'pct'],['Air',.6,'pct']],
+      c: [['Voice','Blur ±1'],['Trigger','Poly'],['Source','LFO']],
+      play: 'Let chords ring and change them slowly. Poly crossfades between A and B.' },
+    { name: 'Post-rock Rise', for: 'Builds and climaxes', hear: 'Notes start silent and surge up over four seconds, like a wall of guitars arriving.',
+      k: [['Env Shape',.6,'jShape'],['Env Time',.658,'jEnvTime'],['Dimension',.6,'pct'],['Drive',.25,'pct'],['Dry',.4,'pct'],['Air',.7,'pct']],
+      c: [['Voice','Swell A'],['Trigger','Poly']],
+      play: 'Strum once per bar and let the swell do the crescendo.' },
+    { name: 'Tremolo Tide', for: 'Chords in time', hear: 'A held chord that pulses smoothly in time with your Ableton tempo.',
+      k: [['Env Shape',.2,'jShape'],['Env Time',.97,'jEnvTime'],['Dimension',.5,'pct'],['Dry',.5,'pct']],
+      c: [['Voice','Blur 0'],['Sync','On',1]],
+      play: 'Turn Env Shape slightly within the Triangle zone to change the pulse speed.' },
+    { name: 'Silky Synth', for: 'Turning guitar into synth', hear: 'Your chord becomes a plucky analogue synth with a filter that closes as it fades.',
+      k: [['Env Shape',0,'jShape'],['Env Time',.477,'jEnvTime'],['Dimension',.4,'pct'],['Drive',.3,'pct'],['Tone',.469,'jTone'],['Dry',.3,'pct']],
+      c: [['Voice','Synth A'],['Source','Env']],
+      play: 'Play rhythmic chords. Raise Dimension for a brighter filter.' },
+    { name: 'Glitch Garden', for: 'Texture', hear: 'Each note chopped into a short stuttering loop, like a skipping CD that sounds good.',
+      k: [['Env Shape',.4,'jShape'],['Env Time',.92,'jEnvTime'],['Dimension',.35,'pct'],['Dry',.5,'pct']],
+      c: [['Voice','Glitch A'],['Trigger','Mono']],
+      play: 'Single notes work best. Dimension sets the loop length, so sweep it while you play.' },
+    { name: 'Bass Bed', for: 'Bass guitar', hear: 'Your low end stays tight and dry while a soft octave-up pad blooms above it.',
+      k: [['Env Shape',.6,'jShape'],['Env Time',.615,'jEnvTime'],['Dimension',.55,'pct'],['Dry',.7,'pct'],['Width',.6,'pct']],
+      c: [['Input','Bass'],['Voice','Blur +1']],
+      play: 'Play long root notes. Press LEARN first so it tracks your bass properly.' },
+    { name: 'Manual Moments', for: 'Picking which chord holds', hear: 'Only the chords you choose get held, so you can play freely over them.',
+      k: [['Env Shape',.6,'jShape'],['Env Time',.92,'jEnvTime'],['Dry',.5,'pct']],
+      c: [['Trigger','Manual'],['Footswitch','Latch'],['Voice','Blur 0']],
+      play: 'Play a chord and press footswitch A. Later, press B for a new one. Double press to clear.' }
+  ],
+  tips: [
+    ['Missing notes?','Press LEARN and play at your normal strength, or raise Sens.'],
+    ['MIDI works too','MIDI notes on the track trigger the samplers with exact pitch. The old CC 80 to 83 map sits behind Original MIDI map on the Pedal page.'],
+    ['Record a knob move','Press REC DIM, move Dimension, press again. The move loops for up to 10 s. Touch the knob to stop it.'],
+    ['Too loud with Drive?','Leave Auto Level on and Drive stays at a steady volume.']
+  ],
+  install: 'Download <code>Jetstream-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Jetstream.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'changeling', name: 'Changeling', accent: '#b98cff', kind: 'Instrument synthesiser', ver: 'v0.1',
+  tagline: 'Every note becomes a synth',
+  lede: 'Play guitar, bass or a MIDI keyboard into Changeling and every note comes back as a synth voice: chords in Poly, fat leads and basses in Mono, racing patterns in Arp. It tracks tight and low, right down to a five-string\'s low B. Based on the Meris Enzo.',
+  what: 'Turns guitar, bass or keys into a synth. Based on the Meris Enzo.',
+  flow: [['Your note','or a MIDI key'],['Tracker','finds the pitch'],['Synth voice','saw or square',1],['Filter','with envelope'],['Ring mod','optional clang'],['Delay','echo and mix']],
+  quick: [
+    ['Set Input','Guitar, Bass or Synth in the header. Bass reaches low B.'],
+    ['Pick a mode','Tap the big mode card: Poly for chords, Mono for leads and bass, Arp for patterns.'],
+    ['Shape the filter','Turn Cutoff and Env until the synth speaks the way you like.'],
+    ['Blend','Mix at noon has you and the synth at full level. Turn right for synth only.']
+  ],
+  panel: { img: 'changeling', w: 1260, h: 660, badges: [[1,436,22],[2,696,22],[3,888,20],[4,1036,22],[5,1096,22],[6,40,120],[7,70,246],[8,200,246],[9,40,398],[10,40,480],[11,360,118],[12,360,238],[13,380,304],[14,505,304],[15,630,304],[16,360,476],[17,790,120],[18,890,120],[19,790,274],[20,890,274],[21,780,414],[22,780,476],[23,1030,120],[24,1030,340],[25,1030,422],[26,144,552],[27,414,552],[28,704,552],[29,1060,560]] },
+  legend: [
+    ['Input','Guitar, Bass or Synth. Sets the tracking range. Bass reaches low B.'],
+    ['Source','Audio, MIDI or Both, so a keyboard and your instrument can play together.'],
+    ['Tempo and Tap','Tap tempo for the delay and arp.'],
+    ['ALT','Dims the main knobs so the alt jobs stand out. Each alt knob has an amber tag naming the pedal knob it hides behind.'],
+    ['Pages','<em>Main</em>, <em>Deep</em> for oscillator 2, tracking and arp, and <em>Pedal</em> for footswitches.'],
+    ['Synth mode','<em>Poly</em> gives every note of a chord its own voice, up to six. <em>Mono</em> is one voice with two oscillators, the tightest tracking. <em>Arp</em> plays held notes as a pattern. <em>Dry</em> turns the synth off and treats your own signal.'],
+    ['Pitch','Synth pitch in semitones, up to two octaves either way.'],
+    ['Glide','Alt of Pitch. Slides between notes.'],
+    ['Wave','Saw or square.'],
+    ['Voices','Lights for each sounding voice. Teal from your instrument, blue from MIDI.'],
+    ['Filter graph','Shows the filter shape as you move the knobs.'],
+    ['Type','Alt of Filter. Ladder or state-variable, low, band or high-pass.'],
+    ['Cutoff','The filter frequency.'],
+    ['Env','How far the envelope opens the filter.'],
+    ['Bandwidth','Alt of Env. Wide and gentle to narrow and peaky.'],
+    ['Envelope','<em>Trigger</em> opens the filter on each new note. <em>Follow</em> tracks how hard you play, like an auto-wah.'],
+    ['Sustain','How long synth notes hold: a short pluck at zero, held for as long as you hold the note at the top. Notes come in at full level and stay steady.'],
+    ['Ring','Alt of Sustain. Ring mod frequency. Fully left is off.'],
+    ['Mod','Detunes the two oscillators.'],
+    ['Mix','Your signal against the synth. Both full at noon.'],
+    ['Ring chaos','Lights up while you hold footswitch C.'],
+    ['Trails','Cut the sound on bypass, or let it ring out.'],
+    ['Delay level and feedback','Alts of Mix and Mod. The dots show repeats. Hold B for a runaway.'],
+    ['Arp','Shows the arp steps. Pattern and step are on the Deep page.'],
+    ['Sustain latch','Latches whatever is sounding into a drone.'],
+    ['Tracking','The note it heard and how fast it locked. Click the note for a tuner.'],
+    ['Presets','Sixteen slots in four colours. Tap to load, hold to save.'],
+    ['Footswitches','On-screen copies of A to D.'],
+    ['On','Tap to bypass.']
+  ],
+  extra: [
+    ['Deep page', [['Oscillator 2','Interval (unison, octave down, fifth, octave, octave and a fifth), wave, level and detune.'],['Tracking','Character from Tight to Wild, lowest note, sensitivity, note hold, poly speed and octave guard.'],['Arp','Pattern, step (1/4 to 1/16), octaves and gate.'],['Ring + MIDI','Ring carrier Fixed or Follow, velocity, bend range, mono priority, tempo source.']]]
+  ],
+  feet: [
+    ['A','Bypass','Saw or square'],
+    ['B','Tap tempo (delay and arp)','Runaway delay while held'],
+    ['C','Next synth mode','Ring chaos while held'],
+    ['D','Sustain latch on or off','Sustain while held, like a piano pedal'],
+    ['A + B','Next preset',''],
+    ['C + D','Hand the footswitches to the next Changeling','Keeper (hold 1 s)']
+  ],
+  exp: 'Sweeps the filter cutoff, heel closed and toe open. Click the expression bar to sweep any knob, or use Morph to sweep the whole patch between two saved settings.',
+  recipes: [
+    { name: 'Low Synth Bass', for: 'Bass guitar', hear: 'A round, punchy synth bass with a sub oscillator an octave down.',
+      k: [['Cutoff',.42,'=496 HZ'],['Env',.6,'pct'],['Sustain',.6,'pct'],['Mod',.08,'=4 CENTS'],['Mix',.85,'pct'],['Glide',.1,'=22 MS']],
+      c: [['Input','Bass'],['Mode','Mono'],['Wave','Saw'],['Osc 2','−12, 60%']],
+      play: 'Play simple root-note lines. Preset 3, Sub Octave, is a darker take on the same idea.' },
+    { name: 'Glass Chords', for: 'Guitar chords', hear: 'Soft square-wave chords through a gentle filter with a little echo.',
+      k: [['Cutoff',.62,'=1.6 KHZ'],['Env',.3,'pct'],['Sustain',.75,'pct'],['Mod',.35,'=18 CENTS'],['Mix',.6,'pct']],
+      c: [['Mode','Poly'],['Wave','Square'],['Filter','SV low-pass'],['Delay','35%']],
+      play: 'Let chords ring. Poly holds the chord until the strings fade or you play again.' },
+    { name: 'Sparkarp', for: 'Arpeggios', hear: 'A racing arpeggio of whatever you hold, bouncing through a delay.',
+      k: [['Cutoff',.5,'=800 HZ'],['Env',.7,'pct'],['Sustain',.3,'pct'],['Mix',.7,'pct']],
+      c: [['Mode','Arp'],['Wave','Square'],['Tempo','Fast taps'],['Delay','40%']],
+      play: 'Hold a chord. Tap footswitch B or TAP to change the speed. Preset 9, Sparkle Arp, is a faster two-octave version.' },
+    { name: 'Ring Chaos', for: 'Noise and texture', hear: 'Clangy ring modulation with loose, glitchy tracking that flips octaves.',
+      k: [['Ring',.62,'=448 HZ'],['Cutoff',.7,'=2.7 KHZ'],['Env',.4,'pct'],['Mod',.2,'=10 CENTS'],['Mix',.7,'pct']],
+      c: [['Mode','Poly'],['Wave','Saw'],['Character','Wild']],
+      play: 'Hold footswitch C for even more chaos. Preset 12, Ring Noise, starts you here.' },
+    { name: 'Auto-wah Funk', for: 'Rhythm guitar', hear: 'A squelchy filter that opens the harder you pick.',
+      k: [['Cutoff',.35,'=326 HZ'],['Env',.8,'pct'],['Bandwidth',.75,'=Peaky'],['Mix',.5,'pct']],
+      c: [['Mode','Dry'],['Envelope','Follow']],
+      play: 'Dry mode keeps your own sound and just filters it. Play percussive single notes.' },
+    { name: 'Drone Bed', for: 'Ambient', hear: 'Your chord latched into an endless synth drone you can play over.',
+      k: [['Cutoff',.55,'=1.1 KHZ'],['Sustain',.9,'pct'],['Mod',.3,'=15 CENTS'],['Mix',.6,'pct']],
+      c: [['Mode','Poly'],['Wave','Saw'],['Sustain latch','On',1]],
+      play: 'Play a chord and tap footswitch D. Tap again to let go.' }
+  ],
+  presetsIntro: 'Twelve slots come loaded, each matched to a passage in the pedal\'s demos. The blue bank is empty for your own. Presets change the sound and leave Input and Source alone.',
+  presets: [['Low Saw','Mono. A warm, held saw bass with a little glide.'],['Hollow Square','Mono. A bright square that slides between notes.'],['Sub Octave','Mono. Dark saw with a second oscillator an octave down.'],['Acid Sweep','Mono. A peaky filter that opens hard on every note.'],['Glass Stabs','Poly. Soft, rounded square chords with a short echo.'],['Bright Wash','Poly. Detuned saws held for as long as you hold, in long echoes.'],['Soft Organ','Poly. Square with an octave on top, steady and plain.'],['Touch Brass','Poly. The filter follows how hard you play.'],['Sparkle Arp','Arp. Your chord as a two-octave square pattern at 246 BPM.'],['High Plucks','Mono. Short square blips an octave up, with echo.'],['Glide Lead','Mono. A near-pure tone an octave up with long, slow glides.'],['Ring Noise','Poly. Ring mod and loose tracking, for the clangy passages.']],
+  tips: [
+    ['Bass lines','Use Mono. Poly plays a clean, smaller version of big chords, so it suits pads more than bass lines.'],
+    ['Playing from keys','Make a MIDI track with MIDI To set to the Changeling track and arm it.'],
+    ['Tuner','Click the note under Pebble. The output mutes while it\'s open.'],
+    ['Hum never plays notes','Changeling learns your background noise in its first 0.6 s. On a very noisy rig, turn Sensitivity down on the Deep page.']
+  ],
+  install: 'Download <code>Changeling-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Changeling.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'bitrot', name: 'Bitrot', accent: '#ff7a59', kind: 'Harmonising PLL synth', ver: 'v0.1',
+  tagline: 'Square waves, sub octaves, sci-fi glitch',
+  lede: 'Bitrot turns every single note into three square-wave voices: a fuzzy copy of you, a sub octave below and an oscillator up to three octaves above. Slide between notes, wobble them like a laser or let the loop corrupt into chirps and stutters. Based on the EarthQuaker Devices Data Corrupter.',
+  what: 'Three square-wave voices from one note. Based on the Data Corrupter.',
+  flow: [['One note','play single notes'],['Square','fuzzed copy of you'],['Oscillator','1 to 8 times your note',1],['Subharmonic','divided down'],['Glide or Vibrato','how pitch moves'],['Voice mixer','blend the three']],
+  quick: [
+    ['Pick your input','Guitar, Bass or Synth at the top. Play single notes, not chords.'],
+    ['Set the voices','Bring up Square, Subharmonic and Oscillator to taste.'],
+    ['Choose intervals','Tap the Subharmonic and Oscillator flip cards to step through intervals.'],
+    ['Corrupt it','Slide Corrupt from Tight towards Wild for chirps and glitches.']
+  ],
+  panel: { img: 'bitrot', w: 1260, h: 660, badges: [[1,430,24],[2,1060,24],[3,52,112],[4,144,112],[5,236,112],[6,52,224],[7,144,224],[8,40,338],[9,360,120],[10,360,274],[11,418,358],[12,670,118],[13,738,160],[14,670,396],[15,960,206],[16,1014,310],[17,960,444],[18,144,552],[19,414,552],[20,704,552],[21,1060,560]] },
+  legend: [
+    ['Input','Guitar, Bass or Synth. Bass tracks down to a five-string low B.'],
+    ['Pages','<em>Main</em> is the panel. <em>Deep</em> holds vibrato depth, tracking and Bend. <em>Pedal</em> sets up footswitches, expression and Keeper.'],
+    ['Square','Your note squared into fuzz. Endless sustain, then a sudden stop.'],
+    ['Subharmonic','Level of the voice below.'],
+    ['Oscillator','Level of the voice above.'],
+    ['Dry','Your clean signal. 0 sounds like the pedal. Turn it up on bass to keep your low end.'],
+    ['Level','Overall output.'],
+    ['Scope','Shows the three voices at their real ratios. It shakes when the loop slips.'],
+    ['Subharmonic interval','Eight steps from an octave down to three octaves down. Tap the card or a dot.'],
+    ['Sub root','<em>Unison</em> divides the Square, steady and untouched by glide. <em>Oscillator</em> divides the oscillator and mixes sum and difference tones.'],
+    ['Floor','Moves any sub below 30 Hz up by octaves so it stays a note. Comes on with Bass.'],
+    ['Glide or Vibrato','Glide slides between notes. Vibrato wobbles the pitch.'],
+    ['Rate','Glide time, or vibrato speed.'],
+    ['Corrupt','Tight locks firmly. Wild lets the loop hunt, chirp and stutter.'],
+    ['Oscillator ladder','Eight steps from unison to three octaves up. Tap a bar.'],
+    ['Oscillator root','Unison, or an octave or two lower.'],
+    ['Expression bar','Shows the pedal. It sweeps the interval by default.'],
+    ['Tracking','Shows the note Bitrot hears and how firmly it has locked on.'],
+    ['Presets','Sixteen slots in four colours. Tap to load, hold to save.'],
+    ['Footswitches','On-screen copies of A to D.'],
+    ['Bypass','Turns the effect off.']
+  ],
+  extra: [
+    ['Deep page', [['Vibrato depth','How far the vibrato swings, 0.1 to 6 semitones.'],['Tracking compressor','Evens out your playing so the loop locks better.'],['Gate sensitivity','How quiet a note can be before it cuts off.'],['Floor frequency','25, 30 or 40 Hz.'],['Sum or divide','In Oscillator root, mix sum and difference tones or plain division.'],['Bend','A smooth, unstepped bend of the interval, up to 36 semitones.']]]
+  ],
+  feet: [
+    ['A','Bypass','Flips on or off while held'],
+    ['B','Next subharmonic interval','Previous subharmonic interval'],
+    ['C','Freeze on or off','Freeze while held'],
+    ['D','Octave up on or off','Octave up while held'],
+    ['A + B','Next preset',''],
+    ['C + D','Hand the footswitches to the next Bitrot','Keeper (hold 1 s)']
+  ],
+  exp: 'Sweeps the oscillator interval. Heel is unison, toe is three octaves up, stepping through the harmonic series like a bugle call. Click the expression bar to sweep Dry, Rate, Corrupt, a level or Bend instead.',
+  recipes: [
+    { name: 'Equinox', for: 'High melodies', hear: 'A huge sub three octaves down under a bright fifth-and-octave voice, with a slow slide between notes.',
+      k: [['Square',.5,'ten'],['Subharmonic',.75,'ten'],['Oscillator',.45,'ten'],['Level',.4,'ten'],['Rate',.85,'ten']],
+      c: [['Sub','−3 oct'],['Sub root','Unison'],['Mode','Glide'],['Osc','+2 oct 5th'],['Osc root','−1']],
+      play: 'Factory preset 1 in the red bank. Play slow melodies high on the neck.' },
+    { name: 'Fisted Fifth Riffs', for: 'Heavy riffs', hear: 'Fat fifths above and below every note, like a whole band of square waves.',
+      k: [['Square',.5,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Level',.75,'ten'],['Rate',.8,'ten']],
+      c: [['Sub','−2 oct 5th'],['Mode','Glide'],['Osc','+1 oct 5th']],
+      play: 'Factory preset 2. Play simple single-note riffs.' },
+    { name: 'Bass Hole', for: 'Bass guitar', hear: 'A deep synth bass under your clean tone, steady and tight.',
+      k: [['Square',0,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Dry',.45,'ten'],['Level',.6,'ten'],['Corrupt',.15,'=Tight']],
+      c: [['Input','Bass'],['Sub','−1 oct'],['Sub root','Oscillator'],['Osc','+2 oct']],
+      play: 'Factory preset 3. Set Sum or divide to Divided on the Deep page.' },
+    { name: 'Laser', for: 'Sci-fi leads', hear: 'A fast, wobbling retro laser three octaves up, loose enough to chirp.',
+      k: [['Square',.3,'ten'],['Subharmonic',.4,'ten'],['Oscillator',.7,'ten'],['Rate',.78,'ten'],['Corrupt',.6,'=Loose']],
+      c: [['Mode','Vibrato'],['Osc','+3 oct'],['Sub root','Oscillator']],
+      play: 'Factory preset 4. Vibrato depth is 55% on the Deep page.' },
+    { name: 'Chiptune Bugle', for: 'Expression pedal', hear: 'Rocking the pedal plays an arpeggio up the harmonic series over each note.',
+      k: [['Square',.4,'ten'],['Oscillator',.7,'ten'],['Rate',.3,'ten'],['Corrupt',.2,'=Tight']],
+      c: [['Mode','Glide'],['Expression','Interval']],
+      play: 'Hold a note and rock the expression pedal from heel to toe.' },
+    { name: 'Data Drone', for: 'Freeze', hear: 'Your note frozen as a drone while the Square keeps following what you play over it.',
+      k: [['Square',.6,'ten'],['Subharmonic',.6,'ten'],['Oscillator',.5,'ten'],['Corrupt',.4,'=Loose']],
+      c: [['Sub','−2 oct'],['Osc','+1 oct']],
+      play: 'Play a root note, press footswitch C to freeze it, then solo over the top.' }
+  ],
+  tips: [
+    ['Single notes only','Bitrot tracks one note at a time. Chords make it hunt, which can be fun on purpose.'],
+    ['Low notes fluttering?','Switch Floor on so very low subs stay a note.'],
+    ['More glitch on bass','Bass leans tight. Push Corrupt further for the same mess as guitar.'],
+    ['Keeper','Hold C and D for a second to save the last 8 seconds and every setting to Documents, Flip Fella Keepers.']
+  ],
+  install: 'Download <code>Bitrot-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Bitrot.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'oilslick', name: 'OilSlick', accent: '#c77dff', kind: 'Pitch modulator', ver: 'v0.1',
+  tagline: 'Wobbly, glitchy, gloriously unstable',
+  lede: 'OilSlick adds two pitch-shifted voices that trail behind your playing. Magic feeds them back into each other until they climb, dive, sparkle and finally scream on their own. It is meant to be wobbly and unstable. Based on the EarthQuaker Devices Rainbow Machine.',
+  what: 'Two trailing pitch voices that climb, sparkle and scream. Based on the Rainbow Machine.',
+  flow: [['Your playing','dry stays'],['Primary voice','the harmony'],['Secondary','an octave away'],['Tracking','lag behind you'],['Magic','feedback loop',1],['Tone','dark to bright']],
+  quick: [
+    ['Leave Pitch at noon','Unison gives a wobbly chorus. Play and listen.'],
+    ['Turn Pitch','Right of noon climbs up to a third, left drops down to a fourth.'],
+    ['Switch on Magic','Click the Magic switch and raise the dial for repeats, then pixie sparkle.'],
+    ['Push it','Past the white mark the loop feeds itself and starts to sing.']
+  ],
+  panel: { img: 'oilslick', w: 1260, h: 660, badges: [[1,432,22],[2,652,22],[3,772,22],[4,942,22],[5,1062,22],[6,40,118],[7,40,434],[8,470,110],[9,584,110],[10,470,304],[11,584,304],[12,852,82],[13,752,120],[14,728,356],[15,728,452],[16,842,452],[17,1000,118],[18,1000,384],[19,40,564],[20,858,546]] },
+  legend: [
+    ['Version','<em>V2</em> is louder and cleaner with longer Tracking. <em>First edition</em> is quieter and hissier, and its Magic takes off sooner.'],
+    ['Trails','Repeats ring out when bypassed.'],
+    ['Pages','<em>Main</em> is the panel. <em>Pedal</em> sets up footswitches and expression.'],
+    ['Keep','Logs every setting and the last 8 seconds of audio. The arrow beside it adds notes and exports.'],
+    ['Footswitches','The dot turns green when your footswitch is connected.'],
+    ['Pitch','The big dial. Noon is unison, a wobbly chorus. Up to a third above or a fourth below. Above noon the Magic trails climb as they repeat, below noon they fall.'],
+    ['Pitch card','The shift in semitones and the interval name.'],
+    ['Primary','Level of the main shifted voice. Unity at about 2 o\'clock.'],
+    ['Secondary','A second voice an octave from the Primary. Right of noon is an octave up, left an octave down. Noon is off.'],
+    ['Tracking','The lag between your note and the shifted voices, from tight up to 750 ms. Turning it while Magic screams bends the pitch like tape.'],
+    ['Tone','Treble roll-off, dark to bright.'],
+    ['Magic switch','Magic only works with this on, as on the pedal.'],
+    ['Magic','Feedback between the voices. Low: a few repeats. Middle: chorus, then pixie trails. Past the white mark it oscillates, and at the top it distorts.'],
+    ['Loop gain','Shows where Magic sits: repeat, chorus, pixie, runaway, burn.'],
+    ['Tame','Cuts the feedback and trails instantly.'],
+    ['Hold: run away','Hold on screen to push Magic into a runaway, like footswitch B.'],
+    ['Pebble','Floats up as the pitch rises and sinks as it falls. The ring shifts colour with the pitch. It shakes and screams in a runaway.'],
+    ['Mood card','What Pebble is doing, in words.'],
+    ['Footswitch buttons','On-screen A to D. They act exactly like footswitches.'],
+    ['Expression','Shows the pedal. PITCH and MAGIC pick what it moves.']
+  ],
+  feetIntro: 'Optional. The four squares along the bottom of the panel act exactly like footswitches, taps, holds and pairs included.',
+  feet: [
+    ['A','Bypass on or off','Flips while held'],
+    ['B','Magic on or off','Run away: Magic climbs into self-oscillation over about 2 s, drops back when you let go'],
+    ['C','Jump a third up, tap again to come back','Dive: glides to a fourth down, springs back on release'],
+    ['D','Freeze on or off: the trail holds as a pad','Freeze while held'],
+    ['A + B','Tame: kill the feedback now',''],
+    ['C + D','Hand the footswitches to the next OilSlick','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Pitch: heel a fourth down, toe a third up, with a small resting zone at unison. Slow moves land on semitones, fast ones glide. The PITCH and MAGIC buttons on the bar switch between the two.',
+  recipes: [
+    { name: 'Wobbly Wash', for: 'Clean chords', hear: 'A seasick unison chorus that drifts gently behind your playing.',
+      k: [['Pitch',.556,'=0.0'],['Primary',.72,'=UNITY'],['Secondary',.5,'=OFF'],['Tracking',.55,'=29 MS'],['Tone',.6,'=5.7 KHZ']],
+      c: [['Magic switch','Off'],['Version','V2']],
+      play: 'Strum open chords. Turn Tracking left for a lazier wobble.' },
+    { name: 'Pixie Trails', for: 'Arpeggios', hear: 'Glassy, aliased sparkle climbing a minor third with every repeat.',
+      k: [['Pitch',.889,'=+3.0'],['Primary',.72,'=UNITY'],['Secondary',.75,'=OCT UP 50%'],['Tracking',.55,'=29 MS'],['Tone',.6,'=5.7 KHZ'],['Magic',.7,'pct']],
+      c: [['Magic switch','On',1]],
+      play: 'Pick single notes with gaps and let the trails climb.' },
+    { name: 'Falling Fourths', for: 'Moody leads', hear: 'Darker trails that tumble down a fourth on each repeat.',
+      k: [['Pitch',0,'=−5.0'],['Primary',.72,'=UNITY'],['Tracking',.3,'=127 MS'],['Tone',.4,'=3.4 KHZ'],['Magic',.55,'pct']],
+      c: [['Magic switch','On',1]],
+      play: 'Slow bends and long notes. The longer Tracking smears the fall.' },
+    { name: 'Octave Organ', for: 'Chords and bass lines', hear: 'A tight octave-down voice under your chords, like an organ pedal.',
+      k: [['Pitch',.556,'=0.0'],['Primary',.72,'=UNITY'],['Secondary',.2,'=OCT DOWN 60%'],['Tracking',.8,'=TIGHT'],['Tone',.4,'=3.4 KHZ']],
+      c: [['Magic switch','Off']],
+      play: 'Keep Tracking tight so the octave stays locked to your notes.' },
+    { name: 'Rocket Runaway', for: 'Noise breaks', hear: 'The loop feeds itself into a climbing, screaming oscillation.',
+      k: [['Pitch',.778,'=+2.0'],['Primary',1,'=+5.7 DB'],['Tone',.8,'=9.5 KHZ'],['Magic',.85,'pct']],
+      c: [['Magic switch','On',1],['Run away','Hold B']],
+      play: 'Play one note, then hold footswitch B or HOLD: RUN AWAY. Turn Tracking for tape bends. Tap A and B together to tame it.' },
+    { name: 'Frozen Rainbow', for: 'Pads', hear: 'The last moment of the trail held as a shimmering pad you play over.',
+      k: [['Pitch',.889,'=+3.0'],['Secondary',.75,'=OCT UP 50%'],['Magic',.6,'pct']],
+      c: [['Magic switch','On',1],['Freeze','D']],
+      play: 'Let the trails bloom, tap footswitch D, then play clean over the top.' }
+  ],
+  tips: [
+    ['Magic doing nothing?','Magic only works with the Magic switch on and Primary or Secondary turned up.'],
+    ['Tape bends','Turn Tracking while Magic is screaming to bend the pitch like tape.'],
+    ['Too wild?','Press footswitches A and B together, or TAME on the panel.'],
+    ['First edition','Quieter and hissier, with a Magic knob that takes off sooner.']
+  ],
+  install: 'Download <code>OilSlick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>OilSlick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'divebomb', name: 'Divebomb', accent: '#39ff88', kind: 'Pitch pedals', ver: 'v0.1',
+  tagline: 'Bend, dive, drop, harmonise',
+  lede: 'Divebomb is seven classic pitch pedals in one plugin. The Treadle section is four whammy pedals your expression pedal rocks: bends, dives, harmonies and detune. The Stomp section is three footswitch pedals: an instant drop, hammer-on jumps and a smooth glide. It tracks tight right down to a five-string bass\'s low B.',
+  what: 'Whammy bends and dives plus footswitch drops and hammer-ons. Bass ready.',
+  flow: [['Your playing','guitar or bass'],['Low Anchor','keeps your lows dry'],['Treadle or Stomp','pick a section',1],['Pitch shifter','Live or Studio'],['Level','back to unity']],
+  quick: [
+    ['Set Input','Guitar or Bass. Bass tracks down to low B and picks the bass lists.'],
+    ['Stay in Treadle','Pick a model (Five, Dual, Neon or Bass) and a setting, like 1 OCT UP.'],
+    ['Rock the pedal','The expression pedal is the treadle. Heel is your normal note, toe is the full shift.'],
+    ['Try Stomp','Press footswitches A and B together. Now D drops your tuning and B and C jump to set pitches.']
+  ],
+  panel: { img: 'divebomb', w: 1260, h: 660, badges: [[1,228,26],[2,590,26],[3,874,26],[4,1086,26],[5,36,120],[6,120,236],[7,36,466],[8,488,120],[9,530,262],[10,486,410],[11,676,458],[12,866,120],[13,868,206],[14,892,262],[15,1016,262],[16,1140,262],[17,866,414],[18,1052,414],[19,36,550],[20,322,548],[21,892,550],[22,1048,556],[23,1140,556]] },
+  altImg: { img: 'divebomb-stomp', w: 1260, h: 660, cap: 'The Stomp section. The drop on the left (footswitch D), Pitch 1 or the glide and Pitch 2 in the middle (B and C), and the trill on the right. Dry + keeps your own note under the jumps.' },
+  legend: [
+    ['Model','<em>Five</em>, <em>Dual</em>, <em>Neon</em> or <em>Bass</em>. Each brings its own list of settings. Hold B and C to step through them.'],
+    ['Section','<em>Treadle</em> for the whammy pedals, <em>Stomp</em> for the footswitch ones. A and B together switch.'],
+    ['Latency','The delay the shift adds right now. <em>Live</em> adds no fixed delay. <em>Studio</em> is cleaner on chords, with a small delay Ableton lines up.'],
+    ['Pages','<em>Main</em>, <em>Deep</em> for the finer settings and Level, and <em>Pedal</em> for footswitches and expression.'],
+    ['Setting cards','The type (Bend, Detune, Harmony, Octave) and the setting, such as 1 OCT UP.'],
+    ['Setting dial','Every setting for the model, grouped into Bend, Detune and Harmony. Tap a tick or press C.'],
+    ['Classic or Chords','Classic for single notes like the originals. Chords handles full chords more smoothly. Hold A to switch.'],
+    ['Treadle card','How far the pitch has moved right now, in semitones.'],
+    ['Treadle','Your expression pedal moves it, or drag it on screen. Heel is dry, toe is the full setting.'],
+    ['Rise and fall','How fast footswitch B\'s momentary whammy rises and falls.'],
+    ['Trails','Lets the shifted sound ring out when you switch off.'],
+    ['Shift layer','A second shift on top of the treadle: a drop tune or a detune, up or down. Footswitch D turns it on.'],
+    ['Layer on','On-screen switch for the shift layer.'],
+    ['Glide','How the shift layer moves into place, from instant to a slow slide.'],
+    ['Glitch','How much of the originals\' warble you hear. Clean, Original, or more.'],
+    ['Crossover','Below this frequency your playing stays dry when Low end is on.'],
+    ['Low end','Low Anchor. Keeps your lows dry and in time under the shift. Auto turns on for Bass.'],
+    ['Input','Guitar or Bass. Bass tracks down to a five-string\'s low B.'],
+    ['Pebble','Stretches up with the pitch and squashes down with a drop.'],
+    ['Footswitch buttons','On-screen A to D, labelled with what each does in this section.'],
+    ['Pairs','A and B switch section. Hold B and C for the next model. Hold C and D for a Keeper.'],
+    ['Keep','Saves a Keeper.'],
+    ['On','Tap to bypass.']
+  ],
+  extra: [
+    ['Treadle models', [['Five','The classic whammy: bends up to 2 octaves, the dive bomb, two detunes and nine harmonies.'],['Dual','Five plus a drop tune side on the shift layer, so you can detune and whammy at once.'],['Neon','Hypersonic 3 octaves up, octave blends, a wide Detune and the neon panel.'],['Bass','Bass-voiced lists: octave up and down bends, octave harmonies and lighter detunes.']]],
+    ['Stomp section', [['The drop','On D. Drops your tuning by a set amount, with or without your dry note. Momentary or latching.'],['Pitch 1','On B. A hammer-on jump to a set pitch, such as an octave up.'],['Glide','Or set B to Glide: slides up or down to an interval and back, with its own shift and return times.'],['Pitch 2','On C. Hammer, Impossible (two pitches in a row), or a sequence of 2, 3 or 5 steps.'],['Trill','Hold A to flutter between pitches, at a rate or in sync with Ableton.']]],
+    ['Under the hood', [['Live or Studio','Live adds no fixed delay, best for playing. Studio is cleaner on chords with a small fixed delay Ableton lines up.'],['Classic or Chords','Classic for single notes like the originals. Chords handles full chords more smoothly.'],['Low Anchor','Keeps your low end dry and in time under the shift. Auto turns on for Bass.'],['Glitch','How much of the originals\' warble and glitch you hear. Clean to Original and beyond.'],['Original bandwidth','The originals\' slightly dark top end.']]]
+  ],
+  feet: [
+    ['A','Treadle: on or off. Stomp: on or off','Treadle: Classic or Chords. Stomp: trill'],
+    ['B','Treadle: momentary whammy, rises while held, falls on release. Stomp: Pitch 1 or the glide',''],
+    ['C','Treadle: next setting. Stomp: Pitch 2','Treadle: previous setting'],
+    ['D','Treadle: shift layer, tap to latch. Stomp: the drop','Treadle: shift layer while held'],
+    ['A + B','Switch between Treadle and Stomp',''],
+    ['B + C','','Next model (hold 1 s)'],
+    ['C + D','Hand the footswitches to the next Divebomb','Keeper (hold 1 s)']
+  ],
+  exp: 'In Treadle it is the treadle: heel is your normal note, toe is the full shift. In Stomp it sets the trill rate. You can point it at glide times or Level instead on the Pedal page.',
+  recipes: [
+    { name: 'Octave Shriek', for: 'Lead guitar', hear: 'The classic whammy squeal, rising a full octave as you push the pedal.',
+      s: [['Treadle',0]],
+      c: [['Section','Treadle'],['Model','Five'],['Setting','BEND 1 OCT UP'],['Algorithm','Classic']],
+      play: 'Hold a bent note and rock the pedal to the toe and back in time.' },
+    { name: 'Dive Bomb', for: 'Noise breaks', hear: 'A three-octave plunge into growling mud, like a whammy bar all the way down.',
+      s: [['Treadle',0]],
+      c: [['Model','Five'],['Setting','BEND DIVE BOMB']],
+      play: 'Hit an open chord and stamp the pedal to the toe. Or hold footswitch B for a timed dive.' },
+    { name: 'Harmony Twins', for: 'Melodies', hear: 'A second voice a third or fourth above every note, like twin lead guitars.',
+      s: [['Treadle',1]],
+      c: [['Model','Five'],['Setting','HARMONY 3RD UP / 4TH UP'],['Algorithm','Classic']],
+      play: 'Park the pedal at the toe. The harmony follows your key choice between third and fourth.' },
+    { name: 'Thick Detune', for: 'Chords', hear: 'A slightly flat copy of your chords, like two guitars in unison.',
+      s: [['Treadle',1]],
+      c: [['Model','Five'],['Setting','DETUNE SHALLOW'],['Algorithm','Chords']],
+      play: 'Toe down and strum. Try DEEP for a more seasick double.' },
+    { name: 'Drop Without Retuning', for: 'Heavy riffs', hear: 'Instantly down two semitones, so you play drop-tuned riffs in standard tuning.',
+      k: [['Glide',0,'=INSTANT']],
+      c: [['Model','Dual'],['Shift layer','Drop'],['Interval','Down 2'],['Layer on','Tap D',1]],
+      play: 'Tap footswitch D to drop, tap again to come back. The whammy still works on top.' },
+    { name: 'Hypersonic', for: 'Sci-fi leads', hear: 'Three octaves up, thin and glassy, like a theremin.',
+      s: [['Treadle',0]],
+      k: [['Glitch',.5,'=ORIGINAL']],
+      c: [['Model','Neon'],['Setting','HYPER 3 OCT UP']],
+      play: 'Single notes high on the neck. Sweep the pedal slowly.' },
+    { name: 'Sub Bass Octave', for: 'Bass guitar', hear: 'A deep octave down blended under your own bass, steady and in time.',
+      s: [['Treadle',1]],
+      k: [['Crossover',.5,'=100 HZ']],
+      c: [['Input','Bass'],['Model','Bass'],['Setting','HARMONY OCT DN / OCT UP'],['Low Anchor','Auto'],['Latency','Live']],
+      play: 'Park the pedal at the toe. Your low end stays dry below the crossover.' },
+    { name: 'Hammer Time', for: 'Stomp section', hear: 'Footswitch jumps to an octave and a fifth above, with a trill between them.',
+      k: [],
+      c: [['Section','Stomp'],['B','Hammer, P1 +OCT'],['C','Hammer, P2 7'],['Trill','1/16, Sync',1]],
+      play: 'Hold a note, then stab B and C for instant jumps. Hold A to trill.' },
+    { name: 'Floor Drop', for: 'Stomp section', hear: 'Stamp D and your riff drops a full octave, instantly.',
+      k: [],
+      c: [['Section','Stomp'],['Drop','-OCT'],['Drop footswitch','Momentary']],
+      play: 'Hold D for the heavy bits and let go for the rest.' }
+  ],
+  tips: [
+    ['Chords sound warbly?','Switch the algorithm to Chords, or use Studio latency.'],
+    ['Lows disappearing on bass?','Set Low Anchor to On and raise the crossover.'],
+    ['No expression pedal?','Use footswitch B for a timed whammy, or automate Treadle in Ableton.'],
+    ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
+  ],
+  install: 'Download <code>Divebomb-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Divebomb.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'grotto', name: 'Grotto', accent: '#4fc3a1', kind: 'Cave reverb', ver: 'v0.1',
+  tagline: 'A swarm of short delays that sings',
+  lede: 'Grotto isn\'t a hall or a plate. It\'s a swarm of short delays that behave like a cave. Drag pulls them apart into scattered echoes and bends their pitch as you turn it, and Reflect feeds the cave back into itself until it sings on its own. Based on the EarthQuaker Devices Afterneath.',
+  what: 'A cave of short delays that bends and sings. Based on the Afterneath.',
+  flow: [['Your playing','dry stays untouched'],['Low cut','keeps the cave clean'],['Swarm','short delays',1],['Drag','stretch and bend'],['Reflect','feeds it back'],['Mix','dry and cave']],
+  quick: [
+    ['Start at the defaults','Load Grotto and play. You get a short, diffuse cave.'],
+    ['Turn DRAG anticlockwise','The cave stretches into scattered ping-pong echoes.'],
+    ['Turn Drag while it rings','The tail bends down as you go anticlockwise, up as you come back.'],
+    ['Raise REFLECT','Past about 80% the cave stops dying and sings on its own.']
+  ],
+  panel: { img: 'grotto', w: 960, h: 640, badges: [[1,562,24],[2,798,24],[3,28,96],[4,32,176],[5,404,184],[6,432,458],[7,694,178],[8,836,178],[9,694,284],[10,836,284],[11,694,390],[12,836,390],[13,32,528],[14,652,530]] },
+  legend: [
+    ['Pages','<em>Main</em> is the panel. <em>Deep</em> holds Bass, Mono, Trails, Tame and the Drag modes. <em>Pedal</em> sets up footswitches and expression.'],
+    ['Keep','Logs the moment: every setting plus the last 8 seconds of audio. The arrow beside it adds notes and exports.'],
+    ['Readout cards','Length, Drag, Mode, Reflect, Mix and what Pebble is doing, on flip cards.'],
+    ['The cave','Pebble lives here. Every note echoes round the walls as fading Pebbles. It glows red in a runaway. Click it to ping the cave.'],
+    ['Drag','The big dial. Clockwise the delays sit together as a reverb. Anticlockwise they stretch up to 12 times longer and scatter into gritty ping-pong. Turning it while the cave rings bends the pitch.'],
+    ['Mode','How Drag moves. Smooth and Glide move evenly, Even gives equal pitch steps, and Chromatic, Major, Minor, Pentatonic, Octaves and fifths, and Octaves snap to those intervals.'],
+    ['Length','Decay time, about 0.4 s to 15 s.'],
+    ['Diffuse','Low: each delay is a distinct metallic tap. High: a smooth wash.'],
+    ['Dampen','Clockwise is darker. Each pass round the cave loses more top.'],
+    ['Reflect','Regeneration. Up high the cave sings on its own, following the note you fed it.'],
+    ['Mix','Dry stays at full level to noon, then dips. It never goes fully wet on its own. Dry Kill does that.'],
+    ['Low cut','Thins only the reverb, 20 to 300 Hz. Your dry signal is never filtered.'],
+    ['Footswitch squares','Act exactly like footswitches, taps, holds and pairs included.'],
+    ['Expression bar','Shows the pedal and what it moves.']
+  ],
+  extra: [
+    ['Deep page', [['Bass','Raises the reverb low cut to 120 Hz and keeps your fundamental under Dry Kill.'],['Mono','Mono in and out, like the pedal.'],['Trails','The cave rings out when bypassed. On by default.'],['Tame','Kills Reflect and the tail now.'],['Live or Studio','How Keeper saves.']]]
+  ],
+  feetIntro: 'Optional. The pedal has one switch: tap to latch, hold for momentary. Grotto gives all four that rule. The four squares on screen do the same.',
+  feet: [
+    ['A','Bypass on or off. The cave rings out','On while held'],
+    ['B','Runaway on or off','Runaway while held. Reflect climbs into self-oscillation, then drops back when you let go'],
+    ['C','Freeze on or off. The cave holds as a pad','Freeze while held'],
+    ['D','Dry Kill on or off. A wet-only wash','Dry Kill while held'],
+    ['A + B','Tame: kill Reflect and the tail now',''],
+    ['C + D','Hand the footswitches to the next Grotto','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Drag. Heel is fully anticlockwise, scattered and bent down. Toe is a tight reverb. A slow rock back on the heel is a smooth dive. Click the bar to move Reflect, Length, Mix, Dampen or Diffuse instead.',
+  recipes: [
+    { name: 'Cave Bloom', for: 'Everyday ambience', hear: 'A soft, slightly metallic cave that sits just behind your playing.',
+      k: [['Drag',.75,'=67 MS'],['Length',.55,'=2.9 S'],['Diffuse',.55,'pct'],['Dampen',.4,'=40% DARK'],['Reflect',.4,'pct'],['Mix',.45,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'These are the defaults. Start here and move one dial at a time.' },
+    { name: 'Scattered Ping-pong', for: 'Lead lines', hear: 'Gritty echoes bouncing left and right instead of a smooth reverb.',
+      k: [['Drag',.2,'=175 MS'],['Length',.4,'=1.7 S'],['Diffuse',.2,'pct'],['Reflect',.3,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'Play short, staccato notes so you hear each echo land.' },
+    { name: 'Singing Stalactites', for: 'Drones and noise', hear: 'The cave takes over and sings your note back forever. Turn Drag to bend the scream.',
+      k: [['Drag',.6,'=96 MS'],['Length',.7,'=5.1 S'],['Diffuse',.7,'pct'],['Dampen',.5,'=50% DARK'],['Reflect',.85,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Glide']],
+      play: 'Feed it one note, then stop playing. Press footswitches A and B together to tame it.' },
+    { name: 'Major Melt', for: 'Expression pedal', hear: 'Rocking the pedal bends the tail through the notes of a major scale.',
+      k: [['Length',.7,'=5.1 S'],['Diffuse',.6,'pct'],['Reflect',.55,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Major'],['Expression','Drag']],
+      play: 'Strum a chord, let it ring and slowly rock the pedal back to the heel.' },
+    { name: 'Frozen Floor', for: 'Pads to play over', hear: 'A held, wet-only pad of your chord that you play clean melodies on top of.',
+      k: [['Length',.85,'=8.7 S'],['Diffuse',.85,'pct'],['Dampen',.6,'=60% DARK'],['Mix',.6,'pct']],
+      c: [['Freeze','C'],['Dry Kill','D']],
+      play: 'Hold footswitch C to freeze, then press D a moment later. Let go to release.' },
+    { name: 'Tin Can Taps', for: 'Percussive parts', hear: 'Distinct metallic taps with your pick attack, like a small tiled room.',
+      k: [['Drag',.9,'=37 MS'],['Length',.3,'=1.2 S'],['Diffuse',.05,'pct'],['Reflect',.2,'pct'],['Mix',.4,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'Great on muted funk chords and drum loops.' },
+    { name: 'Bass Grotto', for: 'Bass guitar', hear: 'A wide, washy cave above a solid, untouched low end.',
+      k: [['Length',.6,'=3.5 S'],['Diffuse',.7,'pct'],['Reflect',.35,'pct'],['Mix',.6,'pct']],
+      c: [['Bass','On',1],['Dry Kill','On',1]],
+      play: 'Turn on Bass on the Deep page. Your fundamental stays under the wash even with Dry Kill.' }
+  ],
+  tips: [
+    ['Cave won\'t stop?','Press footswitches A and B together, or Tame on the Deep page.'],
+    ['Bass sounds clean','The dry path has no filtering. The reverb has its own low cut.'],
+    ['Pairs never misfire','Hold C then press D a moment later for freeze plus Dry Kill.'],
+    ['Remote control','Every footswitch job is also a parameter you can automate or map.']
+  ],
+  install: 'Download <code>Grotto-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Grotto.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'monolith', name: 'Monolith', accent: '#7aa7ff', kind: 'Cinematic reverb', ver: 'v0.1',
+  tagline: 'Long, modulated, Blade Runner space',
+  lede: 'Monolith is a big, slow, modulated reverb built for long tails. Pick a lush plate or a massive cathedral, add shimmer with Pitch Vector, swell notes in from nothing or hold the whole room forever with Infinite. Based on the Meris Mercury7.',
+  what: 'Huge modulated plate and cathedral reverbs with shimmer. Based on the Mercury7.',
+  flow: [['Your playing','dry never filtered'],['Predelay','gap before the room'],['Space','Ultraplate or Cathedra',1],['Pitch Vector','shimmer in the loop'],['Tone and motion','lo, hi, modulate'],['Mix','dry and wash']],
+  quick: [
+    ['Load slot 1','Wide Plate is the default. Play and listen.'],
+    ['Try Cathedra','Switch the algorithm in the header. It builds slowly into something massive.'],
+    ['Add shimmer','Click a Pitch Vector stop, like +Octave, and raise PV Mix.'],
+    ['Hold it forever','Turn on Infinite and play dry over the frozen pad.']
+  ],
+  panel: { img: 'monolith', w: 1260, h: 660, badges: [[1,448,22],[2,708,22],[3,852,22],[4,1108,22],[5,40,118],[6,40,206],[7,54,370],[8,178,370],[9,302,370],[10,470,120],[11,586,120],[12,470,256],[13,586,256],[14,742,120],[15,858,120],[16,742,256],[17,1000,118],[18,1072,298],[19,1000,448],[20,40,554],[21,318,552],[22,802,552],[23,1046,552]] },
+  legend: [
+    ['Algorithm','<em>Ultraplate</em>: a lush plate with a fast build. <em>Cathedra</em>: a huge room with a slow build. Switching keeps the old tail ringing.'],
+    ['Bass Guard','On by default. Keeps lows out of the reverb, even after the pitch shifter.'],
+    ['Views','<em>Main</em>, <em>Deep</em> for the pedal\'s globals, and <em>Pedal</em> for footswitches and expression.'],
+    ['Footswitches','The dot turns green when your footswitch is connected. Click for options.'],
+    ['Space cards','The algorithm and how long the tail lasts.'],
+    ['Tail meter','The last 8 seconds of the tail building and fading.'],
+    ['Space Decay','How long the tail lasts, from a quarter of a second to very long.'],
+    ['Predelay','A gap of up to 500 ms before the reverb starts.'],
+    ['Density','Alt knob, drawn dimmer. How thick the reflections are.'],
+    ['Lo Frequency','Below 9 o\'clock cuts lows from the reverb. Above noon gives a big low bloom.'],
+    ['Attack Time','Alt knob. How slowly swells fade in.'],
+    ['Hi Frequency','Brightness of the tail.'],
+    ['Vibrato','Alt knob. Pitch wobble on the tail.'],
+    ['Modulate','How much the tail moves and choruses.'],
+    ['Mod Speed','Alt knob. How fast it moves.'],
+    ['Mix','Dry stays full until noon. Fully up is a full wash.'],
+    ['Pitch Vector','Off, −Octave, slight down, slight up, +Fifth or +Octave. The shift happens inside the loop, so each pass climbs again.'],
+    ['PV Mix','How much of the shifted signal you hear.'],
+    ['Shimmer','Tap to switch shimmer on or off. Hold for a moment of it.'],
+    ['Pebble','Glows coral in a swell, shuts its eyes in Infinite, throws violet sparks with shimmer.'],
+    ['Footswitch buttons','On-screen A to D. They do the same as your footswitches.'],
+    ['Presets','Sixteen slots seeded with the pedal\'s factory bank. Click loads, right-click saves.'],
+    ['Expression','Shows the pedal and what it moves. Click to change.']
+  ],
+  extra: [
+    ['Factory bank', [['Red','1 Wide Plate, 2 Upstairs, 3 Undertow, 4 Bloom'],['Yellow','5 Long Breath, 6 Driftwood, 7 Lift, 8 Rising'],['Green','9 Underground, 10 Resonator, 11 Parasite, 12 Glass'],['Blue','13 Little Hall, 14 Sustain Field, 15 Low Keys, 16 Fading Octave']]],
+    ['Deep page', [['Trails and Kill Dry','Tails ring after bypass. Kill Dry for a return track.'],['Auto swell, Infinite','Switches for each.'],['Trims','Input and output level.'],['Shimmer interval','Which stop footswitch D brings in.'],['Morph','Set heel and toe so the expression pedal sweeps the whole patch.']]]
+  ],
+  feet: [
+    ['A','Bypass, with trails','Clear the tail now'],
+    ['B','Auto swell on or off','Swell while held: the reverb dips, then rises'],
+    ['C','Infinite on or off','Infinite while held'],
+    ['D','Shimmer on or off','Shimmer while held'],
+    ['A + B','Next preset','Previous preset (hold 1 s)'],
+    ['C + D','Hand the footswitches to the next Monolith','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Mix, dry at the heel and a full wash at the toe. Heel down is a clean spot for bass. Click the bar for Space Decay, Modulate, PV Mix or Morph.',
+  recipes: [
+    { name: 'Wide Plate', for: 'Everyday', hear: 'A wide, smooth plate with a gentle shimmer of movement.',
+      k: [['Space Decay',.63,'=5.4 S'],['Modulate',.09,'pct'],['Mix',.61,'pct'],['Hi Freq',1,'pct']],
+      c: [['Algorithm','Ultraplate'],['Pitch Vector','Off'],['Slot','1']],
+      play: 'The factory default. Click slot 1 to get back here.' },
+    { name: 'Blade Runner Bloom', for: 'Synth pads', hear: 'A vast, slowly building cathedral that moves and breathes.',
+      k: [['Space Decay',.85,'=20 S'],['Modulate',.4,'pct'],['Mix',.5,'pct'],['Hi Freq',.6,'pct']],
+      c: [['Algorithm','Cathedra']],
+      play: 'Hold long chords. Cathedra builds slowly, so give it a few seconds.' },
+    { name: 'Shimmer Stairway', for: 'Guitar ambience', hear: 'Every pass climbs an octave higher, into a glittering halo.',
+      k: [['Space Decay',.8,'=12 S'],['Modulate',.2,'pct'],['PV Mix',.6,'pct'],['Mix',.5,'pct']],
+      c: [['Algorithm','Ultraplate'],['Pitch Vector','+Octave']],
+      play: 'Play slow, open chords. Lower PV Mix if it gets too bright.' },
+    { name: 'Sub Cathedral', for: 'Dark drones', hear: 'A huge, dark room that drops an octave on every pass.',
+      k: [['Space Decay',.75,'=12 S'],['PV Mix',.5,'pct'],['Mix',.45,'pct'],['Hi Freq',.4,'pct']],
+      c: [['Algorithm','Cathedra'],['Pitch Vector','−Octave'],['Bass Guard','On',1]],
+      play: 'Bass Guard keeps the octave-down shade clean of mud.' },
+    { name: 'Endless Room', for: 'Play over a pad', hear: 'Your chord held at a steady level forever while you play dry on top.',
+      k: [['Space Decay',.7,'=7.6 S'],['Modulate',.25,'pct'],['Mix',.6,'pct']],
+      c: [['Infinite','C'],['Algorithm','Ultraplate']],
+      play: 'Play a chord, tap footswitch C. The send closes, so new notes stay dry. Tap C again to let go.' },
+    { name: 'Violin Swells', for: 'Lead lines', hear: 'Every note fades in from silence like a bowed string, then rings into the room.',
+      k: [['Space Decay',.7,'=7.6 S'],['Mix',.55,'pct']],
+      c: [['Auto swell','B'],['Algorithm','Ultraplate']],
+      play: 'Tap footswitch B and play. Set how slowly notes fade in with Attack Time.' },
+    { name: 'Clean Bass Hall', for: 'Bass guitar', hear: 'A wide hall above a bass that stays tight and solid.',
+      k: [['Space Decay',.55,'=3.6 S'],['Mix',.35,'pct']],
+      c: [['Bass Guard','On',1],['Lo Frequency','Fully left'],['Expression','Mix']],
+      play: 'Keep the expression pedal near the heel for verses and push it for big moments.' }
+  ],
+  tips: [
+    ['Dry stays dry','The dry signal never goes through a filter.'],
+    ['Clear in a hurry','Hold footswitch A to clear the tail and let go of Infinite.'],
+    ['Original MIDI chart','Open Original pedal MIDI map on the Pedal page to use Mercury7 templates.'],
+    ['Factory sounds back','Right-click a slot to restore its factory setting.']
+  ],
+  install: 'Download <code>Monolith-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Monolith.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'afterglow', name: 'Afterglow', accent: '#d4a537', kind: 'Sustain + sostenuto',
+  tagline: 'Spectral sustain, piano pedal',
+  lede: 'Afterglow works like a piano\'s sustain pedal for anything. Hold the brass pedal, play, and every new note becomes a layer that rises, rings and fades like strings left vibrating. Based on the PLUS Pedal II.',
+  what: 'A sustain pedal for any sound. Notes become layers that ring on.',
+  flow: [['Your playing','any instrument'],['Brass pedal','held down',1],['Catch','grabs notes as layers'],['Rise, Hold, Decay','how layers live'],['Tone + Resonance','colour as they age'],['FX loop','verb, delay, chorus, shimmer']],
+  quick: [
+    ['Drop it on a track','Put Afterglow on any audio track.'],
+    ['Hold the brass pedal','Click and hold it, or press your keyboard\'s sustain pedal.'],
+    ['Play','Each new note becomes a layer. The ticks round the dial light up.'],
+    ['Let go','Layers fade out. Double tap the pedal to clear everything at once.']
+  ],
+  panel: { img: 'afterglow', w: 1260, h: 660, badges: [[1,520,26],[2,1096,26],[3,36,116],[4,110,200],[5,36,474],[6,316,474],[7,488,124],[8,600,124],[9,488,260],[10,600,260],[11,458,408],[12,742,124],[13,726,268],[14,998,116],[15,998,188],[16,1028,230],[17,998,360],[18,998,398],[19,998,446],[20,42,556],[21,142,600],[22,334,556],[23,564,566],[24,974,568],[25,974,610],[26,1116,560]] },
+  legend: [
+    ['Input','Guitar, Synth or Bass. Synth listens for chord changes on pads with no attack. Bass analyses in twice the detail, so low notes stay in tune.'],
+    ['Pages','<em>Main</em> is the panel. <em>Pedal</em> sets up footswitches and expression.'],
+    ['Layer cards','What the pedal is doing and how many layers are sounding.'],
+    ['Layers dial','1 to 10 layers, or Infinite, where older layers fold into one so the wall never cuts off. Low settings are clean, high ones a wall of chords.'],
+    ['Catch','<em>Single</em> catches one layer per press, even quiet tails. <em>Group</em> catches up to the Layers count, then lets you play over it. <em>All</em> catches every new note and replaces the oldest.'],
+    ['Clear','Empties every layer.'],
+    ['Rise','How each layer fades in, from 80 ms to 5 s.'],
+    ['Decay','How each layer fades out, from 30 ms to 20 s. At the very top it is Infinite.'],
+    ['Tone','Darkens each layer as it ages, like a real string. Fully up keeps the full timbre.'],
+    ['Resonance','Off at 12 o\'clock. Clockwise adds upper harmonics, anticlockwise lower ones.'],
+    ['Hold','<em>None</em>: every layer rises then fades. <em>First</em>: the first note of each press holds while the rest fade around it. <em>All</em>: everything holds while the pedal is down. Hold None with Tone fully down gives the piano modes.'],
+    ['Level and Input gain','Layer level and input trim.'],
+    ['Layer lanes','One bar per layer: white while rising, brass while held, grey while fading.'],
+    ['FX card','The loop effect and where it sits.'],
+    ['FX type','Verb, Delay, Chorus or Shimmer.'],
+    ['Amount and Mix','How strong the effect is, and how much you hear.'],
+    ['Pre, Loop, Post','Before the layers, on the layers only, or on everything.'],
+    ['Kill Dry','Layers only, no dry signal. Footswitch C toggles it.'],
+    ['Aux','The pedal\'s own extra footswitch. <em>Wet</em> removes the dry, <em>Latch</em> holds the Brass Pedal down for you, <em>Hide</em> hides the layers while the pedal is down. Footswitch B turns it on.'],
+    ['Pebble','Eyes pop on each catch, holds its breath while layers are held, and rings stack above its head as layers build.'],
+    ['Keep','Saves a Keeper. The card next to it picks Live or Studio.'],
+    ['Brass Pedal','Click and hold to sustain. Drag up to ease off. Two quick presses clear everything. Right-click to choose a key or touch strip for it.'],
+    ['Presets','Sixteen slots in four colours. Tap to load, hold to save. Footswitch D steps through them.'],
+    ['Footswitches','On-screen A to D. The dot turns green when your footswitch is connected.'],
+    ['Expression','Plays the Brass Pedal to start with. Click to send it elsewhere.'],
+    ['On','Tap to bypass. Footswitches A and B together do the same.']
+  ],
+  feet: [
+    ['A','Brass Pedal: down while your foot is down. Double tap clears',''],
+    ['B','Aux on or off','Next Aux mode (Wet, Latch, Hide)'],
+    ['C','Kill Dry on or off','Clear every layer'],
+    ['D','Next preset','Previous preset'],
+    ['A + B','Bypass, layers ring out',''],
+    ['C + D','Hand the footswitches to the next Afterglow','Keeper (hold 1 s)']
+  ],
+  feetIntro: 'Optional. The footswitches follow the PLUS Pedal II: the Brass Pedal under your left foot, the pedal\'s own Aux switch next to it. The A to D squares in the bottom strip do the same.',
+  exp: 'Plays the Brass Pedal to start with: rock heel to toe and layers swell in and fade away, like the pedal\'s own gradual sensor. Half way is a half pedal. Click the expression bar to send it to Level, Decay, FX Mix, Tone, Resonance, Rise or FX Amount instead.',
+  recipes: [
+    { name: 'Real Piano Pedal', for: 'Keys with a sustain pedal', hear: 'Exactly like a piano. Notes ring while the pedal is down and get damped when you lift it.',
+      k: [['Layers',1,'aLayers'],['Rise',.15,'aRise'],['Decay',.803,'aDecay'],['Tone',.1,'pct']],
+      c: [['Catch','All'],['Hold','None']],
+      play: 'Use your keyboard\'s sustain pedal. The ring turns yellow. Tone now sets how fast the dampers fall.' },
+    { name: 'String Swell', for: 'Guitar, slow melodies', hear: 'Each note fades in like a bowed string and lingers in a soft room.',
+      k: [['Layers',.3,'aLayers'],['Rise',.655,'aRise'],['Decay',.803,'aDecay'],['Tone',.6,'pct'],['Resonance',.5,'aRes'],['Amount',.6,'pct'],['FX Mix',.35,'pct']],
+      c: [['Catch','All'],['Hold','None'],['FX loop','Loop'],['FX type','Verb']],
+      play: 'Hold the brass pedal and play a slow melody. Four notes ring at once.' },
+    { name: 'Drone Foundation', for: 'Playing over a root note', hear: 'One note becomes an endless, warm bed with a little extra low end, so you can solo over it.',
+      k: [['Layers',0,'aLayers'],['Rise',.778,'aRise'],['Decay',1,'aDecay'],['Tone',.8,'pct'],['Resonance',.35,'aRes'],['Amount',.5,'pct'],['FX Mix',.25,'pct']],
+      c: [['Catch','Single'],['Hold','All'],['FX loop','Post'],['FX type','Shimmer']],
+      play: 'Press the pedal while you play your root note, keep it down, then play over the top.' },
+    { name: 'Chord Cathedral', for: 'Big chords', hear: 'The first chord holds like an organ while later notes bloom and fade around it, with a bright shimmer.',
+      k: [['Layers',.2,'aLayers'],['Rise',.389,'aRise'],['Decay',.88,'aDecay'],['Tone',.7,'pct'],['Resonance',.7,'aRes'],['Amount',.55,'pct'],['FX Mix',.4,'pct']],
+      c: [['Catch','Group'],['Hold','First'],['FX loop','Loop'],['FX type','Shimmer']],
+      play: 'Press the pedal on a chord, then play a melody over it.' },
+    { name: 'Infinite Wall', for: 'Post-rock climaxes', hear: 'Every note piles onto a wall of sound that never cuts off, until you clear it.',
+      k: [['Layers',1,'aLayers'],['Rise',.876,'aRise'],['Decay',1,'aDecay'],['Tone',.5,'pct'],['Amount',.7,'pct'],['FX Mix',.45,'pct']],
+      c: [['Catch','All'],['Hold','All'],['FX type','Verb'],['Aux','Latch']],
+      play: 'Set Aux to Latch so the Brass Pedal stays down, then play. Press CLEAR when the section ends.' },
+    { name: 'Sostenuto Shadows', for: 'Keys or clean guitar', hear: 'A held chord rings like an open piano lid, waking up whenever you play notes that share its pitches.',
+      k: [['Tone',.1,'pct'],['Decay',.803,'aDecay']],
+      c: [['Catch','Single'],['Hold','None']],
+      play: 'Hold a chord, press the pedal, then play. The ring turns blue.' },
+    { name: 'Chorus Choir', for: 'Layers only', hear: 'A wide, washy choir of your notes with no dry signal, great on a return track.',
+      k: [['Layers',.5,'aLayers'],['Rise',.557,'aRise'],['Decay',.698,'aDecay'],['Tone',.65,'pct'],['Amount',.5,'pct'],['FX Mix',.4,'pct']],
+      c: [['Catch','All'],['Hold','None'],['FX loop','Post'],['FX type','Chorus'],['Kill Dry','On',1]],
+      play: 'Play short phrases and let the choir catch up behind you.' }
+  ],
+  tips: [
+    ['Sustain pedal works now','Send a MIDI track to Afterglow and CC64 holds the pedal. Note C1 does too.'],
+    ['Half pedal','Rock the expression pedal half way, or right-click the Brass Pedal and learn a touch strip or fader. It then sets pedal depth.'],
+    ['Clearing','Double tap the brass pedal, or press CLEAR.'],
+    ['Piano modes','Set Hold to None and Tone near the bottom, below about a fifth of the way up. Catch then picks Real Piano, Piano Group or Sostenuto.']
+  ],
+  install: 'Download <code>Afterglow-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Afterglow.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'seasick', name: 'SeaSick', accent: '#3fc7c0', kind: 'Random modulator', ver: 'v0.1',
+  tagline: 'Random water, warped tape, blooming notes',
+  lede: 'SeaSick is a short delay pushed around by random steps instead of a steady wave, through a low pass gate that follows your playing. Gently, it\'s a drifting chorus or a broken cassette. Pushed, it\'s seasick. The gate makes notes bloom or pluck. Based on the Fairfield Circuitry Shallow Water.',
+  what: 'Random chorus and warble through a playing-sensitive gate. Based on the Shallow Water.',
+  flow: [['Your playing','guitar, bass or line'],['The water','random steps'],['Short delay','pitch drifts',1],['Low pass gate','opens as you play'],['Mix','chorus or vibrato'],['Volume','unity before noon']],
+  quick: [
+    ['Pick your input','Guitar, Bass or Line at the top.'],
+    ['Play at the defaults','You get a gentle chorus drift. Watch Pebble rock on the water line.'],
+    ['Turn Damp down','Low Damp gives sudden kinks, the broken cassette sound.'],
+    ['Raise Depth slowly','Less is more. Past halfway it gets properly seasick.']
+  ],
+  panel: { img: 'seasick', w: 1260, h: 660, badges: [[1,554,22],[2,792,22],[3,962,22],[4,1080,22],[5,318,84],[6,40,118],[7,40,190],[8,56,340],[9,178,340],[10,304,340],[11,472,108],[12,586,108],[13,458,262],[14,458,386],[15,458,454],[16,572,454],[17,742,108],[18,856,108],[19,728,300],[20,728,380],[21,728,432],[22,1000,118],[23,40,564],[24,858,546]] },
+  legend: [
+    ['Input','Guitar, Bass or Line. Bass keeps everything below the split dry and in tune.'],
+    ['Pages','<em>Main</em> is the panel. <em>Pedal</em> sets up footswitches and expression.'],
+    ['Keep','Logs every setting and the last 8 seconds of audio.'],
+    ['Footswitches','The dot turns green when your footswitch is connected.'],
+    ['Re-roll','A fresh lurch now, from a new random seed.'],
+    ['Water cards','What the water is doing, and the pitch drift in cents.'],
+    ['Water graph','The last 6 seconds of delay time. Thin line: the random steps. Thick line: after Damp smooths them.'],
+    ['Rate','How often the random changes happen, from one every 8 seconds to 25 a second. The gaps are random too.'],
+    ['Damp','How smoothly each change happens. Low: sudden kinks. High: slow, seasick swells.'],
+    ['Depth','How far the delay moves. Less is more.'],
+    ['LPG','How much your playing opens the gate. Low: dark, soft notes choke short. High: bright, long and blooming.'],
+    ['Floor','The gate\'s darkest point.'],
+    ['Gate meter','How far the gate is opening, and its frequency.'],
+    ['Gate card','Whether notes bloom or pluck.'],
+    ['Punch','The gate reads 1 ms ahead so your attack is never filtered.'],
+    ['Hiss','The pedal\'s quiet hiss, which opens with the gate. Switch it off for clean.'],
+    ['Mix','Full wet is vibrato. Bring in some dry for chorus and to hear slow drift.'],
+    ['Volume','Unity just before noon. Higher up it breaks up on hard picking.'],
+    ['Bass split and ceiling','With Bass input, everything below the split stays dry and bends are capped at the ceiling.'],
+    ['Freeze mode','<em>Settle</em> stops the water so the pitch comes home. <em>Hold bend</em> keeps bending the way it was going.'],
+    ['Seasick and Freeze','On-screen buttons for footswitch B and C.'],
+    ['Pebble','Floats on a line drawn from the real modulation. Turns faintly green when seasick. Bobs as notes open the gate.'],
+    ['Footswitch buttons','On-screen A to D. They act exactly like footswitches.'],
+    ['Expression','Shows the pedal. DEPTH, MIX and LPG pick what it moves.']
+  ],
+  feetIntro: 'Optional. The four squares along the bottom of the panel act exactly like footswitches, taps, holds and pairs included.',
+  feet: [
+    ['A','Bypass on or off','Flips while held'],
+    ['B','Seasick on or off: deep, eased, faster','Swell: climbs into Seasick, falls back on release'],
+    ['C','Freeze on or off','Freeze while held'],
+    ['D','Re-roll: a fresh lurch now','Pluck: the gate snaps short on every note'],
+    ['A + B','Calm: clear Seasick, Freeze and Pluck',''],
+    ['C + D','Hand the footswitches to the next SeaSick','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Depth. Heel is still water, toe is seasick, and most of the travel is the subtle zone. The DEPTH, MIX and LPG chips switch between the three.',
+  recipes: [
+    { name: 'Chorus Drift', for: 'Everyday', hear: 'A gentle, uneven chorus that sits still, then lurches softly.',
+      k: [['Rate',.4,'=1.0 / S'],['Damp',.55,'=89 MS'],['Depth',.5,'=±1.9 MS'],['LPG',.62,'pct'],['Mix',.55,'=55% WET'],['Volume',.45,'=-0.5 DB']],
+      c: [['Input','Guitar']],
+      play: 'The defaults. Play anything.' },
+    { name: 'Broken Cassette', for: 'Lo-fi chords', hear: 'Sudden kinks in pitch, like a tape that\'s been left in a hot car.',
+      k: [['Rate',.6,'=3.0 / S'],['Damp',.1,'=4 MS'],['Depth',.45,'=±1.6 MS'],['LPG',.5,'pct'],['Mix',.7,'=70% WET']],
+      c: [['Hiss','On',1]],
+      play: 'Strum simple chords. Press Re-roll if the pattern gets stuck.' },
+    { name: 'Seasick Swells', for: 'Ambient', hear: 'Slow, deep, uneasy pitch swells that roll like a boat.',
+      k: [['Rate',.3,'=EVERY 1.6 S'],['Damp',.85,'=710 MS'],['Depth',.8,'=±3.7 MS'],['LPG',.7,'pct'],['Mix',.6,'=60% WET']],
+      c: [['Freeze mode','Hold bend']],
+      play: 'Long notes and slow chords. Tap footswitch C to hold the bend.' },
+    { name: 'Wonky Vibrato', for: 'Leads', hear: 'Full-wet vibrato that never quite repeats itself.',
+      k: [['Rate',.5,'=1.8 / S'],['Damp',.5,'=63 MS'],['Depth',.35,'=±1.1 MS'],['Mix',1,'=100% WET']],
+      c: [['Punch','On',1]],
+      play: 'Hold notes and let the random wobble do the expression.' },
+    { name: 'Plucked Pebbles', for: 'Percussive parts', hear: 'Dark, short, plucky notes that choke like a muted harp.',
+      k: [['LPG',.2,'pct'],['Floor',.2,'=238 HZ'],['Depth',.3,'=±0.9 MS'],['Mix',.5,'=50% WET']],
+      c: [['Pluck','Hold D']],
+      play: 'Play softly for darker notes, harder for brighter ones. Hold footswitch D to snap every note short.' },
+    { name: 'Bass Drift', for: 'Bass guitar', hear: 'A wobbly top end over a low end that stays steady and in tune.',
+      k: [['Rate',.35,'=EVERY 1.3 S'],['Damp',.7,'=252 MS'],['Depth',.4,'=±1.4 MS'],['Mix',.5,'=50% WET']],
+      c: [['Input','Bass'],['Split','110 HZ']],
+      play: 'Raise the split if the low strings still wobble.' }
+  ],
+  tips: [
+    ['High Rate and high Damp','They cancel out, as on the pedal. Lower one of them.'],
+    ['Calm it down','Press footswitches A and B together.'],
+    ['Punch latency','Punch adds 1 ms, which SeaSick reports to Ableton.'],
+    ['Same sound twice?','Re-roll picks a new random seed.']
+  ],
+  install: 'Download <code>SeaSick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>SeaSick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'lathe', name: 'Lathe', accent: '#f2a541', kind: 'Chorus and vibrato', ver: 'v0.1',
+  tagline: 'Lush chorus, warped records',
+  lede: 'Lathe is a warm, lush chorus at noon and a seasick warped record fully wet. It also puts the pedal\'s hidden layer on show: ramps that make knobs rise, fall and bounce on their own, tap tempo with divisions, and two presets the expression pedal morphs between. Based on the Chase Bliss Warped Vinyl.',
+  what: 'Chorus and vibrato with ramping knobs and preset morphing. Based on the Warped Vinyl.',
+  flow: [['Your playing','dry stays clean'],['Lag','short delay'],['The wave','rate, depth, warp',1],['Tone','wet only'],['Mix','chorus to vibrato'],['Ramp','knobs move themselves']],
+  quick: [
+    ['Play at the defaults','Mix at noon is a warm chorus. The record spins at the wave\'s rate.'],
+    ['Turn Mix fully right','Pure vibrato, the warped record sound.'],
+    ['Shape the wave','Pick the rise and fall shapes under the record, and move Warp.'],
+    ['Try the presets','Click A for a lush chorus, B for a warped record that melts in.']
+  ],
+  panel: { img: 'lathe', w: 1260, h: 660, badges: [[1,158,22],[2,362,22],[3,612,20],[4,838,22],[5,978,22],[6,1080,22],[7,36,110],[8,264,134],[9,36,340],[10,36,430],[11,110,474],[12,470,108],[13,586,108],[14,470,244],[15,586,244],[16,458,390],[17,458,458],[18,740,108],[19,856,108],[20,740,244],[21,856,244],[22,728,402],[23,728,458],[24,998,122],[25,998,344],[26,998,478],[27,40,546],[28,318,538],[29,588,544],[30,1010,556]] },
+  legend: [
+    ['Voice','<em>HiFi</em>: bright, clean and quiet. <em>mkII</em>: warmer, murkier and a little hissier.'],
+    ['Preset','A, Live (the panel as it is) and B. Switching glides over 0.3 s. A starts as a lush chorus, B as a warped record.'],
+    ['Tempo, Tap and Sync','Tap tempo, or Sync to Ableton. Turning Rate takes it back.'],
+    ['Pages','<em>Main</em> is the panel. <em>Pedal</em> sets up footswitches, expression and Width.'],
+    ['Keep','Logs every setting and the last 8 seconds of audio.'],
+    ['Footswitches','The dot turns green when your footswitch is connected.'],
+    ['Record','Spins at the wave\'s rate. The tonearm rides the wave.'],
+    ['Rate and pitch swing','The wave\'s speed and how far the pitch swings, in cents.'],
+    ['Wave graph','One cycle of the modulation as you hear it, with a playhead.'],
+    ['First and second half','The rise shape (sine, triangle, square) and the fall shape.'],
+    ['Division','Wave cycles per tapped beat: 1, 2 or 4, or 3, 6 and 8.'],
+    ['Tone','Wet only. HiFi: noon is flat, left darker, right thinner and airier.'],
+    ['Lag','Delay between dry and wet, 1 to 25 ms. Up for a lusher chorus.'],
+    ['Mix','Dry to wet. Noon is chorus, fully right is pure vibrato.'],
+    ['Volume','Unity at about 2 o\'clock, up to +12 dB with a little grit.'],
+    ['Bass','Keeps everything below the frequency dry, centred and steady.'],
+    ['Output','Mono, MISO (mono in, stereo out) or Stereo.'],
+    ['Rate','0.1 to 12 Hz.'],
+    ['Depth','How far the pitch swings, about ±1.3 semitones at full.'],
+    ['Warp','Moves the wave\'s peak. Left rises fast and falls slowly, right the reverse.'],
+    ['Ramp','How long a ramp takes, 0.1 to 30 s.'],
+    ['Tap sets','Whether tapping sets the wave\'s rate or the ramp\'s.'],
+    ['Hold C to','What holding footswitch C does: ramp, pause the wave, or a four-times-faster flurry.'],
+    ['Ramp table','Moves picks which knobs ramp. Way picks rise or fall for each.'],
+    ['Ramp options','<em>Bounce</em> goes back and forth. <em>Sweep</em> picks the top or bottom end. <em>Lo-Fi</em> is the mkII\'s gooier vibrato. <em>MoToByp</em> plays only while A is held.'],
+    ['Ramp now','Runs the ramp again. It also runs whenever the effect switches on.'],
+    ['Pebble','Sways with the modulation, wobbles while a ramp runs, goes dizzy under Brake.'],
+    ['Expression','Morph glides every knob from preset A at the heel to B at the toe. Ramp and Whammy are the other modes.'],
+    ['Footswitch buttons','On-screen A to D. They act exactly like footswitches.'],
+    ['On','Tap to bypass.']
+  ],
+  feetIntro: 'Optional. The four squares in the bottom strip act exactly like footswitches, taps, holds and pairs included.',
+  feet: [
+    ['A','Bypass on or off','Flips while held'],
+    ['B','Tap tempo (two taps)','Brake: the record slows to a stop, then spins back up'],
+    ['C','Run the ramp once','Hold mode: ramp, pause or flurry'],
+    ['D','Switch between preset A and B','Save the panel into the current slot'],
+    ['A + B','Reset the ramp',''],
+    ['C + D','Hand the footswitches to the next Lathe','Keeper (hold 1 s)']
+  ],
+  exp: 'Morphs from preset A at the heel to preset B at the toe. Every knob glides and switches flip half way. Ramp and Whammy chips switch to the original pedal\'s behaviours.',
+  recipes: [
+    { name: 'Lush Lathe', for: 'Clean guitar', hear: 'A warm, wide, classic chorus.',
+      k: [['Tone',.5,'=FLAT'],['Lag',.62,'=7.4 MS'],['Mix',.5,'=50% WET'],['Rate',.45,'=0.86 HZ'],['Depth',.35,'pct'],['Warp',.5,'=EVEN']],
+      c: [['Voice','HiFi'],['Output','MISO']],
+      play: 'The defaults. Strum open chords.' },
+    { name: 'Warped Record', for: 'Lo-fi melodies', hear: 'Pure, slow vibrato like a record on a bent turntable.',
+      k: [['Mix',1,'=VIBRATO'],['Rate',.3,'=0.42 HZ'],['Depth',.6,'pct'],['Warp',.3,'=FAST RISE'],['Tone',.35,'=DARK 3']],
+      c: [['Voice','mkII'],['Lo-Fi','On',1]],
+      play: 'Play slow single notes and let them sag.' },
+    { name: 'Thick Doubler', for: 'Rhythm guitar', hear: 'A slow, wide chorus that sounds like two guitars.',
+      k: [['Lag',.85,'=15.4 MS'],['Mix',.45,'=45% WET'],['Rate',.2,'=0.26 HZ'],['Depth',.25,'pct']],
+      c: [['Output','Stereo']],
+      play: 'Long Lag and slow Rate keep it from sounding wobbly.' },
+    { name: 'Leslie Lurch', for: 'Keys', hear: 'A fast, choppy vibrato like a rotary speaker spinning up.',
+      k: [['Mix',1,'=VIBRATO'],['Rate',.75,'=3.6 HZ'],['Depth',.4,'pct'],['Ramp',.6,'=3.1 S']],
+      c: [['Ramp moves','Rate'],['Way','Rise'],['Sweep','Top']],
+      play: 'Tap footswitch C to ramp the speed up over three seconds. Hold B for a brake.' },
+    { name: 'Melting Morph', for: 'Expression pedal', hear: 'Rock from a clean chorus at the heel to a melted, warped record at the toe.',
+      k: [['Ramp',.75,'=7.2 S']],
+      c: [['Expression','Morph'],['Heel','Preset A'],['Toe','Preset B']],
+      play: 'The factory A and B already do this. Save your own versions by holding D.' },
+    { name: 'Bass Shimmer', for: 'Bass guitar', hear: 'A chorused top end over a steady, dry low end.',
+      k: [['Mix',.5,'=50% WET'],['Rate',.45,'=0.86 HZ'],['Depth',.3,'pct'],['Lag',.62,'=7.4 MS']],
+      c: [['Bass','On',1],['Below','150 HZ']],
+      play: 'Raise the Below frequency if the low strings still move.' }
+  ],
+  tips: [
+    ['Knob moving on its own?','A ramp or the expression pedal is moving it. It turns amber, with a ghost hand where you set it.'],
+    ['Reset the ramp','Press footswitches A and B together.'],
+    ['Original MIDI chart','Pick a channel under MIDI MAP on the Pedal page to use Warped Vinyl templates.'],
+    ['Width','The stereo width lives on the Pedal page.']
+  ],
+  install: 'Download <code>Lathe-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Lathe.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'quack', name: 'Quack', accent: '#ffcf3f', kind: 'Wah and envelope filter', ver: 'v0.1',
+  tagline: 'Treadle wah, touch wah',
+  lede: 'Quack is two filters in one. Wah is a classic treadle wah that your expression pedal rocks. Auto is an envelope filter that opens the harder you play, from funky quack to slow bloom. Both come in a Guitar voicing and a deeper Bass voicing that keeps your low end solid.',
+  what: 'Treadle wah and envelope filter, voiced for guitar and bass.',
+  flow: [['Your playing','guitar or bass'],['Dry lows','bass keeps its bottom'],['Wah or Auto','pedal or playing moves it',1],['Peak','resonance sets the quack'],['Level','back to unity']],
+  quick: [
+    ['Pick Guitar or Bass','Bass sweeps lower with a wider peak and keeps your low end dry.'],
+    ['Wah: rock the pedal','The expression pedal is the treadle. Heel is dark, toe is bright.'],
+    ['Auto: just play','Switch to Auto. Dig in and the filter opens, play softly and it stays closed.'],
+    ['Tune the quack','Resonance sets how vocal the peak sounds. Sensitivity sets how easily Auto opens.']
+  ],
+  panel: { img: 'quack', w: 1260, h: 660, badges: [[1,464,26],[2,736,26],[3,1030,26],[4,36,120],[5,110,236],[6,500,140],[7,580,140],[8,658,140],[9,736,140],[10,814,140],[11,476,270],[12,476,352],[13,916,120],[14,916,226],[15,916,420],[16,1140,392],[17,36,550],[18,322,548],[19,892,548],[20,1048,556],[21,1140,556]] },
+  altImg: { img: 'quack-wah', w: 1260, h: 660, cap: 'Wah mode. The middle panel becomes the treadle: the expression pedal moves it, or drag it on screen. Curve, Smoothing and Calibrate tune how the pedal feels.' },
+  legend: [
+    ['Mode','<em>Wah</em> is a treadle wah your expression pedal rocks. <em>Auto</em> is an envelope filter that follows how hard you play.'],
+    ['Voice','<em>Guitar</em> is voiced after the classic wahs and envelope filters. <em>Bass</em> sweeps lower with a wider, fuller peak.'],
+    ['Keep as','How Keeper saves: Live, Studio or a Pedal setting.'],
+    ['Filter cards','Where the filter sits right now, and how far through its sweep.'],
+    ['Sweep dial','The filter frequency. The lit arc shows the range it can sweep.'],
+    ['Sens','Auto: how easily your playing opens the filter.'],
+    ['Range','Auto: how far the filter travels. The expression pedal moves this in Auto.'],
+    ['Res','Auto: how sharp and vocal the peak is.'],
+    ['Attack','Auto: how fast the filter opens on each note.'],
+    ['Decay','Auto: how slowly it closes again.'],
+    ['Sweep','Up opens the filter as you play, Down closes it. Footswitch D flips it.'],
+    ['Your playing','The bar shows each note. The teal mark follows how hard you\'ve been playing, so Quack opens against your own level, not a fixed one.'],
+    ['Voicing card','Guitar or Bass. Footswitch C switches.'],
+    ['Voicing details','The wah and auto sweep ranges and the filter character for this voicing.'],
+    ['Low end','Keeps your lows dry in Auto. Auto turns it on for Bass, On forces it, Off sends everything through the filter.'],
+    ['Crossover','Below this frequency stays dry, 60 to 250 Hz.'],
+    ['Pebble','Opens its mouth with the filter and says what Quack is doing.'],
+    ['Footswitch buttons','On-screen A to D, with what each does right now.'],
+    ['Expression','What the pedal moves: the treadle in Wah, Range in Auto.'],
+    ['Keep','Saves a Keeper. Hold C and D on your footswitch to do the same.'],
+    ['On','Tap to bypass.']
+  ],
+  feet: [
+    ['A','Bypass',''],
+    ['B','Switch between Wah and Auto',''],
+    ['C','Switch between Guitar and Bass',''],
+    ['D','Sweep up or down (Auto)',''],
+    ['C + D','','Keeper (hold 1 s)']
+  ],
+  exp: 'In Wah it is the treadle, heel dark and toe bright. In Auto it sets Range, so you can widen the sweep with your foot.',
+  recipes: [
+    { name: 'Classic Cry', for: 'Guitar solos', hear: 'The vocal, crying wah from every seventies record.',
+      s: [['Treadle',.4]],
+      c: [['Mode','Wah'],['Voicing','Guitar'],['Expression','Treadle']],
+      play: 'Rock the pedal in time with the beat for rhythm, or slowly for leads.' },
+    { name: 'Cocked Wah', for: 'Lead tone, no pedal', hear: 'The wah parked part way down for a nasal, cutting lead tone.',
+      s: [['Treadle',.65]],
+      c: [['Mode','Wah'],['Voicing','Guitar']],
+      play: 'Leave the treadle still. Move it a little to find the sweet spot in the mix.' },
+    { name: 'Funk Quack', for: 'Funky rhythm guitar', hear: 'A snappy, quacking touch wah that pops on every pick.',
+      k: [['Sens',.6,'ten'],['Range',.8,'pct'],['Res',.65,'ten'],['Attack',.36,'=5 MS'],['Decay',.383,'=160 MS']],
+      c: [['Mode','Auto'],['Voicing','Guitar'],['Sweep','Up']],
+      play: 'Play choppy sixteenth notes and vary how hard you pick.' },
+    { name: 'Bass Bubble', for: 'Bass guitar', hear: 'A round, bubbling envelope filter over a solid, untouched low end.',
+      k: [['Sens',.5,'ten'],['Range',.7,'pct'],['Res',.5,'ten'],['Attack',.446,'=10 MS'],['Decay',.5,'=300 MS']],
+      c: [['Mode','Auto'],['Voicing','Bass'],['Low end','Auto'],['Crossover','120 HZ']],
+      play: 'Slap or pluck hard on the beat. The lows below 120 Hz stay dry.' },
+    { name: 'Downward Dive', for: 'Synth and bass lines', hear: 'Every note starts bright and swoops down, a backwards quack.',
+      k: [['Sens',.6,'ten'],['Range',.9,'pct'],['Res',.7,'ten'],['Decay',.651,'=600 MS']],
+      c: [['Mode','Auto'],['Sweep','Down']],
+      play: 'Tap footswitch D to flip the sweep direction mid-song.' },
+    { name: 'Slow Bloom', for: 'Pads and chords', hear: 'Chords open slowly like a flower, then close as they fade.',
+      k: [['Sens',.4,'ten'],['Range',1,'pct'],['Res',.4,'ten'],['Attack',.728,'=60 MS'],['Decay',.835,'=1.20 S']],
+      c: [['Mode','Auto'],['Voicing','Guitar']],
+      play: 'Let chords ring. Soft playing still opens it, because Quack judges each note against your own level.' },
+    { name: 'Bass Wah Growl', for: 'Bass solos', hear: 'A deep, throaty wah that keeps the body of your bass.',
+      s: [['Treadle',.5]],
+      c: [['Mode','Wah'],['Voicing','Bass'],['Expression','Treadle']],
+      play: 'Rock the pedal slowly on held notes.' }
+  ],
+  tips: [
+    ['Auto not opening?','Raise Sensitivity. Quack follows your own playing level, so very soft parts need a little more.'],
+    ['Bass sounds thin?','Set Low end to On and raise the crossover.'],
+    ['No expression pedal?','Turn the Treadle knob by hand, or automate it in Ableton.'],
+    ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
+  ],
+  install: 'Download <code>Quack-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Quack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+MANUALS.push({
+  id: 'prism-patch', name: 'Prism Patch', accent: '#e8b923', kind: 'Four-module multi-effect', ver: 'v0.1',
+  tagline: 'Twenty effects, four colours, any order',
+  lede: 'Prism Patch is four effect modules in a row: Character, Movement, Diffusion and Texture. Each has five effects. Turn any module on, swap their order, then record knob moves with Gesture or grab a loop with Capture. Based on the Hologram Chroma Console.',
+  what: 'Four colour-coded modules, five effects each, in any order. Based on the Chroma Console.',
+  flow: [['Character','drive, fuzz, swell'],['Movement','doubler, vibrato, phaser'],['Diffusion','delays and reverb',1],['Texture','filter, tape, glitch'],['Mix','dry against wet']],
+  quick: [
+    ['Pick your input','Guitar, Synth or Bass at the top.'],
+    ['Switch on a module','Click the dot or ON bar in any column. Each lights in its own colour.'],
+    ['Choose an effect','Tap the flip card to step through, or click a name in the grid.'],
+    ['Reorder','Use the arrows at the top of a column to move it left or right in the chain.']
+  ],
+  panel: { img: 'prism-patch', w: 1260, h: 660, badges: [[1,536,26],[2,828,26],[3,998,26],[4,266,90],[5,40,136],[6,40,210],[7,76,292],[8,216,292],[9,40,430],[10,386,292],[11,696,292],[12,1006,292],[13,36,520],[14,158,588],[15,362,514],[16,498,514],[17,664,504],[18,784,534],[19,910,518],[20,910,588],[21,1108,534]] },
+  legend: [
+    ['Input','Guitar, Synth or Bass. Sets the input level and how effects respond.'],
+    ['Tempo and Sync','Sync follows Ableton\'s tempo. Rate and Time can then pick note values.'],
+    ['Views','<em>Main</em> is the panel. <em>Deep</em> holds the hidden settings: Sensitivity, Drift, each effect\'s volume, headroom, Gesture and Capture options. <em>Pedal</em> shows and learns your footswitches.'],
+    ['Order arrows','Swap a module with its neighbour. The chain always runs left to right.'],
+    ['Effect card','Tap to step through the five effects.'],
+    ['Effect grid','Or click the one you want.'],
+    ['Tilt','Character\'s tone. It also shifts the bias and voicing of each saturator.'],
+    ['Amount','How much of each module. Every column has one.'],
+    ['Module on','Switches a module in or out. The dot by its name lights in its colour.'],
+    ['Rate','Movement\'s speed in Hz or a note value. On Doubler it sets the gap, on Pitch it sets semitones.'],
+    ['Time','Diffusion\'s time. Cascade and Reels show milliseconds, Space shows the room (Chamber, Room, Plate, Hall, Cloud), Reverse shows speed.'],
+    ['Texture Amount','Texture has one dial. On Filter, pick Tilt, Low pass or High pass beside it.'],
+    ['Pebble','Reacts to your playing and reads out what each footswitch just did.'],
+    ['Keep','Logs this moment with recent audio, so you can find sounds you liked later.'],
+    ['Gesture','Tap it, move any of the eight main knobs, tap again. Each moved knob loops its movement in time. Grab a looping knob to erase its loop.'],
+    ['Capture','Hold to record up to 30 seconds, let go to play. A short hold gives a soft pad, a longer one a loop. Tap to clear.'],
+    ['Mix','Dry against wet. Fully up is all effect.'],
+    ['Presets','Four banks, A to D. Click the card for the next preset, right-click for the list. Keep sits beside Pebble.'],
+    ['Footswitch squares','Light in each module\'s colour while it\'s on. Click FOOTSWITCHES to switch between Modules and Classic layouts.'],
+    ['Expression','Shows the expression pedal. Click it to pick what it moves, calibrate or learn.'],
+    ['Bypass','Turns everything off.']
+  ],
+  extra: [
+    ['Character (red)', [['Drive','Warm overdrive.'],['Sweeten','Gentle saturation and polish.'],['Fuzz','Thick, splatty fuzz.'],['Howl','Resonant, feedback-like squeal.'],['Swell','Auto volume swells, no attack.']]],
+    ['Movement (yellow)', [['Doubler','A second, slightly late copy.'],['Vibrato','Pitch wobble.'],['Phaser','Swirling sweep.'],['Tremolo','Volume pulse.'],['Pitch','Shifted voice, Rate in semitones.']]],
+    ['Diffusion (green)', [['Cascade','Multi-tap delay leaning to one side.'],['Reels','Tape echo bouncing between sides.'],['Space','Reverb, from chamber to cloud.'],['Collage','Granular delay.'],['Reverse','Backwards delay.']]],
+    ['Texture (blue)', [['Filter','Filter sweep with a choice of styles.'],['Squash','Compression.'],['Cassette','Wow, flutter and hiss.'],['Broken','Dropouts and glitches.'],['Interference','Radio noise and crackle.']]]
+  ],
+  feetIntro: 'Optional. Each switch turns one module on or off, left to right, and holding it does something extra. Prefer the original pedal\'s layout? Click FOOTSWITCHES and choose Classic.',
+  feet: [
+    ['A','Slot 1 on or off','Bypass everything'],
+    ['B','Slot 2 on or off','Capture: hold to record, let go to loop. Hold again to clear'],
+    ['C','Slot 3 on or off','Gesture: record, then loop, then erase'],
+    ['D','Slot 4 on or off','Tap tempo: hold D, then tap D in time'],
+    ['A + B','Next preset',''],
+    ['C + D','Hand the footswitches to the next Prism Patch','Keeper (hold 1 s)']
+  ],
+  exp: 'Click the expression bar to choose what it moves, and to calibrate heel and toe.',
+  recipes: [
+    { name: 'Velvet Verb', for: 'Clean guitar', hear: 'A soft, warm drive into a big plate, with a slight wobble. The everyday ambient tone.',
+      k: [['Tilt',.55,'pct'],['Char Amount',.3,'pct'],['Rate',.32,'=0.50 HZ'],['Move Amount',.2,'pct'],['Time',.5,'=PLATE'],['Diff Amount',.5,'pct'],['Mix',.7,'pct']],
+      c: [['Character','Sweeten'],['Movement','Vibrato'],['Diffusion','Space']],
+      play: 'Turn on Character, Movement and Diffusion. Leave Texture off.' },
+    { name: 'Cassette Clouds', for: 'Lo-fi pads', hear: 'Huge cloud reverb on a worn tape that warbles and hisses.',
+      k: [['Time',1,'=CLOUD'],['Diff Amount',.7,'pct'],['Tex Amount',.5,'pct'],['Mix',.8,'pct']],
+      c: [['Diffusion','Space'],['Texture','Cassette']],
+      play: 'Hold chords and let them blur. Push Texture Amount for more wear.' },
+    { name: 'Tape Echo Tremble', for: 'Rhythm guitar', hear: 'Bouncing tape echoes over a steady tremolo pulse.',
+      k: [['Rate',.736,'=4.0 HZ'],['Move Amount',.5,'pct'],['Time',.858,'=350 MS'],['Diff Amount',.45,'pct'],['Mix',.6,'pct']],
+      c: [['Movement','Tremolo'],['Diffusion','Reels'],['Sync','On',1]],
+      play: 'With Sync on, Rate and Time pick note values instead. Try 1/8 and dotted 1/8.' },
+    { name: 'Fuzz Phase Frenzy', for: 'Lead parts', hear: 'Thick fuzz swirling through a slow phaser, like a seventies solo.',
+      k: [['Tilt',.6,'pct'],['Char Amount',.6,'pct'],['Rate',.32,'=0.50 HZ'],['Move Amount',.6,'pct'],['Mix',1,'pct']],
+      c: [['Character','Fuzz'],['Movement','Phaser']],
+      play: 'Move Movement to the left of Character with the arrows to hear the phaser before the fuzz.' },
+    { name: 'Backwards Bloom', for: 'Swells', hear: 'Notes fade in with no attack, then come back reversed behind you.',
+      k: [['Char Amount',.6,'pct'],['Time',.5,'=NORMAL SPEED'],['Diff Amount',.5,'pct'],['Mix',.7,'pct']],
+      c: [['Character','Swell'],['Diffusion','Reverse']],
+      play: 'Play slow single notes and let each one fade in.' },
+    { name: 'Broken Radio', for: 'Synth textures', hear: 'A collage of grainy echoes dropping in and out through radio crackle.',
+      k: [['Time',.6,'=314 MS'],['Diff Amount',.6,'pct'],['Tex Amount',.55,'pct'],['Mix',.75,'pct']],
+      c: [['Diffusion','Collage'],['Texture','Broken']],
+      play: 'Swap Texture to Interference for constant noise instead of dropouts.' },
+    { name: 'Gesture Groove', for: 'Moving textures', hear: 'Your own knob moves looped in time, so the sound breathes on its own.',
+      k: [['Rate',.46,'=1.0 HZ'],['Move Amount',.4,'pct'],['Diff Amount',.5,'pct'],['Mix',.7,'pct']],
+      c: [['Movement','Vibrato'],['Diffusion','Space'],['Gesture','Record',1]],
+      play: 'Tap GESTURE, slowly move Move Amount and Diff Amount up and down, then tap GESTURE again.' }
+  ],
+  tips: [
+    ['Capture saves','Capture loops save with your Ableton set.'],
+    ['Erase all gestures','Right-click GESTURE.'],
+    ['Original MIDI chart','Click the expression bar, open Original pedal MIDI map and pick a channel to use Chroma Console templates.'],
+    ['Reordering and footswitches','Footswitch A always switches whichever module is on the left.']
+  ],
+  install: 'Download <code>PrismPatch-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Prism Patch.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
+
+
+/* ---------- drawing helpers ---------- */
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const pt = (cx, cy, r, deg) => { const a = deg * Math.PI / 180; return [cx + r * Math.sin(a), cy - r * Math.cos(a)]; };
+function arc(cx, cy, r, a0, a1) {
+  const [x0, y0] = pt(cx, cy, r, a0), [x1, y1] = pt(cx, cy, r, a1);
+  return `M${x0.toFixed(2)} ${y0.toFixed(2)}A${r} ${r} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+}
+function knobSVG(v, accent, s = 100) {
+  const c = s / 2, r = s * .38, a = -135 + 270 * v, [px, py] = pt(c, c, r * .62, a);
+  return `<circle cx="${c}" cy="${c}" r="${r + s * .07}" fill="none" stroke="#2a2a2a" stroke-width="${s * .05}"/>`
+    + `<path d="${arc(c, c, r + s * .07, -135, 135)}" fill="none" stroke="#2c2b29" stroke-width="${s * .05}" stroke-linecap="round"/>`
+    + (v > .003 ? `<path d="${arc(c, c, r + s * .07, -135, a)}" fill="none" stroke="${accent}" stroke-width="${s * .05}" stroke-linecap="round"/>` : '')
+    + `<circle cx="${c}" cy="${c}" r="${r}" fill="#1d1d1d"/><circle cx="${c}" cy="${c}" r="${r * .86}" fill="#151515"/>`
+    + `<line x1="${c}" y1="${c}" x2="${px.toFixed(2)}" y2="${py.toFixed(2)}" stroke="#f3f0e8" stroke-width="${s * .055}" stroke-linecap="round"/>`;
+}
+const T = (x, y, t, o = {}) => `<text x="${x}" y="${y}" fill="${o.fill || '#a29e95'}" font-family="Roboto Condensed, Arial Narrow, sans-serif" font-size="${o.size || 12}" font-weight="${o.w || 700}" letter-spacing="${o.ls ?? 1}" text-anchor="${o.anchor || 'start'}">${esc(t)}</text>`;
+function badge(n, x, y) { return n ? `<g><circle cx="${x}" cy="${y}" r="12" fill="#e8392f" stroke="#0e0e0e" stroke-width="2.5"/>${T(x, y + 4.5, n, { fill: '#fff', size: 13, anchor: 'middle', ls: 0, w: 800 })}</g>` : ''; }
+function flipRect(x, y, w, h, txt) {
+  const fs = Math.min(h * .56, w / Math.max(1, txt.length * .62));
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6" fill="#1d1d1d"/><rect x="${x}" y="${y + h / 2}" width="${w}" height="${h / 2}" rx="6" fill="#161616"/>`
+    + T(x + w / 2, y + h / 2 + fs * .36, txt, { fill: '#f3f0e8', size: fs.toFixed(1), anchor: 'middle', ls: 1, w: 800 })
+    + `<line x1="${x}" y1="${y + h / 2}" x2="${x + w}" y2="${y + h / 2}" stroke="#070707" stroke-width="2"/>`;
+}
+function pills(x, y, w, h, items, sel, gap = 6) {
+  const pw = (w - gap * (items.length - 1)) / items.length;
+  return items.map((t, i) => { const px = x + i * (pw + gap), on = i === sel;
+    return `<rect x="${px}" y="${y}" width="${pw}" height="${h}" rx="${Math.min(8, h / 2)}" fill="${on ? '#f3f0e8' : 'none'}" stroke="${on ? '#f3f0e8' : '#3a3a3a'}"/>`
+      + T(px + pw / 2, y + h / 2 + 4.5, t, { fill: on ? '#070707' : '#f3f0e8', size: Math.min(13, pw / (t.length * .62)).toFixed(1), anchor: 'middle' }); }).join('');
+}
+function pebbleAt(x, y, w) { return `<use href="#pebble" x="0" y="0" width="100" height="100" transform="translate(${x} ${y}) scale(${w / 100})"/>`; }
+
+function panelSVG(m) {
+  const P = m.panel, A = m.accent; let s = '', b = '';
+  if (P.img) {
+    const bad = P.badges.map(([n, x, y]) => badge(n, x, y)).join('');
+    return `<svg viewBox="0 0 ${P.w} ${P.h}" role="img" aria-label="The ${esc(m.name)} panel with numbered controls"><image href="${IMGS[P.img]}" x="0" y="0" width="${P.w}" height="${P.h}"/>${bad}</svg>`;
+  }
+  for (const e of P.els) {
+    const k = e[0];
+    if (k === 'title') s += T(e[1], e[2], e[3], { fill: '#f3f0e8', size: 26, w: 800, ls: 3 });
+    else if (k === 'label') s += T(e[1], e[2], e[3], { size: 11, ls: 1.6 });
+    else if (k === 'text') s += T(e[1], e[2], e[3], { anchor: e[4], fill: e[5] ? '#f3f0e8' : '#a29e95', size: e[5] ? 18 : 12 });
+    else if (k === 'card') { s += flipRect(e[1], e[2], e[3], e[4], e[5]); b += badge(e[6], e[1], e[2]); }
+    else if (k === 'pills') { s += pills(e[1], e[2], e[3], e[4], e[5], e[6]); b += badge(e[7], e[1], e[2]); }
+    else if (k === 'presets') { s += pills(e[1], e[2], e[3], e[4], ['A', 'LIVE', 'B'], 1, 4); b += badge(e[5], e[1], e[2]); }
+    else if (k === 'dial') { const [, x, y, w, h, l, v, n] = e, cx = x + w / 2, cy = y + 20 + (h - 44) / 2, sz = 86;
+      s += T(cx, y + 12, l, { size: 11, anchor: 'middle', ls: 1.2 }) + `<g transform="translate(${cx - sz / 2} ${cy - sz / 2})">${knobSVG(v, A, sz)}</g>`;
+      b += badge(n, x + 6, y + 4); }
+    else if (k === 'big') { const [, x, y, w, h, stops, v, n] = e, cx = x + w / 2, cy = y + h / 2, R = Math.min(w, h) / 2 - 16;
+      for (let i = 0; i < stops; i++) { const a = -135 + 270 * i / (stops - 1), [x0, y0] = pt(cx, cy, R + 4, a), [x1, y1] = pt(cx, cy, R + 12, a);
+        s += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${Math.abs(i / (stops - 1) - v) < .02 ? A : '#5f5c56'}" stroke-width="3" stroke-linecap="round"/>`; }
+      s += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="#1b1b1b"/><circle cx="${cx}" cy="${cy}" r="${R * .8}" fill="#141414" stroke="#262626" stroke-width="2"/>`;
+      const [px, py] = pt(cx, cy, R * .7, -135 + 270 * v); s += `<line x1="${cx}" y1="${cy}" x2="${px}" y2="${py}" stroke="#e8392f" stroke-width="5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="7" fill="#3c3c3c"/>`;
+      b += badge(n, x + 10, y + 10); }
+    else if (k === 'slider') { const [, x, y, w, h, l, v, n] = e, ty = y + h - 10;
+      s += T(x, y + 11, l, { size: 11, ls: 1.2 }) + `<line x1="${x}" y1="${ty}" x2="${x + w}" y2="${ty}" stroke="#333" stroke-width="4" stroke-linecap="round"/><line x1="${x}" y1="${ty}" x2="${x + w * v}" y2="${ty}" stroke="${A}" stroke-width="4" stroke-linecap="round"/><circle cx="${x + w * v}" cy="${ty}" r="8" fill="#f3f0e8"/>`;
+      b += badge(n, x - 24, y + 6); }
+    else if (k === 'btn') { const [, x, y, w, h, t, on, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="${on ? A : '#1d1d1d'}"/>` + T(x + w / 2, y + h / 2 + 5, t, { fill: on ? '#070707' : '#f3f0e8', size: Math.min(14, h * .45), anchor: 'middle' });
+      b += badge(n, x, y); }
+    else if (k === 'foot') { const [, x, y, w, h, t, sub, n] = e, r = h * .36;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#141414" stroke="#2c2c2c"/><circle cx="${x + h / 2}" cy="${y + h / 2}" r="${r}" fill="#262626" stroke="#3c3c3c" stroke-width="3"/>`
+        + T(x + h + 4, y + h / 2 + (sub ? -1 : 6), t, { fill: '#f3f0e8', size: 17, w: 800, ls: 2 }) + (sub ? T(x + h + 4, y + h / 2 + 15, sub, { size: 10, ls: .6 }) : '');
+      b += badge(n, x, y); }
+    else if (k === 'strip') { const [, x, y, w, h, st, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="#101010"/>` + pebbleAt(x + 16, y + 10, 72) + (st ? T(x + 106, y + 44, st, { fill: '#f3f0e8', size: 20, w: 800, ls: 2 }) : '');
+      if (m.id === 'murmur') s += `<rect x="${x + 106}" y="${y + 58}" width="300" height="8" rx="4" fill="#262626"/><rect x="${x + 106}" y="${y + 58}" width="190" height="8" rx="4" fill="${A}"/>` + T(x + 106, y + 84, 'BUFFER', { size: 10 });
+      b += badge(n, x + 10, y + 8); }
+    else if (k === 'pebble') { s += pebbleAt(e[1], e[2], Math.min(e[3], e[4])); b += badge(e[5], e[1], e[2]); }
+    else if (k === 'meter') { const [, x, y, w, h, n] = e, cx = x + w / 2, cy = y + h - 6, R = h - 22;
+      s += `<path d="${arc(cx, cy, R, -60, 60)}" fill="none" stroke="#333" stroke-width="3"/>`;
+      for (let i = -4; i <= 4; i++) { const [x0, y0] = pt(cx, cy, R - 2, i * 15), [x1, y1] = pt(cx, cy, R + (i === 0 ? 14 : 8), i * 15); s += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${i === 0 ? '#f3f0e8' : '#5f5c56'}" stroke-width="2"/>`; }
+      const [nx, ny] = pt(cx, cy, R + 4, 9); s += `<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#e8392f" stroke-width="3" stroke-linecap="round"/>` + T(x, cy - 2, 'FLAT', { size: 10 }) + T(x + w, cy - 2, 'SHARP', { size: 10, anchor: 'end' });
+      b += badge(n, x, y + 8); }
+    else if (k === 'keys') { const [, x, y, w, h, sel, n] = e, names = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'], cw = (w - 25) / 6, ch = (h - 6) / 2;
+      names.forEach((t, i) => { const cx = x + (i % 6) * (cw + 5), cy = y + Math.floor(i / 6) * (ch + 6), on = i === sel;
+        s += `<rect x="${cx}" y="${cy}" width="${cw}" height="${ch}" rx="5" fill="${on ? '#f3f0e8' : '#1d1d1d'}"/>` + T(cx + cw / 2, cy + ch / 2 + 5, t, { fill: on ? '#070707' : '#f3f0e8', size: 13, anchor: 'middle' }); });
+      b += badge(n, x, y); }
+    else if (k === 'lights') { const [, x, y, w, h] = e;
+      s += T(x + 4, y + 19, 'A', { fill: '#3fd6c8', size: 14 }) + `<rect x="${x + 22}" y="${y + 10}" width="120" height="8" rx="4" fill="#262626"/><rect x="${x + 22}" y="${y + 10}" width="80" height="8" rx="4" fill="#3fd6c8"/>`
+        + T(x + 160, y + 19, 'B', { fill: '#ff7a59', size: 14 }) + `<rect x="${x + 178}" y="${y + 10}" width="120" height="8" rx="4" fill="#262626"/><rect x="${x + 178}" y="${y + 10}" width="30" height="8" rx="4" fill="#ff7a59"/>`; }
+    else if (k === 'cells') { const [, x, y, w, h, c, n] = e, cw = (w - (c - 1) * 6) / c;
+      for (let i = 0; i < c; i++) s += `<rect x="${x + i * (cw + 6)}" y="${y}" width="${cw}" height="${h}" rx="6" fill="${i < 2 ? '#1f3a37' : '#1a1a1a'}" stroke="${i === 0 ? A : '#2c2c2c'}"/>`;
+      b += badge(n, x, y); }
+    else if (k === 'bar') s += `<rect x="${e[1]}" y="${e[2]}" width="${e[3]}" height="${e[4]}" rx="5" fill="#262626"/><rect x="${e[1]}" y="${e[2]}" width="${e[3] * .4}" height="${e[4]}" rx="5" fill="${A}"/>`;
+    else if (k === 'chips') { const [, x, y, w, h, items, n] = e, cw = (w - 12) / 3, ch = (h - 6) / 2;
+      items.forEach((t, i) => { const cx = x + (i % 3) * (cw + 6), cy = y + Math.floor(i / 3) * (ch + 6); s += `<rect x="${cx}" y="${cy}" width="${cw}" height="${ch}" rx="6" fill="#1d1d1d"/>` + T(cx + cw / 2, cy + ch / 2 + 4.5, t, { fill: '#f3f0e8', size: 12, anchor: 'middle' }); });
+      b += badge(n, x, y); }
+    else if (k === 'banks') { const [, x, y, w, h, n] = e, cols = ['#e8392f', '#e8b923', '#5ec27a', '#4a90e2'], cw = (w - 15 * 6) / 16;
+      for (let i = 0; i < 16; i++) s += `<rect x="${x + i * (cw + 6)}" y="${y}" width="${cw}" height="${h}" rx="6" fill="${i === 5 ? cols[Math.floor(i / 4)] : '#1a1a1a'}" stroke="${cols[Math.floor(i / 4)]}" stroke-opacity=".7"/>`;
+      b += badge(n, x, y); }
+    else if (k === 'lanes') { const [, x, y, w, h] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#111"/>`;
+      for (let i = 0; i < 4; i++) { const ly = y + 22 + i * 40, st = 20 + i * 30; s += `<rect x="${x + 14}" y="${ly}" width="${w - 28}" height="10" rx="5" fill="#1d1d1d"/><path d="M${x + 14 + st} ${ly + 10}l20 -10h${60 - i * 10}l${30 + i * 8} 10z" fill="${A}" opacity="${.9 - i * .18}"/>`; } }
+    else if (k === 'piano') { const [, x, y, w, h, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#111" stroke="#2c2c2c"/>` + T(x + 16, y + 30, 'PIANO MODES', { fill: '#e8b923', size: 14 })
+        + T(x + 16, y + 56, 'HOLD NONE + TONE FULLY DOWN', { size: 11, ls: .6 }) + T(x + 16, y + 78, 'CATCH PICKS REAL, GROUP OR SOSTENUTO', { size: 10, ls: .4, fill: '#5f5c56' });
+      b += badge(n, x, y); }
+    else if (k === 'grid4') { const [, x, y, w, h, items, sel, n] = e, cw = (w - 8) / 2, ch = (h - 8) / 2;
+      items.forEach((t, i) => { const cx = x + (i % 2) * (cw + 8), cy = y + Math.floor(i / 2) * (ch + 8), on = i === sel;
+        s += `<rect x="${cx}" y="${cy}" width="${cw}" height="${ch}" rx="8" fill="${on ? '#f3f0e8' : '#1d1d1d'}"/>` + T(cx + cw / 2, cy + ch / 2 + 5, t, { fill: on ? '#070707' : '#f3f0e8', size: 14, anchor: 'middle' }); });
+      b += badge(n, x, y); }
+    else if (k === 'box') { const [, x, y, w, h, txt, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#111" stroke="#2c2c2c"/>` + T(x + w / 2, y + h / 2 + 4, txt, { size: 12, anchor: 'middle', ls: 1 });
+      b += badge(n, x, y); }
+    else if (k === 'feet') { const [, x, y, w, h, n] = e, fw = (w - 18) / 4;
+      ['A','B','C','D'].forEach((t, i) => { const fx = x + i * (fw + 6);
+        s += `<rect x="${fx}" y="${y}" width="${fw}" height="${h}" rx="8" fill="#141414" stroke="#2c2c2c"/><circle cx="${fx + fw / 2}" cy="${y + h / 2 - 6}" r="${Math.min(fw, h) * .22}" fill="#262626" stroke="#3c3c3c" stroke-width="2"/>` + T(fx + fw / 2, y + h - 8, t, { fill: '#f3f0e8', size: 12, anchor: 'middle' }); });
+      b += badge(n, x, y); }
+    else if (k === 'expr') { const [, x, y, w, h, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#111" stroke="#2c2c2c"/>` + T(x + 14, y + 22, 'EXPRESSION', { size: 11 }) + `<rect x="${x + 14}" y="${y + h - 22}" width="${w - 28}" height="8" rx="4" fill="#262626"/><rect x="${x + 14}" y="${y + h - 22}" width="${(w - 28) * .45}" height="8" rx="4" fill="${A}"/>`;
+      b += badge(n, x, y); }
+    else if (k === 'brass') { const [, x, y, w, h, n] = e;
+      s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="#1a1508" stroke="#d4a537" stroke-width="2"/><rect x="${x + 8}" y="${y + 8}" width="${w * .38}" height="${h - 16}" rx="8" fill="#d4a537"/>`
+        + T(x + w * .38 + 26, y + 30, 'BRASS PEDAL', { fill: '#f3f0e8', size: 17, w: 800 }) + T(x + w * .38 + 26, y + 50, 'CLICK AND HOLD · DOUBLE TAP CLEARS', { size: 10, ls: .4 });
+      b += badge(n, x, y); }
+  }
+  return `<svg viewBox="-16 -16 ${P.w + 32} ${P.h + 32}" role="img" aria-label="Map of the ${esc(m.name)} panel with numbered controls"><rect x="-16" y="-16" width="${P.w + 32}" height="${P.h + 32}" fill="#0a0a0a"/>${s}${b}</svg>`;
+}
+
+function flipWord(word, size) { return `<span class="flip" style="font-size:${size}">${word.toUpperCase().split(' ').map(w => `<span class="fw">${[...w].map(ch => `<span class="fc">${esc(ch)}</span>`).join('')}</span>`).join('')}</span>`; }
+
+function recipeCard(r, m) {
+  const dials = (r.k || []).map(([l, v, f]) => `<div class="kn"><div class="l">${esc(l)}</div><svg viewBox="0 0 100 100" aria-hidden="true">${knobSVG(v, m.accent)}</svg><div class="r">${esc(f[0] === '=' ? f.slice(1) : F[f](v))}</div></div>`).join('')
+    + (r.s || []).map(([l, v]) => `<div class="kn wide" style="text-align:left"><div class="l" style="justify-content:space-between;min-height:0"><span>${esc(l)}</span><span class="r">${F.raw(v)}%</span></div><svg viewBox="0 0 300 20" style="width:100%;height:20px" aria-hidden="true"><line x1="10" y1="10" x2="290" y2="10" stroke="#333" stroke-width="5" stroke-linecap="round"/><line x1="10" y1="10" x2="${10 + 280 * v}" y2="10" stroke="${m.accent}" stroke-width="5" stroke-linecap="round"/><circle cx="${10 + 280 * v}" cy="10" r="8" fill="#f3f0e8"/></svg></div>`).join('');
+  const chips = (r.c || []).map(([l, val, on]) => `<span class="chip${on ? ' on' : ''}"><span>${esc(l)}</span><b>${esc(val)}</b></span>`).join('');
+  return `<article class="rc"><div class="rc-top"><p class="for">${esc(r.for)}</p><h3>${esc(r.name)}</h3><p class="hear">${esc(r.hear)}</p></div>
+    <div class="rc-panel"><div class="dials">${dials}</div>${chips ? `<div class="chips">${chips}</div>` : ''}</div><p class="play"><b>How to play it</b>${esc(r.play)}</p></article>`;
+}
+
+function presetSection(m) {
+  if (!m.presets) return '';
+  return `<section class="part"><p class="eyebrow">Ready to play</p><h2 class="st">Factory presets</h2><p class="intro">${m.presetsIntro || 'Each preset loads a finished sound with a tip on how to play it.'}</p><div class="mapbox" style="padding:4px 0"><table class="vt" style="min-width:0">${m.presets.map((r, i) => `<tr><th style="width:3em;color:var(--accent)">${i + 1}</th><th>${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join('')}</table></div></section>`;
+}
+function feetSection(m) {
+  if (!m.feet) return '';
+  return `<section class="part"><p class="eyebrow">Hands-free</p><h2 class="st">Footswitches</h2><p class="intro">${m.feetIntro || 'Optional. Everything works from the screen too. See the foot control guide on the home page for the one-off setup.'}</p><div class="mapbox" style="padding:4px 0"><table class="vt"><tr><th>Switch</th><th>Tap</th><th>Hold</th></tr>${m.feet.map(r => `<tr><th>${esc(r[0])}</th><td>${esc(r[1])}</td><td>${esc(r[2] || '')}</td></tr>`).join('')}</table></div>${m.exp ? `<p class="intro" style="margin-top:14px"><b style="color:var(--ink)">Expression pedal:</b> ${esc(m.exp)}</p>` : ''}</section>`;
+}
+function renderManual(m) {
+  document.documentElement.style.setProperty('--accent', m.accent);
+  const flow = m.flow.map(([b, s, hot], i) => (i ? '<span class="arrow" aria-hidden="true">→</span>' : '') + `<div class="node${hot ? ' hot' : ''}"><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+  const legend = m.legend.map(([n, t], i) => `<div class="li"><span class="badge">${i + 1}</span><div><b>${esc(n)}</b><p>${t}</p></div></div>`).join('');
+  const extra = m.extra ? `<section class="part"><p class="eyebrow">Beyond the panel</p><h2 class="st">The Deep and Motion pages</h2><div class="subgrid">${m.extra.map(([h, rows]) => `<div class="sub"><h3>${esc(h)}</h3><dl>${rows.map(([d, t]) => `<dt>${esc(d)}</dt><dd>${esc(t)}</dd>`).join('')}</dl></div>`).join('')}</div></section>` : '';
+  const vars = m.variations ? `<section class="part"><p class="eyebrow">Eleven effects, four flavours</p><h2 class="st">What A, B, C and D do</h2><div class="mapbox" style="padding:4px 0"><table class="vt">${'<tr><th>Effect</th><th>A</th><th>B</th><th>C</th><th>D</th></tr>' + m.variations.map(r => `<tr><th>${esc(r[0])}</th>${r.slice(1).map(c => `<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div></section>` : '';
+  return `<article class="manual wrap">
+    <header class="mhead"><div><p class="tagline">${esc(m.kind)} · ${esc(m.tagline)}</p><h1>${flipWord(m.name, 'inherit')}</h1><p class="lede">${esc(m.lede)}</p></div>
+      <svg class="pebble-big" viewBox="0 0 100 100" role="img" aria-label="Pebble"><use href="#pebble"/></svg></header>
+    <section class="part"><p class="eyebrow">How the sound travels</p><h2 class="st">The big picture</h2><div class="flow">${flow}</div></section>
+    <section class="part"><p class="eyebrow">Sound in a minute</p><h2 class="st">Quick start</h2><ol class="steps">${m.quick.map(([a, b]) => `<li><strong>${esc(a)}</strong><span>${esc(b)}</span></li>`).join('')}</ol></section>
+    <section class="part"><p class="eyebrow">Every control, numbered</p><h2 class="st">The panel</h2><div class="mapbox">${panelSVG(m)}</div><div class="legend">${legend}</div>${m.altImg ? `<figure style="margin:24px 0 0"><div class="mapbox"><svg viewBox="0 0 ${m.altImg.w} ${m.altImg.h}" role="img" aria-label="${esc(m.altImg.cap)}"><image href="${IMGS[m.altImg.img]}" width="${m.altImg.w}" height="${m.altImg.h}"/></svg></div><figcaption class="intro" style="margin:10px 0 0">${esc(m.altImg.cap)}</figcaption></figure>` : ''}</section>
+    ${extra}${vars}${presetSection(m)}${feetSection(m)}${!m.noKeeper ? `<section class="part"><p class="eyebrow">Remember good sounds</p><h2 class="st">Keeper</h2><p class="intro">Click KEEP, or hold footswitches C and D for a second, to save every setting plus the last 8 seconds of audio to Documents, Flip Fella Keepers. Use the arrow next to KEEP to add a note or export a zip. <a href="#" onclick="setTimeout(()=>document.getElementById('keeper-guide')?.scrollIntoView(),300)">Read the full Keeper guide</a>.</p></section>` : ''}
+    <section class="part"><p class="eyebrow">Dial these in</p><h2 class="st">Recipes</h2><p class="intro">Copy the dials and switches onto the plugin. The value under each dial matches what the plugin shows. Anything not listed can stay where it is.</p><div class="recipes">${m.recipes.map(r => recipeCard(r, m)).join('')}</div></section>
+    <section class="part"><p class="eyebrow">Handy to know</p><h2 class="st">Tips and fixes</h2><div class="tips">${m.tips.map(([a, b]) => `<div class="tip"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div><div class="install"><b>Installing:</b> ${m.install}</div></section>
+  </article>`;
+}
+
+function renderIndex() {
+  document.documentElement.style.setProperty('--accent', '#4d5bff');
+  return `<div class="wrap"><section class="hero"><h1>${flipWord('Manuals', 'inherit')}</h1><p>Fifteen plugins, one family. Pick a plugin for a numbered map of its panel, plain-English controls and recipes you can dial straight in.</p></section>
+    ${GROUPS.map(([g, ids]) => `<p class="eyebrow" style="margin-top:18px">${esc(g)}</p><div class="shelf" style="padding-block:4px 20px">${ids.map(id => MANUALS.find(x => x.id === id)).filter(Boolean).map(m => `<a class="tile" href="#${m.id}" style="--tile:${m.accent}"><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#pebble"/></svg><div><p class="kind">${esc(m.kind)}</p><h2>${flipWord(m.name, '19px')}</h2><p class="what">${esc(m.what)}</p></div></a>`).join('')}</div>`).join('')}
+    <section class="part" style="padding-top:8px"><p class="eyebrow">Set up once, works everywhere</p><h2 class="st">Footswitches and expression</h2>
+    <p class="intro">Every plugin works from the screen, so pedals are optional. The whole family shares one footswitch setup, saved on your computer, so you only do this once and every plugin picks it up.</p>
+    <ol class="steps">
+      <li><strong>Four switches</strong><span>Set your MIDI footswitch\'s first four switches to send momentary CC 20, 21, 22 and 23 on channel 16 (127 pressed, 0 released). Or press Learn on the plugin\'s Pedal page.</span></li>
+      <li><strong>Expression pedal</strong><span>Set it to CC 11 on channel 16, or use Learn. Then choose Calibrate and rock it from heel to toe once.</span></li>
+      <li><strong>Let Ableton let go</strong><span>In Ableton\'s MIDI preferences, turn Track, Sync and Remote off for the footswitch. The plugin then reads it straight from the USB cable, with no MIDI track.</span></li>
+      <li><strong>Check the dot</strong><span>The dot by FOOTSWITCHES turns green and Pebble says FOOTSWITCHES READY. If it stays grey, click FOOTSWITCHES to see why.</span></li>
+    </ol>
+    <div class="tips" style="margin-top:18px">
+      <div class="tip"><b>Same feel everywhere</b><span>A hold is 0.45 s. Two switches within 0.12 s count as a pair. A pair held for 1 s is the long version. Nothing needs a double-tap.</span></div>
+      <div class="tip"><b>C + D is always the same</b><span>Tap to hand the footswitches to the next copy of that plugin. Hold for a second to save a Keeper.</span></div>
+      <div class="tip"><b>Keeper</b><span>Saves every setting and the last 8 seconds of audio to Documents, Flip Fella Keepers, so you can find sounds you liked later.</span></div>
+      <div class="tip"><b>Several plugins at once</b><span>Only one plugin type can hold the footswitch cable on Windows. For a second type, route the footswitch through an Ableton MIDI track instead.</span></div>
+    </div></section>
+    <section class="part" style="padding-top:8px" id="keeper-guide"><p class="eyebrow">That sounded good, remember it</p><h2 class="st">Keeper</h2>
+    <p class="intro">When you hit something you love mid-jam, press Keeper and the plugin saves that moment so you can find it again later.</p>
+    <div class="subgrid">
+      <div class="sub"><h3>What it saves</h3><dl>
+        <dt>Settings</dt><dd>Every setting on the plugin at that instant, including where the expression pedal sat.</dd>
+        <dt>Tempo</dt><dd>The tempo you were playing at.</dd>
+        <dt>Audio</dt><dd>The last 8 seconds, both your dry input and what came out of the plugin, as WAV files.</dd>
+        <dt>State</dt><dd>What the engine was doing, for example a loop playing or Magic running away.</dd>
+        <dt>Where</dt><dd>Documents, Flip Fella Keepers, on whichever computer you\'re using.</dd></dl></div>
+      <div class="sub"><h3>How to trigger it</h3><dl>
+        <dt>Screen</dt><dd>Click KEEP on the panel.</dd>
+        <dt>Footswitch</dt><dd>Hold C and D together for a second. Holding the pair never fires either switch\'s own job, so Keeper can\'t change the sound you\'re capturing.</dd></dl>
+        <h3 style="margin-top:16px">The arrow next to KEEP</h3><dl>
+        <dt>Note</dt><dd>Add a note, like \u201cgreat for the bridge of the new song\u201d.</dd>
+        <dt>Export</dt><dd>Make a zip you can hand straight to Claude.</dd>
+        <dt>Folder</dt><dd>Open the Keepers folder.</dd>
+        <dt>Live or Studio</dt><dd>Changes how it saves.</dd>
+        <dt>Learn</dt><dd>Use a dedicated Keeper footswitch instead of C and D.</dd></dl></div>
+      <div class="sub"><h3>Why it matters</h3><p style="margin:0;color:var(--dim);font-size:15px">Each Keeper is a real example of a sound you liked, with the exact settings and audio attached. Build up a pile across the plugins, export them, and Claude can look for patterns in what you keep reaching for: how much modulation, how long the tails, which voicings come up again and again. That becomes the starting point for your own signature suite of plugins.</p>
+      <p style="margin:14px 0 0;color:var(--dim);font-size:15px">Every plugin in the family has it.</p></div>
+    </div></section>
+    <div class="howto"><div><h3>Read the map</h3><p>Each manual draws the plugin panel with red numbers. The list under it explains each number in plain words.</p></div>
+    <div><h3>Dial the recipes</h3><p>Each recipe shows dials at the right angle with the value the plugin displays, plus the switches to set.</p></div>
+    <div><h3>Start from Live</h3><p>Every plugin opens on Live. Hold A or B to save a recipe you like so you can call it back with one tap.</p></div></div></div>`;
+}
+
+const app = document.getElementById('app'), tabs = document.getElementById('tabs');
+function route() {
+  const id = location.hash.slice(1), m = MANUALS.find(x => x.id === id);
+  app.innerHTML = m ? renderManual(m) : renderIndex();
+  tabs.innerHTML = MANUALS.map(x => `<a class="tab" href="#${x.id}"${x === m ? ' aria-current="page"' : ''}>${esc(x.name)}</a>`).join('');
+  document.title = m ? m.name + ' manual' : "Pebble's Plugin Manuals";
+  window.scrollTo(0, 0);
+  const cur = tabs.querySelector('[aria-current]'); if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+window.addEventListener('hashchange', route);
+route();
+</script>
+<style>
+.vt { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 14px; }
+.vt th, .vt td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.vt tr:first-child th { font-family: var(--display); letter-spacing: .1em; color: var(--accent); }
+.vt th { font-family: var(--display); text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+.vt td { color: var(--dim); }
+</style>
+
+</body>
+</html>

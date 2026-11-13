@@ -1,0 +1,80 @@
+MANUALS.push({
+  id: 'grotto', name: 'Grotto', accent: '#4fc3a1', kind: 'Cave reverb', ver: 'v0.1',
+  tagline: 'A swarm of short delays that sings',
+  lede: 'Grotto isn\'t a hall or a plate. It\'s a swarm of short delays that behave like a cave. Drag pulls them apart into scattered echoes and bends their pitch as you turn it, and Reflect feeds the cave back into itself until it sings on its own. Based on the EarthQuaker Devices Afterneath.',
+  what: 'A cave of short delays that bends and sings. Based on the Afterneath.',
+  flow: [['Your playing','dry stays untouched'],['Low cut','keeps the cave clean'],['Swarm','short delays',1],['Drag','stretch and bend'],['Reflect','feeds it back'],['Mix','dry and cave']],
+  quick: [
+    ['Start at the defaults','Load Grotto and play. You get a short, diffuse cave.'],
+    ['Turn DRAG anticlockwise','The cave stretches into scattered ping-pong echoes.'],
+    ['Turn Drag while it rings','The tail bends down as you go anticlockwise, up as you come back.'],
+    ['Raise REFLECT','Past about 80% the cave stops dying and sings on its own.']
+  ],
+  panel: { img: 'grotto', w: 960, h: 640, badges: [[1,562,24],[2,798,24],[3,28,96],[4,32,176],[5,404,184],[6,432,458],[7,694,178],[8,836,178],[9,694,284],[10,836,284],[11,694,390],[12,836,390],[13,32,528],[14,652,530]] },
+  legend: [
+    ['Pages','<em>Main</em> is the panel. <em>Deep</em> holds Bass, Mono, Trails, Tame and the Drag modes. <em>Pedal</em> sets up footswitches and expression.'],
+    ['Keep','Logs the moment: every setting plus the last 8 seconds of audio. The arrow beside it adds notes and exports.'],
+    ['Readout cards','Length, Drag, Mode, Reflect, Mix and what Pebble is doing, on flip cards.'],
+    ['The cave','Pebble lives here. Every note echoes round the walls as fading Pebbles. It glows red in a runaway. Click it to ping the cave.'],
+    ['Drag','The big dial. Clockwise the delays sit together as a reverb. Anticlockwise they stretch up to 12 times longer and scatter into gritty ping-pong. Turning it while the cave rings bends the pitch.'],
+    ['Mode','How Drag moves. Smooth and Glide move evenly, Even gives equal pitch steps, and Chromatic, Major, Minor, Pentatonic, Octaves and fifths, and Octaves snap to those intervals.'],
+    ['Length','Decay time, about 0.4 s to 15 s.'],
+    ['Diffuse','Low: each delay is a distinct metallic tap. High: a smooth wash.'],
+    ['Dampen','Clockwise is darker. Each pass round the cave loses more top.'],
+    ['Reflect','Regeneration. Up high the cave sings on its own, following the note you fed it.'],
+    ['Mix','Dry stays at full level to noon, then dips. It never goes fully wet on its own. Dry Kill does that.'],
+    ['Low cut','Thins only the reverb, 20 to 300 Hz. Your dry signal is never filtered.'],
+    ['Footswitch squares','Act exactly like footswitches, taps, holds and pairs included.'],
+    ['Expression bar','Shows the pedal and what it moves.']
+  ],
+  extra: [
+    ['Deep page', [['Bass','Raises the reverb low cut to 120 Hz and keeps your fundamental under Dry Kill.'],['Mono','Mono in and out, like the pedal.'],['Trails','The cave rings out when bypassed. On by default.'],['Tame','Kills Reflect and the tail now.'],['Live or Studio','How Keeper saves.']]]
+  ],
+  feetIntro: 'Optional. The pedal has one switch: tap to latch, hold for momentary. Grotto gives all four that rule. The four squares on screen do the same.',
+  feet: [
+    ['A','Bypass on or off. The cave rings out','On while held'],
+    ['B','Runaway on or off','Runaway while held. Reflect climbs into self-oscillation, then drops back when you let go'],
+    ['C','Freeze on or off. The cave holds as a pad','Freeze while held'],
+    ['D','Dry Kill on or off. A wet-only wash','Dry Kill while held'],
+    ['A + B','Tame: kill Reflect and the tail now',''],
+    ['C + D','Hand the footswitches to the next Grotto','Keeper (hold 1 s)']
+  ],
+  exp: 'Moves Drag. Heel is fully anticlockwise, scattered and bent down. Toe is a tight reverb. A slow rock back on the heel is a smooth dive. Click the bar to move Reflect, Length, Mix, Dampen or Diffuse instead.',
+  recipes: [
+    { name: 'Cave Bloom', for: 'Everyday ambience', hear: 'A soft, slightly metallic cave that sits just behind your playing.',
+      k: [['Drag',.75,'=67 MS'],['Length',.55,'=2.9 S'],['Diffuse',.55,'pct'],['Dampen',.4,'=40% DARK'],['Reflect',.4,'pct'],['Mix',.45,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'These are the defaults. Start here and move one dial at a time.' },
+    { name: 'Scattered Ping-pong', for: 'Lead lines', hear: 'Gritty echoes bouncing left and right instead of a smooth reverb.',
+      k: [['Drag',.2,'=175 MS'],['Length',.4,'=1.7 S'],['Diffuse',.2,'pct'],['Reflect',.3,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'Play short, staccato notes so you hear each echo land.' },
+    { name: 'Singing Stalactites', for: 'Drones and noise', hear: 'The cave takes over and sings your note back forever. Turn Drag to bend the scream.',
+      k: [['Drag',.6,'=96 MS'],['Length',.7,'=5.1 S'],['Diffuse',.7,'pct'],['Dampen',.5,'=50% DARK'],['Reflect',.85,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Glide']],
+      play: 'Feed it one note, then stop playing. Press footswitches A and B together to tame it.' },
+    { name: 'Major Melt', for: 'Expression pedal', hear: 'Rocking the pedal bends the tail through the notes of a major scale.',
+      k: [['Length',.7,'=5.1 S'],['Diffuse',.6,'pct'],['Reflect',.55,'pct'],['Mix',.5,'pct']],
+      c: [['Mode','Major'],['Expression','Drag']],
+      play: 'Strum a chord, let it ring and slowly rock the pedal back to the heel.' },
+    { name: 'Frozen Floor', for: 'Pads to play over', hear: 'A held, wet-only pad of your chord that you play clean melodies on top of.',
+      k: [['Length',.85,'=8.7 S'],['Diffuse',.85,'pct'],['Dampen',.6,'=60% DARK'],['Mix',.6,'pct']],
+      c: [['Freeze','C'],['Dry Kill','D']],
+      play: 'Hold footswitch C to freeze, then press D a moment later. Let go to release.' },
+    { name: 'Tin Can Taps', for: 'Percussive parts', hear: 'Distinct metallic taps with your pick attack, like a small tiled room.',
+      k: [['Drag',.9,'=37 MS'],['Length',.3,'=1.2 S'],['Diffuse',.05,'pct'],['Reflect',.2,'pct'],['Mix',.4,'pct']],
+      c: [['Mode','Smooth']],
+      play: 'Great on muted funk chords and drum loops.' },
+    { name: 'Bass Grotto', for: 'Bass guitar', hear: 'A wide, washy cave above a solid, untouched low end.',
+      k: [['Length',.6,'=3.5 S'],['Diffuse',.7,'pct'],['Reflect',.35,'pct'],['Mix',.6,'pct']],
+      c: [['Bass','On',1],['Dry Kill','On',1]],
+      play: 'Turn on Bass on the Deep page. Your fundamental stays under the wash even with Dry Kill.' }
+  ],
+  tips: [
+    ['Cave won\'t stop?','Press footswitches A and B together, or Tame on the Deep page.'],
+    ['Bass sounds clean','The dry path has no filtering. The reverb has its own low cut.'],
+    ['Pairs never misfire','Hold C then press D a moment later for freeze plus Dry Kill.'],
+    ['Remote control','Every footswitch job is also a parameter you can automate or map.']
+  ],
+  install: 'Download <code>Grotto-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Grotto.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+});
