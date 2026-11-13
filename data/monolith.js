@@ -85,5 +85,6 @@ MANUALS.push({
     ['Original MIDI chart','Open Original pedal MIDI map on the Pedal page to use Mercury7 templates.'],
     ['Factory sounds back','Right-click a slot to restore its factory setting.']
   ],
+  dl: 'https://github.com/kevinwkaye/Monolith/raw/builds/Monolith-Windows.zip',
   install: 'Download <code>Monolith-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Monolith.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

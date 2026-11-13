@@ -88,5 +88,6 @@ MANUALS.push({
     ['Record a knob move','Press REC DIM, move Dimension, press again. The move loops for up to 10 s. Touch the knob to stop it.'],
     ['Too loud with Drive?','Leave Auto Level on and Drive stays at a steady volume.']
   ],
+  dl: 'https://github.com/kevinwkaye/Jetstream/raw/builds/Jetstream-Windows.zip',
   install: 'Download <code>Jetstream-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Jetstream.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

@@ -85,5 +85,6 @@ MANUALS.push({
     ['Original MIDI chart','Pick a channel under MIDI MAP on the Pedal page to use Warped Vinyl templates.'],
     ['Width','The stereo width lives on the Pedal page.']
   ],
+  dl: 'https://github.com/kevinwkaye/lathe/raw/builds/Lathe-Windows.zip',
   install: 'Download <code>Lathe-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Lathe.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

@@ -79,5 +79,6 @@ MANUALS.push({
     ['Punch latency','Punch adds 1 ms, which SeaSick reports to Ableton.'],
     ['Same sound twice?','Re-roll picks a new random seed.']
   ],
+  dl: 'https://github.com/kevinwkaye/Seasick/raw/builds/SeaSick-Windows.zip',
   install: 'Download <code>SeaSick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>SeaSick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

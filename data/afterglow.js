@@ -85,5 +85,6 @@ MANUALS.push({
     ['Clearing','Double tap the brass pedal, or press CLEAR.'],
     ['Piano modes','Set Hold to None and Tone near the bottom, below about a fifth of the way up. Catch then picks Real Piano, Piano Group or Sostenuto.']
   ],
+  dl: 'https://github.com/kevinwkaye/afterglow/raw/builds/Afterglow-Windows.zip',
   install: 'Download <code>Afterglow-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Afterglow.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

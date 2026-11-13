@@ -88,5 +88,6 @@ MANUALS.push({
     ['Tuner','Click the note under Pebble. The output mutes while it\'s open.'],
     ['Hum never plays notes','Changeling learns your background noise in its first 0.6 s. On a very noisy rig, turn Sensitivity down on the Deep page.']
   ],
+  dl: 'https://github.com/kevinwkaye/Changeling/raw/builds/Changeling-Windows.zip',
   install: 'Download <code>Changeling-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Changeling.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

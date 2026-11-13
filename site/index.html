@@ -145,6 +145,9 @@ h2.st { font-family: var(--display); font-weight: 800; font-size: clamp(24px, 3.
 .tip span { color: var(--dim); font-size: 15px; }
 .install { margin-top: 18px; background: var(--face); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; color: var(--dim); font-size: 15px; }
 .install b { color: var(--ink); }
+.install .dl { display: inline-block; margin: 0 0 10px; padding: 8px 14px; border-radius: 999px; background: var(--accent); color: #070707; font-family: var(--display); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; text-decoration: none; }
+.install .dl:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.install .dl + b { display: block; }
 .install code { font-size: 13px; background: var(--card); padding: 1px 5px; border-radius: 4px; color: var(--ink); word-break: break-all; }
 
 .foot { color: var(--faint); font-size: 13px; padding-block: 24px 40px; border-top: 1px solid var(--line); }
@@ -332,7 +335,8 @@ MANUALS.push({
     ['Want longer loops?','Raise Max Buffer on the Deep page. Lower clock rates stretch the buffer even further.'],
     ['Tap instead of hold','Turn on Latch so a single tap freezes or overdubs.']
   ],
-  install: 'Download the <b>Murmur-Windows</b> artefact from the latest GitHub Actions run, unzip it and copy <code>Murmur.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+  dl: 'https://github.com/kevinwkaye/murmur/raw/builds/Murmur-Windows.zip',
+  install: 'Download <code>Murmur-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Murmur.vst3</code> into <code>C:\Program Files\Common Files\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
   id: 'speckle', name: 'Speckle', accent: '#9be15d', kind: 'Granular looper',
@@ -440,6 +444,7 @@ MANUALS.push({
     ['Presets keep loops','Hold a preset slot to save it, loop included. Everything saves with your Ableton set.'],
     ['Microcosm controllers','The Microcosm MIDI chart sits behind Original pedal MIDI map on the Pedal page, off by default. Pick a channel to use it.']
   ],
+  dl: 'https://github.com/kevinwkaye/Speckle/raw/builds/Speckle-Windows.zip',
   install: 'Download <code>Speckle-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Speckle.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -528,6 +533,7 @@ MANUALS.push({
     ['Fine moves','Shift-drag any dial for fine control. Double-click resets it.'],
     ['Saved with your set','Slice and Loop recordings save with your Ableton set.']
   ],
+  dl: 'https://github.com/kevinwkaye/backtrack/releases/latest',
   install: 'Download <code>Backtrack-VST3-Windows.zip</code> from the repo\'s latest release, unzip it and copy <code>Backtrack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -620,6 +626,7 @@ MANUALS.push({
     ['Record a knob move','Press REC DIM, move Dimension, press again. The move loops for up to 10 s. Touch the knob to stop it.'],
     ['Too loud with Drive?','Leave Auto Level on and Drive stays at a steady volume.']
   ],
+  dl: 'https://github.com/kevinwkaye/Jetstream/raw/builds/Jetstream-Windows.zip',
   install: 'Download <code>Jetstream-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Jetstream.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -712,6 +719,7 @@ MANUALS.push({
     ['Tuner','Click the note under Pebble. The output mutes while it\'s open.'],
     ['Hum never plays notes','Changeling learns your background noise in its first 0.6 s. On a very noisy rig, turn Sensitivity down on the Deep page.']
   ],
+  dl: 'https://github.com/kevinwkaye/Changeling/raw/builds/Changeling-Windows.zip',
   install: 'Download <code>Changeling-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Changeling.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -794,6 +802,7 @@ MANUALS.push({
     ['More glitch on bass','Bass leans tight. Push Corrupt further for the same mess as guitar.'],
     ['Keeper','Hold C and D for a second to save the last 8 seconds and every setting to Documents, Flip Fella Keepers.']
   ],
+  dl: 'https://github.com/kevinwkaye/Bitrot/raw/builds/Bitrot-Windows.zip',
   install: 'Download <code>Bitrot-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Bitrot.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -873,6 +882,7 @@ MANUALS.push({
     ['Too wild?','Press footswitches A and B together, or TAME on the panel.'],
     ['First edition','Quieter and hissier, with a Magic knob that takes off sooner.']
   ],
+  dl: 'https://github.com/kevinwkaye/OIlslick/raw/builds/OilSlick-Windows.zip',
   install: 'Download <code>OilSlick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>OilSlick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -975,6 +985,7 @@ MANUALS.push({
     ['No expression pedal?','Use footswitch B for a timed whammy, or automate Treadle in Ableton.'],
     ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
   ],
+  dl: 'https://github.com/kevinwkaye/divebomb/raw/builds/Divebomb-Windows.zip',
   install: 'Download <code>Divebomb-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Divebomb.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1055,6 +1066,7 @@ MANUALS.push({
     ['Pairs never misfire','Hold C then press D a moment later for freeze plus Dry Kill.'],
     ['Remote control','Every footswitch job is also a parameter you can automate or map.']
   ],
+  dl: 'https://github.com/kevinwkaye/Grotto/raw/builds/Grotto-Windows.zip',
   install: 'Download <code>Grotto-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Grotto.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1144,6 +1156,7 @@ MANUALS.push({
     ['Original MIDI chart','Open Original pedal MIDI map on the Pedal page to use Mercury7 templates.'],
     ['Factory sounds back','Right-click a slot to restore its factory setting.']
   ],
+  dl: 'https://github.com/kevinwkaye/Monolith/raw/builds/Monolith-Windows.zip',
   install: 'Download <code>Monolith-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Monolith.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1233,6 +1246,7 @@ MANUALS.push({
     ['Clearing','Double tap the brass pedal, or press CLEAR.'],
     ['Piano modes','Set Hold to None and Tone near the bottom, below about a fifth of the way up. Catch then picks Real Piano, Piano Group or Sostenuto.']
   ],
+  dl: 'https://github.com/kevinwkaye/afterglow/raw/builds/Afterglow-Windows.zip',
   install: 'Download <code>Afterglow-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Afterglow.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1316,6 +1330,7 @@ MANUALS.push({
     ['Punch latency','Punch adds 1 ms, which SeaSick reports to Ableton.'],
     ['Same sound twice?','Re-roll picks a new random seed.']
   ],
+  dl: 'https://github.com/kevinwkaye/Seasick/raw/builds/SeaSick-Windows.zip',
   install: 'Download <code>SeaSick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>SeaSick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1405,6 +1420,7 @@ MANUALS.push({
     ['Original MIDI chart','Pick a channel under MIDI MAP on the Pedal page to use Warped Vinyl templates.'],
     ['Width','The stereo width lives on the Pedal page.']
   ],
+  dl: 'https://github.com/kevinwkaye/lathe/raw/builds/Lathe-Windows.zip',
   install: 'Download <code>Lathe-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Lathe.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1488,6 +1504,7 @@ MANUALS.push({
     ['No expression pedal?','Turn the Treadle knob by hand, or automate it in Ableton.'],
     ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
   ],
+  dl: 'https://github.com/kevinwkaye/quack/raw/builds/Quack-Windows.zip',
   install: 'Download <code>Quack-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Quack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 MANUALS.push({
@@ -1578,6 +1595,7 @@ MANUALS.push({
     ['Original MIDI chart','Click the expression bar, open Original pedal MIDI map and pick a channel to use Chroma Console templates.'],
     ['Reordering and footswitches','Footswitch A always switches whichever module is on the left.']
   ],
+  dl: 'https://github.com/kevinwkaye/prism--patch/raw/builds/PrismPatch-Windows.zip',
   install: 'Download <code>PrismPatch-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Prism Patch.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
 
@@ -1734,7 +1752,7 @@ function renderManual(m) {
     <section class="part"><p class="eyebrow">Every control, numbered</p><h2 class="st">The panel</h2><div class="mapbox">${panelSVG(m)}</div><div class="legend">${legend}</div>${m.altImg ? `<figure style="margin:24px 0 0"><div class="mapbox"><svg viewBox="0 0 ${m.altImg.w} ${m.altImg.h}" role="img" aria-label="${esc(m.altImg.cap)}"><image href="${IMGS[m.altImg.img]}" width="${m.altImg.w}" height="${m.altImg.h}"/></svg></div><figcaption class="intro" style="margin:10px 0 0">${esc(m.altImg.cap)}</figcaption></figure>` : ''}</section>
     ${extra}${vars}${presetSection(m)}${feetSection(m)}${!m.noKeeper ? `<section class="part"><p class="eyebrow">Remember good sounds</p><h2 class="st">Keeper</h2><p class="intro">Click KEEP, or hold footswitches C and D for a second, to save every setting plus the last 8 seconds of audio to Documents, Flip Fella Keepers. Use the arrow next to KEEP to add a note or export a zip. <a href="#" onclick="setTimeout(()=>document.getElementById('keeper-guide')?.scrollIntoView(),300)">Read the full Keeper guide</a>.</p></section>` : ''}
     <section class="part"><p class="eyebrow">Dial these in</p><h2 class="st">Recipes</h2><p class="intro">Copy the dials and switches onto the plugin. The value under each dial matches what the plugin shows. Anything not listed can stay where it is.</p><div class="recipes">${m.recipes.map(r => recipeCard(r, m)).join('')}</div></section>
-    <section class="part"><p class="eyebrow">Handy to know</p><h2 class="st">Tips and fixes</h2><div class="tips">${m.tips.map(([a, b]) => `<div class="tip"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div><div class="install"><b>Installing:</b> ${m.install}</div></section>
+    <section class="part"><p class="eyebrow">Handy to know</p><h2 class="st">Tips and fixes</h2><div class="tips">${m.tips.map(([a, b]) => `<div class="tip"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div><div class="install">${m.dl ? `<a class="dl" href="${m.dl}">Download for Windows</a>` : ''}<b>Installing:</b> ${m.install}</div></section>
   </article>`;
 }
 

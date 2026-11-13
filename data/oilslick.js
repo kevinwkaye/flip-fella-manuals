@@ -75,5 +75,6 @@ MANUALS.push({
     ['Too wild?','Press footswitches A and B together, or TAME on the panel.'],
     ['First edition','Quieter and hissier, with a Magic knob that takes off sooner.']
   ],
+  dl: 'https://github.com/kevinwkaye/OIlslick/raw/builds/OilSlick-Windows.zip',
   install: 'Download <code>OilSlick-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>OilSlick.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

@@ -97,5 +97,6 @@ MANUALS.push({
     ['Want longer loops?','Raise Max Buffer on the Deep page. Lower clock rates stretch the buffer even further.'],
     ['Tap instead of hold','Turn on Latch so a single tap freezes or overdubs.']
   ],
-  install: 'Download the <b>Murmur-Windows</b> artefact from the latest GitHub Actions run, unzip it and copy <code>Murmur.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
+  dl: 'https://github.com/kevinwkaye/murmur/raw/builds/Murmur-Windows.zip',
+  install: 'Download <code>Murmur-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Murmur.vst3</code> into <code>C:\Program Files\Common Files\VST3</code>. Rescan plug-ins in Ableton.'
 });

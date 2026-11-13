@@ -76,5 +76,6 @@ MANUALS.push({
     ['Pairs never misfire','Hold C then press D a moment later for freeze plus Dry Kill.'],
     ['Remote control','Every footswitch job is also a parameter you can automate or map.']
   ],
+  dl: 'https://github.com/kevinwkaye/Grotto/raw/builds/Grotto-Windows.zip',
   install: 'Download <code>Grotto-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Grotto.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

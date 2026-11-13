@@ -78,5 +78,6 @@ MANUALS.push({
     ['More glitch on bass','Bass leans tight. Push Corrupt further for the same mess as guitar.'],
     ['Keeper','Hold C and D for a second to save the last 8 seconds and every setting to Documents, Flip Fella Keepers.']
   ],
+  dl: 'https://github.com/kevinwkaye/Bitrot/raw/builds/Bitrot-Windows.zip',
   install: 'Download <code>Bitrot-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Bitrot.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

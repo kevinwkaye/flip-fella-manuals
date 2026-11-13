@@ -104,5 +104,6 @@ MANUALS.push({
     ['Presets keep loops','Hold a preset slot to save it, loop included. Everything saves with your Ableton set.'],
     ['Microcosm controllers','The Microcosm MIDI chart sits behind Original pedal MIDI map on the Pedal page, off by default. Pick a channel to use it.']
   ],
+  dl: 'https://github.com/kevinwkaye/Speckle/raw/builds/Speckle-Windows.zip',
   install: 'Download <code>Speckle-Windows.zip</code> from the <b>builds</b> branch on GitHub, unzip it and copy <code>Speckle.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

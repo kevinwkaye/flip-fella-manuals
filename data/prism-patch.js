@@ -86,5 +86,6 @@ MANUALS.push({
     ['Original MIDI chart','Click the expression bar, open Original pedal MIDI map and pick a channel to use Chroma Console templates.'],
     ['Reordering and footswitches','Footswitch A always switches whichever module is on the left.']
   ],
+  dl: 'https://github.com/kevinwkaye/prism--patch/raw/builds/PrismPatch-Windows.zip',
   install: 'Download <code>PrismPatch-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy the <code>Prism Patch.vst3</code> folder into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

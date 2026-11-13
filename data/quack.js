@@ -79,5 +79,6 @@ MANUALS.push({
     ['No expression pedal?','Turn the Treadle knob by hand, or automate it in Ableton.'],
     ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
   ],
+  dl: 'https://github.com/kevinwkaye/quack/raw/builds/Quack-Windows.zip',
   install: 'Download <code>Quack-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Quack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

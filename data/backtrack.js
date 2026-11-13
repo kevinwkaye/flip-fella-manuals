@@ -84,5 +84,6 @@ MANUALS.push({
     ['Fine moves','Shift-drag any dial for fine control. Double-click resets it.'],
     ['Saved with your set','Slice and Loop recordings save with your Ableton set.']
   ],
+  dl: 'https://github.com/kevinwkaye/backtrack/releases/latest',
   install: 'Download <code>Backtrack-VST3-Windows.zip</code> from the repo\'s latest release, unzip it and copy <code>Backtrack.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });

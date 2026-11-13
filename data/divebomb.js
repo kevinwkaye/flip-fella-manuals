@@ -98,5 +98,6 @@ MANUALS.push({
     ['No expression pedal?','Use footswitch B for a timed whammy, or automate Treadle in Ableton.'],
     ['Keeper','Hold C and D for a second to save the moment. See the Keeper guide on the home page.']
   ],
+  dl: 'https://github.com/kevinwkaye/divebomb/raw/builds/Divebomb-Windows.zip',
   install: 'Download <code>Divebomb-Windows.zip</code> from the <b>builds</b> branch, unzip it and copy <code>Divebomb.vst3</code> into <code>C:\\Program Files\\Common Files\\VST3</code>. Rescan plug-ins in Ableton.'
 });
